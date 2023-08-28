@@ -41,6 +41,7 @@ class BagTiles:
         ]
         random.shuffle(self.tiles)
 
+
     def take(self, count):
         tiles = []
         for _ in range(count):
