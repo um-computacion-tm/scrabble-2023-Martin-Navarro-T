@@ -1,3 +1,4 @@
+#scrabble.py
 from game.board import Board
 from game.player import Player
 from game.models import BagTiles

@@ -1,3 +1,4 @@
+#cell.py
 from game.models import Tile
 
 class Cell:

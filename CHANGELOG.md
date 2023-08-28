@@ -21,6 +21,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Introduced the `Player` class to represent players in the game.
 - Created the `ScrabbleGame` class to manage the Scrabble game itself.
 - Added the `player.py`, `scrabble.py`, `test_player.py`, and `test_scrabble.py` files to the project.
+- Added to the Player Class the draw_tiles method, which allows a player to take new tiles from the bag and which takes as arguments the bag of tiles and the number of tiles to take.
+- Added to the Player Class the exchange_tiles method, which allows a player to exchange tiles with the bag and which receives the bag of tiles and a list of tiles that the player wants to exchange as arguments.
+- Added to the Player Class the calculate_score method, which calculates the player's score based on the cells in which letters have been placed and their values ​​multiplied by the board multipliers.
+
 
 
 ### Changed
