@@ -18,9 +18,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added methods to the `Cell` class for adding letters, calculating letter and word values, and handling multipliers.
 - Introduced the `Board` class to represent the game board and its grid of cells.
 - Added tests for the `Cell` and `Board` classes in separate test files (`test_cell.py` and `test_board.py`).
+- Introduced the `Player` class to represent players in the game.
+- Created the `ScrabbleGame` class to manage the Scrabble game itself.
+- Added the `player.py`, `scrabble.py`, `test_player.py`, and `test_scrabble.py` files to the project.
+
 
 ### Changed
 
+- Improved the `BagTiles` constructor by using a more organized structure for tile initialization.
+- Refactored the `take` method in `BagTiles` to calculate the number of tiles taken more accurately.
+- Enhanced the `put` method in `BagTiles` to directly extend the list of tiles.
 - Improved the `BagTiles` constructor by using a more organized structure for tile initialization.
 - Refactored the `take` method in `BagTiles` to calculate the number of tiles taken more accurately.
 - Enhanced the `put` method in `BagTiles` to directly extend the list of tiles.
