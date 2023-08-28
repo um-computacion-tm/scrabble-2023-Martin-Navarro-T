@@ -1,3 +1,4 @@
+#board.py
 from game.cell import Cell
 
 class Board:
