@@ -1,7 +1,7 @@
+# test_cell.py
 import unittest
 from game.cell import Cell
 from game.models import Tile
-
 
 class TestCell(unittest.TestCase):
     def test_init(self):
@@ -48,8 +48,16 @@ class TestCell(unittest.TestCase):
             cell.calculate_value(),
             3,
         )
+    
+    def test_remove_letter(self):
+        cell = Cell(multiplier=1, multiplier_type='')
+        letter = Tile(letter='p', value=3)
+        cell.add_letter(letter=letter)
 
+        removed_letter = cell.remove_letter()
 
+        self.assertEqual(cell.letter, None)
+        self.assertEqual(removed_letter, letter)
 
 if __name__ == '__main__':
     unittest.main()
