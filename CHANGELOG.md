@@ -27,7 +27,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added the `place_tile` method to the `Board` class, which allows placing a tile on a specific cell if it's empty.
 - Added the `validate_word` method to the `Board` class, which checks if a given word can be placed in a specific starting cell and direction without violating any rules.
 - Added tests for the `Board` class in the `test_board.py` file.
-
+- Added the `calculate_score` method to the `Player` class, allowing the calculation of a player's score based on placed letters and multipliers on the board.
+- Added the `place_tile` method to the `Board` class, which facilitates placing a tile on a specific cell if it's empty.
+- Added the `validate_word` method to the `Board` class, ensuring that a given word can be placed in a specific starting cell and direction without rule violations.
+- Added tests for the `Player` class and the new methods in the `test_player.py` file.
+- Added tests for the `Board` class methods in the `test_board.py` file.
 
 
 ### Changed
