@@ -2,44 +2,76 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.0.1] - 2023-08-18
+## [0.0.1] First Sprint (First 6/6 commits) - 2023-08-18 a 2023-08-29
+## [0.0.2] Second Sprint (7/12 commits) - 2023-08-30 y 2023-09-06
+
+"I have decided to divide the information that I am adding in different files to improve readability, organization and easier access to the data."
 
 ### Added
 
-- Introduced the `Tile` class to represent individual tiles with letters and values.
-- Introduced the `BagTiles` class that simulates a bag of tiles for a word game.
-- Added methods in `BagTiles` to extract and replace tiles in the bag.
-- Added the tests for the `Tile` and `BagTiles` classes.
-- Utilized the `unittest` library to ensure the correct functioning of the methods.
-- Introduced the `Cell` class to represent individual cells on the game board.
-- Added methods to the `Cell` class for adding letters, calculating letter and word values, and handling multipliers.
-- Introduced the `Board` class to represent the game board and its grid of cells.
-- Added tests for the `Cell` and `Board` classes in separate test files (`test_cell.py` and `test_board.py`).
-- Introduced the `Player` class to represent players in the game.
-- Created the `ScrabbleGame` class to manage the Scrabble game itself.
-- Added the `player.py`, `scrabble.py`, `test_player.py`, and `test_scrabble.py` files to the project.
-- Added to the Player Class the draw_tiles method, which allows a player to take new tiles from the bag and which takes as arguments the bag of tiles and the number of tiles to take.
-- Added to the Player Class the exchange_tiles method, which allows a player to exchange tiles with the bag and which receives the bag of tiles and a list of tiles that the player wants to exchange as arguments.
-- Added to the Player Class the calculate_score method, which calculates the player's score based on the cells in which letters have been placed and their values ​​multiplied by the board multipliers.
+#### models.py
+- Added the `Tile` class to represent individual tiles with letters and values.
+- Added the `BagTiles` class to simulate a bag of tiles for a word game.
+- Included the constructor for `BagTiles` to initialize the bag of tiles with the letter values.
+- Added the `take` method to the `BagTiles` class, allowing the extraction of a specified number of tiles from the bag.
+- Added the `put` method to the `BagTiles` class, which allows adding a list of tiles back to the bag.
+
+#### board.py
 - Added the `place_tile` method to the `Board` class, which allows placing a tile on a specific cell if it's empty.
 - Added the `validate_word` method to the `Board` class, which checks if a given word can be placed in a specific starting cell and direction without violating any rules.
-- Added tests for the `Board` class in the `test_board.py` file.
-- Added the `calculate_score` method to the `Player` class, allowing the calculation of a player's score based on placed letters and multipliers on the board.
-- Added the `place_tile` method to the `Board` class, which facilitates placing a tile on a specific cell if it's empty.
-- Added the `validate_word` method to the `Board` class, ensuring that a given word can be placed in a specific starting cell and direction without rule violations.
-- Added tests for the `Player` class and the new methods in the `test_player.py` file.
-- Added tests for the `Board` class methods in the `test_board.py` file.
 
+#### cell.py
+- Added the `Cell` class to represent individual cells on the game board.
+- Added the `add_letter` method to the `Cell` class, allowing the addition of letters to a cell.
+- Added the `remove_letter` method to the `Cell` class, enabling the removal of letters from a cell.
+- Added the `calculate_value` method to the `Cell` class for calculating the value of the cell, considering its letter, multiplier, and type.
+
+#### player.py
+- Added the `Player` class to represent players in the game.
+- Added the `draw_tiles` method to the `Player` class, allowing a player to take new tiles from the bag and which takes as arguments the bag of tiles and the number of tiles to take.
+- Added the `exchange_tiles` method to the `Player` class, which allows a player to exchange tiles with the bag and which receives the bag of tiles and a list of tiles that the player wants to exchange as arguments.
+- Added the `view_tiles` method to the `Player` class, which returns a list of the tiles held by the player.
+- Added the `view_score` method to the `Player` class, which returns the current score of the player.
+- Added the `start_turn` method to the `Player` class to indicate the start of a player's turn.
+- Added the `end_turn` method to the `Player` class to indicate the end of a player's turn.
+
+#### scrabble.py
+- Added the `ScrabbleGame` class to manage the Scrabble game itself.
+- Added the `playing` method to the `ScrabbleGame` class to indicate whether the game is currently being played.
+- Added the `next_turn` method to the `ScrabbleGame` class, which handles the transition to the next player's turn and increments the current turn count.
+
+#### test_models.py
+- Added test cases for the `Tile` and `BagTiles` classes in the `TestTiles` and `TestBagTiles` test suites.
+- Included test cases for the `test_tile`, `test_bag_tiles`, `test_take`, and `test_put` methods in the respective test suites.
+- Used the `unittest.mock.patch` decorator to mock the `random.shuffle` function in the `test_bag_tiles` method of the `TestBagTiles` test suite.
+
+#### test_board.py
+- Added test cases for the `Board` class in the `TestBoard` test suite.
+- Included test cases for the `test_init`, `test_place_tile`, and `test_validate_word` methods in the `TestBoard` test suite.
+
+#### test_cell.py 
+- Added test cases for the `Cell` class in the `TestCell` test suite.
+- Included test cases for the `test_init`, `test_add_letter`, `test_cell_value`, `test_cell_multiplier_word`, `test_remove_letter`, and `test_inactive_cell` methods in the `TestCell` test suite.
+
+#### test_player.py
+- Added test cases for the `Player` class in the `TestPlayer` test suite.
+- Included test cases for the `test_init`, `test_draw_tiles`, `test_exchange_tiles`, `test_view_tiles`, `test_view_score`, `test_start_end_turn`, and `calculate_score` methods in the `TestPlayer` test suite.
+- Added a `MockBoard` class and a `MockCell` class to simulate game board and cell behavior in the tests.
+
+#### test_scrabble.py
+- Added test cases for the `ScrabbleGame` class in the `TestScrabbleGame` test suite.
+- Included test cases for the `test_init`, `test_playing`, `test_next_turn`, `test_next_turn_when_game_is_starting`, `test_next_turn_when_player_is_not_the_first`, and `test_next_turn_when_player_is_last` methods in the `TestScrabbleGame` test suite.
 
 ### Changed
+- Improved the `BagTiles` constructor by using a more organized structure for tile initialization.
+- Refactored the `take` method in `BagTiles` to calculate the number of tiles taken more accurately.
+- Enhanced the `put` method in `BagTiles` to directly extend the list of tiles.
+- Improved the `BagTiles` constructor by using a more organized structure for tile initialization.
+- Refactored the `take` method in `BagTiles` to calculate the number of tiles taken more accurately.
+- Enhanced the `put` method in `BagTiles` to directly extend the list of tiles.
 
-- Improved the `BagTiles` constructor by using a more organized structure for tile initialization.
-- Refactored the `take` method in `BagTiles` to calculate the number of tiles taken more accurately.
-- Enhanced the `put` method in `BagTiles` to directly extend the list of tiles.
-- Improved the `BagTiles` constructor by using a more organized structure for tile initialization.
-- Refactored the `take` method in `BagTiles` to calculate the number of tiles taken more accurately.
-- Enhanced the `put` method in `BagTiles` to directly extend the list of tiles.
+
+
 
