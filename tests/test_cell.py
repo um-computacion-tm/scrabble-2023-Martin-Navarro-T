@@ -58,6 +58,18 @@ class TestCell(unittest.TestCase):
 
         self.assertEqual(cell.letter, None)
         self.assertEqual(removed_letter, letter)
+    
+    #newww
+    def test_inactive_cell(self):
+        # Crear una celda que no está activa
+        cell = Cell(letter=Tile('A', 1))
+        cell.active = False  # Establecer la celda como no activa
 
+        # Intentar calcular el valor de la celda no activa
+        calculator = cell.calculate_value()
+
+        # Asegurarse de que el valor calculado sea 0
+        self.assertEqual(calculator, 0)
 if __name__ == '__main__':
     unittest.main()
+

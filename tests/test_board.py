@@ -29,7 +29,8 @@ class TestBoard(unittest.TestCase):
         self.assertFalse(board.validate_word(7, 7, 'ACB', 'horizontal'))
         self.assertTrue(board.validate_word(7, 7, 'A', 'vertical'))
         self.assertFalse(board.validate_word(7, 7, 'AB', 'vertical'))
+    
+
 
 if __name__ == '__main__':
     unittest.main()
-

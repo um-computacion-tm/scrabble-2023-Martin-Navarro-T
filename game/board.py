@@ -1,11 +1,13 @@
 # board.py
 from game.cell import Cell
 from game.models import Tile
+
 class Board:
     def __init__(self):
+        self.size = 15  # Establece el tamaño del tablero
         self.grid = [
-            [Cell(1, '') for _ in range(15)]
-            for _ in range(15)
+            [Cell(1, '') for _ in range(self.size)]
+            for _ in range(self.size)
         ]
 
     def place_tile(self, row, col, tile):
@@ -29,3 +31,7 @@ class Board:
                 if row >= 15 or (self.grid[row][start_col].letter is None or self.grid[row][start_col].letter.letter != letter):
                     return False
             return True
+            
+
+
+
