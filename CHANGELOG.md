@@ -44,8 +44,13 @@ This provides an interactive way for players to play the Scrabble game.
 - Added the `add_letter` method to the `Cell` class, allowing the addition of letters to a cell.
 - Added the `remove_letter` method to the `Cell` class, enabling the removal of letters from a cell.
 - Added the `calculate_value` method to the `Cell` class for calculating the value of the cell, considering its letter, multiplier, and type.
--Added the `Calculate_value` class to handle the calculation of word values based on the cells on the game board.
--Added the `calculate_value` method to the `Cell` class for calculating the value of the cell, considering its letter, multiplier, and type.
+- Added the `Calculate_value` class to handle the calculation of word values based on the cells on the game board.
+- Added the `calculate_value` method to the `Cell` class for calculating the value of the cell, considering its letter, multiplier, and type.
+- Added the `add_player_starting_position` method to the `Cell` class, This function allows you to assign the cell a starting position for a player in the game.
+- Added tge `is_empty` method to the 'Cell' class, This function checks if the cell is empty, that is, it does not contain any letters.
+- Added the `has_letter` method to the 'Cell' class, Allows you to check if the cell contains a specific letter.
+- Added the `apply_word_multiplier' method to the 'Cell' class, This function applies a word multiplier to the cell if its multiplier type is 'word'.
+- Added the `apply_letter_multiplier' method to the 'Cell' class, Applies a letter multiplier to the cell if its multiplier type is 'letter'.
 
 #### player.py
 - Added the `Player` class to represent players in the game.
@@ -74,6 +79,7 @@ This provides an interactive way for players to play the Scrabble game.
 #### test_cell.py 
 - Added test cases for the `Cell` class in the `TestCell` test suite.
 - Included test cases for the `test_init`, `test_add_letter`, `test_cell_value`, `test_cell_multiplier_word`, `test_remove_letter`, and `test_inactive_cell` methods in the `TestCell` test suite.
+- Included test cases for the `add_player_starting_position`, `is_empty`, `has_letter`, `apply_word_multiplier', `apply_letter_multiplier'
 
 #### test_player.py
 - Added test cases for the `Player` class in the `TestPlayer` test suite.

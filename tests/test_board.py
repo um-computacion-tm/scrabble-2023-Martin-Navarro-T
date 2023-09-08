@@ -2,6 +2,8 @@
 import unittest
 from game.board import Board
 from game.models import Tile
+from unittest.mock import patch
+from io import StringIO
 
 class TestBoard(unittest.TestCase):
     def test_init(self):
@@ -30,6 +32,5 @@ class TestBoard(unittest.TestCase):
         self.assertTrue(board.validate_word(7, 7, 'A', 'vertical'))
         self.assertFalse(board.validate_word(7, 7, 'AB', 'vertical'))
     
-
-    if __name__ == '__main__':
-        unittest.main()
+if __name__ == '__main__':
+    unittest.main()

@@ -1,5 +1,5 @@
 import unittest
-from game.cell import Calculate_value  # Asegúrate de que el import sea correcto
+from game.cell import Calculate_value 
 from game.cell import Cell
 from game.models import Tile
 

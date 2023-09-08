@@ -18,6 +18,24 @@ class Cell:
         removed_letter = self.letter
         self.letter = None
         return removed_letter
+        
+    def add_player_starting_position(self, player):
+        self.is_starting_position = True
+        self.player_starting_position = player
+
+    def is_empty(self):
+        return self.letter is None
+
+    def has_letter(self, letter):
+        return self.letter and self.letter.letter == letter
+
+    def apply_word_multiplier(self, word_multiplier):
+        if self.multiplier_type == 'word':
+            self.multiplier *= word_multiplier
+
+    def apply_letter_multiplier(self, letter_multiplier):
+        if self.multiplier_type == 'letter':
+            self.multiplier *= letter_multiplier
     
     def calculate_value(self):
         if not self.active:  # Si la celda no está activa, su valor es 0
@@ -28,7 +46,6 @@ class Cell:
             return self.letter.value * self.multiplier
         else:
             return self.letter.value
-
 
 class Calculate_value:
     @staticmethod
