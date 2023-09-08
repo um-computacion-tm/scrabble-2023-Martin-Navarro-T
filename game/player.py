@@ -1,6 +1,5 @@
 # player.py
 class Player:
-    #SE LE AGREGO A BAGTILES 
     def __init__(self, name, bag_tiles=None):
         self.name = name
         self.tiles = []
