@@ -1,10 +1,12 @@
 # player.py
 class Player:
-    def __init__(self, name):
+    #SE LE AGREGO A BAGTILES 
+    def __init__(self, name, bag_tiles=None):
         self.name = name
         self.tiles = []
         self.score = 0
         self.is_current_turn = False
+        self.bag_tiles = bag_tiles
 
 
     def draw_tiles(self, bag_tiles, count):
@@ -29,4 +31,3 @@ class Player:
 
     def end_turn(self):
         self.is_current_turn = False
-

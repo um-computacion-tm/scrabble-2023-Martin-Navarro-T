@@ -31,7 +31,6 @@ class Board:
                 if row >= 15 or (self.grid[row][start_col].letter is None or self.grid[row][start_col].letter.letter != letter):
                     return False
             return True
-            
-
+        
 
 

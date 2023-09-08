@@ -7,7 +7,6 @@ class TestScrabbleGame(unittest.TestCase):
         scrabble_game = ScrabbleGame(players_count=3)
         self.assertEqual(len(scrabble_game.players), 3)
         self.assertEqual(scrabble_game.current_turn, 0)
-        #--------------------SNEW---------------------
 
     def test_playing(self):
         # Crear un juego de Scrabble con 2 jugadores

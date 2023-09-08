@@ -31,6 +31,5 @@ class TestBoard(unittest.TestCase):
         self.assertFalse(board.validate_word(7, 7, 'AB', 'vertical'))
     
 
-
-if __name__ == '__main__':
-    unittest.main()
+    if __name__ == '__main__':
+        unittest.main()
