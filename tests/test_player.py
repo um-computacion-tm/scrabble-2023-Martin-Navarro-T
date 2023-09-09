@@ -1,7 +1,8 @@
 #test_player.py
 import unittest
 from game.player import Player
-from game.models import BagTiles, Tile
+from game.bagtiles import BagTiles
+from game.tile import Tile
 from game.cell import Cell
 
 class MockBoard:
@@ -88,21 +89,6 @@ class TestPlayer(unittest.TestCase):
         
         player.end_turn()
         self.assertFalse(player.is_current_turn)
-    
 
-        
-    def test_start_end_turn(self):
-        player = Player(name='Player 1')
-        
-        player.start_turn()
-        self.assertTrue(player.is_current_turn)
-        
-        player.end_turn()
-        self.assertFalse(player.is_current_turn)
-
-        
-
-
-    
 if __name__ == '__main__':
     unittest.main()

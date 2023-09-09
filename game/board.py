@@ -1,6 +1,6 @@
 # board.py
 from game.cell import Cell
-from game.models import Tile
+from game.tile import Tile
 
 class Board:
     def __init__(self):

@@ -1,7 +1,7 @@
 # test_board.py
 import unittest
 from game.board import Board
-from game.models import Tile
+from game.tile import Tile
 from unittest.mock import patch
 from io import StringIO
 

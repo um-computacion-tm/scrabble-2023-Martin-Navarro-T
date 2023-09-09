@@ -1,5 +1,5 @@
 # cell.py
-from game.models import Tile
+from game.tile import Tile
 from typing import List
 
 class Cell:
