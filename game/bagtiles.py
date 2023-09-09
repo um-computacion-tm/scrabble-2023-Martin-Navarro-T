@@ -47,15 +47,18 @@ class BagTiles:
         self.tiles.extend(tiles)
         
     def initial_tiles(self):
-        total = []
+        # Diccionario con las fichas iniciales y sus cantidades
         initial_tiles = {
             'A': 11, 'E': 11, 'O': 8, 'I': 5, 'S': 5, 'N': 4, 'L': 3,
             'R': 4, 'U': 4, 'T': 3, 'D': 4, 'G': 1, 'C': 3, 'B': 1,
             'M': 1, 'P': 3, 'H': 1, 'Ñ': 8, 'F': 4, 'Y': 4, 'V': 4,
             'CH': 5, 'Q': 5, 'J': 8, 'LL': 8, 'X': 8, 'Z': 10,
-            'RR': 8,  # Agregamos 'RR' con una cantidad de 8
+            'RR': 8,  
         }
-        
+
+        # Crear una lista para almacenar las fichas adicionales necesarias
+        total = []
+
         # Crear un diccionario para contar cuántas fichas de cada letra tenemos en la bolsa actualmente
         current_tiles_count = {letter: 0 for letter in initial_tiles.keys()}
 
@@ -67,9 +70,10 @@ class BagTiles:
         for letter, expected_count in initial_tiles.items():
             current_count = current_tiles_count[letter]
             if current_count < expected_count:
-                # Agregar fichas adicionales para igualar la cantidad esperada
-                for _ in range(expected_count - current_count):
-                    total.append(Tile(letter, 1))  # Utilizar un valor fijo de 1 para el valor de las fichas
+                # Calcular cuántas fichas adicionales se necesitan
+                additional_tiles_needed = expected_count - current_count
+                # Agregar las fichas adicionales a la lista total
+                total.extend([Tile(letter, 1)] * additional_tiles_needed)
 
         # Extender la bolsa con las fichas adicionales
         self.tiles.extend(total)
