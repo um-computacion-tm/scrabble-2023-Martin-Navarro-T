@@ -6,8 +6,7 @@ class Player:
         self.score = 0
         self.is_current_turn = False
         self.bag_tiles = bag_tiles
-
-
+        
     def draw_tiles(self, bag_tiles, count):
         new_tiles = bag_tiles.take(count)
         self.tiles.extend(new_tiles)
@@ -30,3 +29,4 @@ class Player:
 
     def end_turn(self):
         self.is_current_turn = False
+    

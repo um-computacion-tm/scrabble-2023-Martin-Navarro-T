@@ -1,7 +1,7 @@
 import unittest
 from game.cell import Calculate_value 
 from game.cell import Cell
-from game.models import Tile
+from game.tile import Tile
 
 
 class TestCalculateWordValue(unittest.TestCase):

@@ -28,12 +28,16 @@ Example usage:
 
 This provides an interactive way for players to play the Scrabble game.
 
-#### models.py
+### tile.py
 - Added the `Tile` class to represent individual tiles with letters and values.
+- Added the get_value_by_letter method to the Tile class. This method allows retrieving the value of a tile based on its letter.
+
+### bagtiles.py
 - Added the `BagTiles` class to simulate a bag of tiles for a word game.
 - Included the constructor for `BagTiles` to initialize the bag of tiles with the letter values.
 - Added the `take` method to the `BagTiles` class, allowing the extraction of a specified number of tiles from the bag.
 - Added the `put` method to the `BagTiles` class, which allows adding a list of tiles back to the bag.
+- Added the initial_tiles method to set up the initial tile quantities according to game rules.
 
 #### board.py
 - Added the `place_tile` method to the `Board` class, which allows placing a tile on a specific cell if it's empty.
@@ -67,10 +71,16 @@ This provides an interactive way for players to play the Scrabble game.
 - Added the `playing` method to the `ScrabbleGame` class to indicate whether the game is currently being played.
 - Added the `next_turn` method to the `ScrabbleGame` class, which handles the transition to the next player's turn and increments the current turn count.
 
-#### test_models.py
-- Added test cases for the `Tile` and `BagTiles` classes in the `TestTiles` and `TestBagTiles` test suites.
-- Included test cases for the `test_tile`, `test_bag_tiles`, `test_take`, and `test_put` methods in the respective test suites.
-- Used the `unittest.mock.patch` decorator to mock the `random.shuffle` function in the `test_bag_tiles` method of the `TestBagTiles` test suite.
+### test_tile.py 
+- Added test cases for the Tile class in the TestTiles test suite.
+- Included test cases for the test_tile method to ensure correct tile creation and attribute values.
+- Added get_value_by_letter method that correctly retrieves tile values ​​based on letters.
+
+### test_bagtiles.py
+- Created the TestBagTiles test suite to contain test cases for the BagTiles class.
+- Added test cases for the BagTiles class, including the test_bag_tiles, test_take, and test_put methods.
+- Utilized the unittest.mock.patch decorator to mock the random.shuffle function in the test_bag_tiles method of the TestBagTiles test suite.
+- Added test cases for the initial_tiles method to ensure the correct setup of initial tile quantities according to game rules.
 
 #### test_board.py
 - Added test cases for the `Board` class in the `TestBoard` test suite.
@@ -108,6 +118,8 @@ These test cases provide comprehensive coverage for calculating word values in t
 - Enhanced the `put` method in `BagTiles` to directly extend the list of tiles.
 - In Scrabble.py, optimized player list initialization. The named Player class is now instantiated and added to the player list.
 - In Scrabble.py, the logic for switching to the next turn was improved. Now ensures that turns flow correctly between players.
+- Removed the models.py file and split its functionality into two separate files, tiles.py and board.py.
+- Removed the test_models.py file and split its test cases into two separate files, test_tiles.py and test_bagtiles.py.
 
 
 
