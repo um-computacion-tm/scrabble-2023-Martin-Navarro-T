@@ -31,6 +31,8 @@ This provides an interactive way for players to play the Scrabble game.
 ### tile.py
 - Added the `Tile` class to represent individual tiles with letters and values.
 - Added the get_value_by_letter method to the Tile class. This method allows retrieving the value of a tile based on its letter.
+- Added the `joker` method to the `Tile` class, allowing the modification of a tile's letter when it is a wildcard ('*').
+- Added the `NotAJoker` exception to handle cases where the `joker` method is used on a non-wildcard tile.
 
 ### bagtiles.py
 - Added the `BagTiles` class to simulate a bag of tiles for a word game.
@@ -38,6 +40,10 @@ This provides an interactive way for players to play the Scrabble game.
 - Added the `take` method to the `BagTiles` class, allowing the extraction of a specified number of tiles from the bag.
 - Added the `put` method to the `BagTiles` class, which allows adding a list of tiles back to the bag.
 - Added the initial_tiles method to set up the initial tile quantities according to game rules.
+- Added custom exceptions to handle specific scenarios in the `BagTiles` class:
+  - `NoTilesAvailable`: Raised when attempting to take tiles from an empty bag.
+  - `ImpossibleToChangeMoreThan7`: Raised when trying to put more than 7 tiles into the bag at once.
+  - `BagFull`: Raised when attempting to put tiles into a bag that is already full.
 
 #### board.py
 - Added the `place_tile` method to the `Board` class, which allows placing a tile on a specific cell if it's empty.
@@ -75,6 +81,9 @@ This provides an interactive way for players to play the Scrabble game.
 - Added test cases for the Tile class in the TestTiles test suite.
 - Included test cases for the test_tile method to ensure correct tile creation and attribute values.
 - Added get_value_by_letter method that correctly retrieves tile values ​​based on letters.
+- Added new test cases within the `TestTile` suite to cover the behavior of the `joker` method.
+  - `test_joker_with_valid_letter`: Ensures that the `joker` method correctly changes the letter of a wildcard tile to a valid letter ('A').
+  - `test_joker_with_invalid_letter`: Verifies that attempting to use the `joker` method on a non-wildcard tile ('B') raises the `NotAJoker` exception.
 
 ### test_bagtiles.py
 - Created the TestBagTiles test suite to contain test cases for the BagTiles class.
@@ -108,7 +117,6 @@ This provides an interactive way for players to play the Scrabble game.
 - Ensured that the `Calculate_value` class is correctly imported and used in the test cases.
 These test cases provide comprehensive coverage for calculating word values in the Scrabble game, ensuring accurate scoring and handling various gameplay scenarios.
 
-
 ### Changed
 - Improved the `BagTiles` constructor by using a more organized structure for tile initialization.
 - Refactored the `take` method in `BagTiles` to calculate the number of tiles taken more accurately.
@@ -120,6 +128,12 @@ These test cases provide comprehensive coverage for calculating word values in t
 - In Scrabble.py, the logic for switching to the next turn was improved. Now ensures that turns flow correctly between players.
 - Removed the models.py file and split its functionality into two separate files, tiles.py and board.py.
 - Removed the test_models.py file and split its test cases into two separate files, test_tiles.py and test_bagtiles.py.
+- Modified the `take` method in the `BagTiles` class to raise the `NoTilesAvailable` exception when attempting to take tiles from an empty bag.
+- Modified the `put` method in the `BagTiles` class to raise the `ImpossibleToChangeMoreThan7` exception when attempting to put more than 7 tiles at once, and to raise the `BagFull` exception when attempting to put tiles into a full bag (100 tiles).
+- Modified the `test_take` method in the `TestBagTiles` test suite to cover the `NoTilesAvailable` exception when taking tiles from an empty bag.
+- Modified the `test_put` method in the `TestBagTiles` test suite to cover the `ImpossibleToChangeMoreThan7` exception when attempting to put more than 7 tiles at once and the `BagFull` exception when attempting to put tiles into a full bag (100 tiles).
+
+
 
 
 

@@ -2,6 +2,17 @@
 import random
 from game.tile import Tile
 
+# Excepciones
+#NoHayFichas
+class NoTilesAvailable(Exception):
+    pass
+#ImposibleCambiarMasDe7
+class ImpossibleToChangeMoreThan7(Exception):
+    pass
+#BolsaLlena
+class BagFull(Exception):
+    pass
+
 class BagTiles:
     # Constructor
     def __init__(self):
@@ -39,13 +50,21 @@ class BagTiles:
 
     def take(self, count):
         tiles = []
-        for _ in range(count):
-            tiles.append(self.tiles.pop())
-        return tiles
+        if len(self.tiles) == 0:
+            raise NoTilesAvailable(Exception)
+        else:
+            for _ in range(count):
+                tiles.append(self.tiles.pop())
+            return tiles
     
     def put(self, tiles):
-        self.tiles.extend(tiles)
-        
+        if len(tiles) > 7:
+            raise ImpossibleToChangeMoreThan7(Exception)
+        elif len(self.tiles) == 100:
+            raise BagFull(Exception)
+        else:
+            self.tiles.extend(tiles)
+    
     def initial_tiles(self):
         # Diccionario con las fichas iniciales y sus cantidades
         initial_tiles = {
