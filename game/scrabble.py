@@ -8,7 +8,7 @@ class ScrabbleGame:
         self.board = Board()
         self.bag_tiles = BagTiles()
         self.players: list[Player] = []
-        
+
         # Crear instancias de Player con nombres
         for i in range(players_count):
             player_name = f"Player {i+1}"
@@ -16,7 +16,7 @@ class ScrabbleGame:
         
         self.current_turn = 0
         self.current_player = None
-    
+
     def playing(self):
         return True
     
@@ -28,4 +28,6 @@ class ScrabbleGame:
             index = (index + 1) % len(self.players)
             self.current_player = self.players[index]
         self.current_turn += 1
-    
+
+
+
