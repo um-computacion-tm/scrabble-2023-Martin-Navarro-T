@@ -4,149 +4,175 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.0.1] First Sprint (First 6/6 commits) - 2023-08-18 a 2023-08-29
-## [0.0.2] Second Sprint (7/12 commits) - 2023-08-30 y 2023-09-06
+## [Unreleased]
 
-"I have decided to divide the information that I am adding in different files to improve readability, organization and easier access to the data."
+## [0.0.1] - Primer Commit / models.py - 2023/08/18
 
-## Added
+### Added
+- Introduced the `Tile` class to represent individual tiles with letters and values.
+- Introduced the `BagTiles` class that simulates a bag of tiles for a word game.
+- Added test cases for the `Tile` and `BagTiles` classes in the `TestTiles` and `TestBagTiles` test suites.
+- Included test cases for the `test_tile`, `test_bag_tiles`, `test_take`, and `test_put` methods in the respective test suites.
+- Used the `unittest.mock.patch` decorator to mock the `random.shuffle` function in the `test_bag_tiles` method of the `TestBagTiles` test suite.
+- Utilized the `unittest` library to ensure the correct functioning of the methods.
 
-### main.py
-- Added the main entry point for the Scrabble game.
-- Implemented a user-friendly interface for starting and playing the game.
-- Prompts the user to input the number of players (2 to 4 players supported).
-- Allows players to take turns entering words, positions, and orientations for placing tiles on the game board.
-- Validates the input word, position, and orientation to determine if the move is valid.
-- Cycles through player turns until the game is over.
+## [0.0.2] - Segundo Commit - 2023/08/27
 
-Example usage:
-1. Run `main.py` to start the Scrabble game.
-2. Enter the number of players (2 to 4 players supported).
-3. Players take turns inputting words, positions, and orientations to place tiles on the board.
-4. The game validates each move and provides feedback on its validity.
+### Added
+- Introduced the `Cell` class to represent individual cells on the game board.
+- Added methods to the `Cell` class for adding letters, calculating letter and word values, and handling multipliers.
+- Introduced the `Board` class to represent the game board and its grid of cells.
+- Added tests for the `Board` class in `test_board.py`.
+- Added test cases for the `Cell` class in the `TestCell` test suite.
 
-This provides an interactive way for players to play the Scrabble game.
+### Changed
+- Improved the `BagTiles` constructor by using a more organized structure for tile initialization.
+- Refactored the `take` method in `BagTiles` to calculate the number of tiles taken more accurately.
+- Enhanced the `put` method in `BagTiles` to directly extend the list of tiles.
 
-### tile.py
-- Added the `Tile` class to represent individual tiles with letters and values.
-- Added the get_value_by_letter method to the Tile class. This method allows retrieving the value of a tile based on its letter.
-- Added the `joker` method to the `Tile` class, allowing the modification of a tile's letter when it is a wildcard ('*').
-- Added the `NotAJoker` exception to handle cases where the `joker` method is used on a non-wildcard tile.
+## [0.0.3] - Tercer Commit - 2023/08/27
 
-### bagtiles.py
-- Added the `BagTiles` class to simulate a bag of tiles for a word game.
-- Included the constructor for `BagTiles` to initialize the bag of tiles with the letter values.
-- Added the `take` method to the `BagTiles` class, allowing the extraction of a specified number of tiles from the bag.
-- Added the `put` method to the `BagTiles` class, which allows adding a list of tiles back to the bag.
-- Added the initial_tiles method to set up the initial tile quantities according to game rules.
-- Added custom exceptions to handle specific scenarios in the `BagTiles` class:
-  - `NoTilesAvailable`: Raised when attempting to take tiles from an empty bag.
-  - `ImpossibleToChangeMoreThan7`: Raised when trying to put more than 7 tiles into the bag at once.
-  - `BagFull`: Raised when attempting to put tiles into a bag that is already full.
+### Added
+- Introduced the `Player` class to represent players in the game.
+- Created the `ScrabbleGame` class to manage the Scrabble game itself.
+- Added the `player.py`, `scrabble.py`, `test_player.py`, and `test_scrabble.py` files to the project.
 
-#### board.py
+### Changed
+- Improved the `BagTiles` constructor by using a more organized structure for tile initialization.
+- Refactored the `take` method in `BagTiles` to calculate the number of tiles taken more accurately.
+- Enhanced the `put` method in `BagTiles` to directly extend the list of tiles.
+
+## [0.0.4] - Cuarto Commit - 2023/08/28
+
+### Added
+- Added to the Player Class the draw_tiles method, which allows a player to take new tiles from the bag and which takes as arguments the bag of tiles and the number of tiles to take.
+- Added to the Player Class the exchange_tiles method, which allows a player to exchange tiles with the bag and which receives the bag of tiles and a list of tiles that the player wants to exchange as arguments.
+- Added to the Player Class the calculate_score method, which calculates the player's score based on the cells in which letters have been placed and their values ​​multiplied by the board multipliers.
+- Added test cases for the `Player` class in the `TestPlayer` test suite.
+- Included test cases for the `test_init`, `test_draw_tiles`, `test_exchange_tiles`, `test_view_tiles`, `test_view_score`, `test_start_end_turn`, and `calculate_score` methods in the `TestPlayer` test suite.
+- Added a `MockBoard` class and a `MockCell` class to simulate game board and cell behavior in the tests.
+
+## [0.0.5] - Quinto Commit - 2023/08/28
+
+### Added
 - Added the `place_tile` method to the `Board` class, which allows placing a tile on a specific cell if it's empty.
 - Added the `validate_word` method to the `Board` class, which checks if a given word can be placed in a specific starting cell and direction without violating any rules.
+- Added tests for the `Board` class in the `test_board.py` file.
 
-#### cell.py
-- Added the `Cell` class to represent individual cells on the game board.
+## [0.0.6] - Sexto Commit - 2023/08/29
+
+### Added
+- Added the `calculate_score` method to the `Player` class, allowing the calculation of a player's score based on placed letters and multipliers on the board.
+- Added the `view_tiles` method to the `Player` class, which returns a list of the tiles held by the player.
+- Added the `view_score` method to the `Player` class, which returns the current score of the player.
+- Added the `start_turn` method to the `Player` class to indicate the start of a player's turn.
+- Added the `end_turn` method to the `Player` class to indicate the end of a player's turn.
+- Added tests for the `Player` class and the new methods in the `test_player.py` file.
+
+- Added the `place_tile` method to the `Board` class, which facilitates placing a tile on a specific cell if it's empty.
+- Added the `validate_word` method to the `Board` class, ensuring that a given word can be placed in a specific starting cell and direction without rule violations.
+- Added test cases for the `Board` class in the `TestBoard` test suite.
+- Included test cases for the `test_place_tile`, and `test_validate_word` methods in the `TestBoard` test suite.
+
+## [0.0.7] - Septimo Commit - 2023/09/06
+
+### Added 
 - Added the `add_letter` method to the `Cell` class, allowing the addition of letters to a cell.
 - Added the `remove_letter` method to the `Cell` class, enabling the removal of letters from a cell.
 - Added the `calculate_value` method to the `Cell` class for calculating the value of the cell, considering its letter, multiplier, and type.
-- Added the `Calculate_value` class to handle the calculation of word values based on the cells on the game board.
-- Added the `calculate_value` method to the `Cell` class for calculating the value of the cell, considering its letter, multiplier, and type.
+- Added test cases for the `Cell` class in the `TestCell` test suite.
+- Included test cases for the`test_add_letter`, `test_cell_value`, `test_cell_multiplier_word`, `test_remove_letter`, and `test_inactive_cell` methods in the `TestCell` test suite.
+- Added the `ScrabbleGame` class to manage the Scrabble game itself.
+- Added the `playing` method to the `ScrabbleGame` class to indicate whether the game is currently being played.
+- Added the `next_turn` method to the `ScrabbleGame` class, which handles the transition to the next player's turn and increments the current turn count.
+- Added test cases for the `ScrabbleGame` class in the `TestScrabbleGame` test suite.
+- Included test cases for the `test_playing`, `test_next_turn`, `test_next_turn_when_game_is_starting`, `test_next_turn_when_player_is_not_the_first`, and `test_next_turn_when_player_is_last` methods in the `TestScrabbleGame` test suite.
+ 
+## [0.0.8] - Octavo Commit - 2013/09/07
+
+### Added
+- Introduced the `Calculate_value` class, designed to manage the calculation of word values based on the cells on the game board.
+- Implemented the `calculate_value` method within the `Cell` class, enabling the calculation of a cell's value by considering its letter, multiplier, and type attributes.
+- Created the test suite "TestCalculateWordValue" to evaluate the calculation of word values within the Scrabble game.
+- Added a test case "test_simple" to validate the calculation of word values with simple letter values.
+- Added a test case "test_with_letter_multiplier" to assess word value calculations considering letter multipliers.
+- Added a test case "test_with_word_multiplier" to evaluate word value calculations incorporating word multipliers.
+- Included a test case "test_with_letter_word_multiplier" to verify word value calculations with both letter and word multipliers.
+- Added a test case "test_with_letter_word_multiplier_no_active" to ensure accurate handling of calculations when cells are inactive.
+- Included a test case "test_with_letter_word_multiplier_active" to assess word value calculations with active cells.
+These test cases offer extensive coverage for the calculation of word values in the Scrabble game, guaranteeing precise scoring and the handling of diverse gameplay situations.
+
+- Created `main.py` as the main entry point for the Scrabble game.
+- Added easy to use interface to start and play the game.
+- Included a prompt to enter the number of players (supports 2 to 4 players).
+- Enabled the ability for players to take turns entering words, positions, and orientations to place tiles on the game board.
+- Implemented a validation of the entered word, position and orientation to determine if the movement is valid.
+- Added a loop to alternate between players' turns until the game ends.
+### Usage example main.py
+1. Run `main.py` to start the Scrabble game.
+2. Enter the number of players (supports 2 to 4 players).
+3. Players take turns entering words, positions, and orientations to place tiles on the board.
+4. The game validates each move and provides feedback on its validity.
+
+## [0.0.9] - Noveno Commit - 2013/09/08
+
+### Added
 - Added the `add_player_starting_position` method to the `Cell` class, This function allows you to assign the cell a starting position for a player in the game.
 - Added tge `is_empty` method to the 'Cell' class, This function checks if the cell is empty, that is, it does not contain any letters.
 - Added the `has_letter` method to the 'Cell' class, Allows you to check if the cell contains a specific letter.
 - Added the `apply_word_multiplier' method to the 'Cell' class, This function applies a word multiplier to the cell if its multiplier type is 'word'.
 - Added the `apply_letter_multiplier' method to the 'Cell' class, Applies a letter multiplier to the cell if its multiplier type is 'letter'.
+- Included test cases for the `add_player_starting_position`, `is_empty`, `has_letter`, `apply_word_multiplier', `apply_letter_multiplier'
 
-#### player.py
-- Added the `Player` class to represent players in the game.
-- Added the `draw_tiles` method to the `Player` class, allowing a player to take new tiles from the bag and which takes as arguments the bag of tiles and the number of tiles to take.
-- Added the `exchange_tiles` method to the `Player` class, which allows a player to exchange tiles with the bag and which receives the bag of tiles and a list of tiles that the player wants to exchange as arguments.
-- Added the `view_tiles` method to the `Player` class, which returns a list of the tiles held by the player.
-- Added the `view_score` method to the `Player` class, which returns the current score of the player.
-- Added the `start_turn` method to the `Player` class to indicate the start of a player's turn.
-- Added the `end_turn` method to the `Player` class to indicate the end of a player's turn.
-- Added the `bag_tiles` parameter to the `__init__` method of the `Player` class, allowing the player to be associated with a bag of tiles for tile drawing and exchange. This parameter was not present in the previous implementation.
+## [0.0.10] - "Decimo Commit" - 2013/09/09
 
-#### scrabble.py
-- Added the `ScrabbleGame` class to manage the Scrabble game itself.
-- Added the `playing` method to the `ScrabbleGame` class to indicate whether the game is currently being played.
-- Added the `next_turn` method to the `ScrabbleGame` class, which handles the transition to the next player's turn and increments the current turn count.
+### Changes
+- I separated the functionality of the `models.py` file into two separate files, `tiles.py` and `board.py`, for better code organization.
+- Split the `test_models.py` test cases into two separate files, `test_tiles.py` and `test_bagtiles.py`, to keep the tests clean and focused.
+- All class methods were divided according to their class in the corresponding file.
 
-## dictionary.py
-- Added Dictionary class in dictionary.py, designed to manage a dictionary of words.
-- In the Dictionary class, a constructor was added that takes a dictionary file as a parameter (by default, "dictionary.txt").
-- Added 'load_dictionary' method to load words from the dictionary file into a set (self.words).
-- Added 'is_valid_word' method was added to check if a word is valid according to the content of the loaded dictionary.
-- Added exception handling for the case of FileNotFoundError in the load_dictionary method, ensuring that the program works correctly if the dictionary file is not found.
+### Added
+- Introduced a `get_value_by_letter` method in the `Tile` class within `tiles.py`, which makes it easy to retrieve tile values ​​based on their letters.
+- Implemented the `initial_tiles` method in the `Bagtiles` class inside `bagtiles.py`, which is responsible for setting the initial tile quantities according to the game rules.
+- Created a set of test cases for the `Tile` class within the `TestTiles` test suite, ensuring accurate tile creation and attribute values.
+- Expanded the `TestTiles` suite to include test cases for the `get_value_by_letter` method, validating proper letter-based value retrieval.
+- Established the `TestBagTiles` test suite to host test cases for the `BagTiles` class.
+- Added test cases within the `TestBagTiles` suite, covering methods like `test_bag_tiles`, `test_take`, and `test_put`.
+- Used the `unittest.mock.patch` decorator to mock the `random.shuffle` function in the `test_bag_tiles` method of the `TestBagTiles` test suite.
+- I included test cases for the `initial_tiles` method to ensure correct setting of initial tile quantities according to the game rules.
 
-### test_tile.py 
-- Added test cases for the Tile class in the TestTiles test suite.
-- Included test cases for the test_tile method to ensure correct tile creation and attribute values.
-- Added get_value_by_letter method that correctly retrieves tile values ​​based on letters.
-- Added new test cases within the `TestTile` suite to cover the behavior of the `joker` method.
+## [0.0.11] - "Onceavo Commit" - 2013/09/10
+
+### Added
+- Introducing the `joker` method within the `Tile` class. This method allows for the modification of a tile's letter when it is a wildcard ('*').
+- Added the `NotAJoker` exception to the `Tile` class, which handles cases where the `joker` method is used on a non-wildcard tile.
+- Introduced custom exceptions in the `BagTiles` class to handle specific scenarios:
+  - `NoTilesAvailable`: Raised when attempting to take tiles from an empty bag.
+  - `ImpossibleToChangeMoreThan7`: Raised when trying to put more than 7 tiles into the bag at once.
+  - `BagFull`: Raised when attempting to put tiles into a bag that is already full (100 tiles).
+- Expanded the test coverage within the `TestTile` suite to examine the behavior of the `joker` method.
   - `test_joker_with_valid_letter`: Ensures that the `joker` method correctly changes the letter of a wildcard tile to a valid letter ('A').
   - `test_joker_with_invalid_letter`: Verifies that attempting to use the `joker` method on a non-wildcard tile ('B') raises the `NotAJoker` exception.
 
-### test_bagtiles.py
-- Created the TestBagTiles test suite to contain test cases for the BagTiles class.
-- Added test cases for the BagTiles class, including the test_bag_tiles, test_take, and test_put methods.
-- Utilized the unittest.mock.patch decorator to mock the random.shuffle function in the test_bag_tiles method of the TestBagTiles test suite.
-- Added test cases for the initial_tiles method to ensure the correct setup of initial tile quantities according to game rules.
-
-#### test_board.py
-- Added test cases for the `Board` class in the `TestBoard` test suite.
-- Included test cases for the `test_init`, `test_place_tile`, and `test_validate_word` methods in the `TestBoard` test suite.
-
-#### test_cell.py 
-- Added test cases for the `Cell` class in the `TestCell` test suite.
-- Included test cases for the `test_init`, `test_add_letter`, `test_cell_value`, `test_cell_multiplier_word`, `test_remove_letter`, and `test_inactive_cell` methods in the `TestCell` test suite.
-- Included test cases for the `add_player_starting_position`, `is_empty`, `has_letter`, `apply_word_multiplier', `apply_letter_multiplier'
-
-#### test_player.py
-- Added test cases for the `Player` class in the `TestPlayer` test suite.
-- Included test cases for the `test_init`, `test_draw_tiles`, `test_exchange_tiles`, `test_view_tiles`, `test_view_score`, `test_start_end_turn`, and `calculate_score` methods in the `TestPlayer` test suite.
-- Added a `MockBoard` class and a `MockCell` class to simulate game board and cell behavior in the tests.
-
-#### test_scrabble.py
-- Added test cases for the `ScrabbleGame` class in the `TestScrabbleGame` test suite.
-- Included test cases for the `test_init`, `test_playing`, `test_next_turn`, `test_next_turn_when_game_is_starting`, `test_next_turn_when_player_is_not_the_first`, and `test_next_turn_when_player_is_last` methods in the `TestScrabbleGame` test suite.
-
-### test_calculate_word_value.py
-- Added a test suite for calculating word values in the Scrabble game.
-- Implemented test cases to validate the calculation of word values with various scenarios.
-- Created tests for calculating word values with letter multipliers, word multipliers, and combinations of both.
-- Added tests to handle cases with inactive cells and active cells.
-- Ensured that the `Calculate_value` class is correctly imported and used in the test cases.
-These test cases provide comprehensive coverage for calculating word values in the Scrabble game, ensuring accurate scoring and handling various gameplay scenarios.
-
-### test_dictionary.py
-- Added test cases for each method of the `Dictionary` class, including `load_dictionary` and `is_valid_word`.
-- Verified that `load_dictionary` correctly loads the dictionary from the specified file.
-- Checked that `is_valid_word` returns `True` for valid words and `False` for invalid words based on the loaded dictionary.
-- Handled the `FileNotFoundError` exception to ensure proper behavior if the dictionary file is not found.
-
-## Changed
-- Improved the `BagTiles` constructor by using a more organized structure for tile initialization.
-- Refactored the `take` method in `BagTiles` to calculate the number of tiles taken more accurately.
-- Enhanced the `put` method in `BagTiles` to directly extend the list of tiles.
-- Improved the `BagTiles` constructor by using a more organized structure for tile initialization.
-- Refactored the `take` method in `BagTiles` to calculate the number of tiles taken more accurately.
-- Enhanced the `put` method in `BagTiles` to directly extend the list of tiles.
-- In Scrabble.py, optimized player list initialization. The named Player class is now instantiated and added to the player list.
-- In Scrabble.py, the logic for switching to the next turn was improved. Now ensures that turns flow correctly between players.
-- Removed the models.py file and split its functionality into two separate files, tiles.py and board.py.
-- Removed the test_models.py file and split its test cases into two separate files, test_tiles.py and test_bagtiles.py.
+### Changes
 - Modified the `take` method in the `BagTiles` class to raise the `NoTilesAvailable` exception when attempting to take tiles from an empty bag.
-- Modified the `put` method in the `BagTiles` class to raise the `ImpossibleToChangeMoreThan7` exception when attempting to put more than 7 tiles at once, and to raise the `BagFull` exception when attempting to put tiles into a full bag (100 tiles).
-- Modified the `test_take` method in the `TestBagTiles` test suite to cover the `NoTilesAvailable` exception when taking tiles from an empty bag.
-- Modified the `test_put` method in the `TestBagTiles` test suite to cover the `ImpossibleToChangeMoreThan7` exception when attempting to put more than 7 tiles at once and the `BagFull` exception when attempting to put tiles into a full bag (100 tiles).
+- Adjusted the `put` method in the `BagTiles` class to raise the `ImpossibleToChangeMoreThan7` exception when trying to add more than 7 tiles at once and to raise the `BagFull` exception when attempting to put tiles into a bag that's already full (100 tiles).
+- Updated the `test_take` method within the `TestBagTiles` test suite to include coverage for the `NoTilesAvailable` exception when taking tiles from an empty bag.
+- Modified the `test_put` method within the `TestBagTiles` test suite to encompass the `ImpossibleToChangeMoreThan7` exception when attempting to add more than 7 tiles at once and the `BagFull` exception when trying to add tiles to a bag that's already full (100 tiles).
 
+## [0.0.12] - Twelfth Commit - 2013/09/11
 
-
+### Added
+- Creation of the `dictionary.py` file to host the `Dictionary` class.
+- Introduction of the `Dictionary` class in the `dictionary.py` file, designed to manage a word dictionary.
+- In the `Dictionary` class, added a constructor that takes a dictionary file as a parameter (by default, "dictionary.txt").
+- Inclusion of 'load_dictionary' method to load words from the dictionary file into a set (self.words).
+- Implementation of the 'is_valid_word' method to check if a word is valid based on the content of the loaded dictionary.
+- Created test file `test_dictionary.py` to test the functionality of the `Dictionary` class.
+- Inclusion of test cases for each method of the `Dictionary` class in `test_dictionary.py`, including `load_dictionary` and `is_valid_word`.
+- Verification that `load_dictionary` correctly loads the dictionary from the specified file.
+- Check that `is_valid_word` returns `True` for valid words and `False` for invalid words based on the loaded dictionary.
+- Handling of the `FileNotFoundError` exception to ensure proper behavior if the dictionary file is not found.
 
 
 
