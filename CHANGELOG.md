@@ -9,10 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 "I have decided to divide the information that I am adding in different files to improve readability, organization and easier access to the data."
 
-### Added
+## Added
 
 ### main.py
-# main.py
 - Added the main entry point for the Scrabble game.
 - Implemented a user-friendly interface for starting and playing the game.
 - Prompts the user to input the number of players (2 to 4 players supported).
@@ -77,6 +76,13 @@ This provides an interactive way for players to play the Scrabble game.
 - Added the `playing` method to the `ScrabbleGame` class to indicate whether the game is currently being played.
 - Added the `next_turn` method to the `ScrabbleGame` class, which handles the transition to the next player's turn and increments the current turn count.
 
+## dictionary.py
+- Added Dictionary class in dictionary.py, designed to manage a dictionary of words.
+- In the Dictionary class, a constructor was added that takes a dictionary file as a parameter (by default, "dictionary.txt").
+- Added 'load_dictionary' method to load words from the dictionary file into a set (self.words).
+- Added 'is_valid_word' method was added to check if a word is valid according to the content of the loaded dictionary.
+- Added exception handling for the case of FileNotFoundError in the load_dictionary method, ensuring that the program works correctly if the dictionary file is not found.
+
 ### test_tile.py 
 - Added test cases for the Tile class in the TestTiles test suite.
 - Included test cases for the test_tile method to ensure correct tile creation and attribute values.
@@ -109,7 +115,7 @@ This provides an interactive way for players to play the Scrabble game.
 - Added test cases for the `ScrabbleGame` class in the `TestScrabbleGame` test suite.
 - Included test cases for the `test_init`, `test_playing`, `test_next_turn`, `test_next_turn_when_game_is_starting`, `test_next_turn_when_player_is_not_the_first`, and `test_next_turn_when_player_is_last` methods in the `TestScrabbleGame` test suite.
 
-### test_calculate_word_value.pu
+### test_calculate_word_value.py
 - Added a test suite for calculating word values in the Scrabble game.
 - Implemented test cases to validate the calculation of word values with various scenarios.
 - Created tests for calculating word values with letter multipliers, word multipliers, and combinations of both.
@@ -117,7 +123,13 @@ This provides an interactive way for players to play the Scrabble game.
 - Ensured that the `Calculate_value` class is correctly imported and used in the test cases.
 These test cases provide comprehensive coverage for calculating word values in the Scrabble game, ensuring accurate scoring and handling various gameplay scenarios.
 
-### Changed
+### test_dictionary.py
+- Added test cases for each method of the `Dictionary` class, including `load_dictionary` and `is_valid_word`.
+- Verified that `load_dictionary` correctly loads the dictionary from the specified file.
+- Checked that `is_valid_word` returns `True` for valid words and `False` for invalid words based on the loaded dictionary.
+- Handled the `FileNotFoundError` exception to ensure proper behavior if the dictionary file is not found.
+
+## Changed
 - Improved the `BagTiles` constructor by using a more organized structure for tile initialization.
 - Refactored the `take` method in `BagTiles` to calculate the number of tiles taken more accurately.
 - Enhanced the `put` method in `BagTiles` to directly extend the list of tiles.
