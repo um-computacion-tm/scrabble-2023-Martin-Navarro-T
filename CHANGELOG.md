@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-## [0.0.1] - Primer Commit / models.py - 2023/08/18
+## [0.0.1] - "Primer Commit" / "models.py" - 2023/08/18
 
 ### Added
 - Introduced the `Tile` class to represent individual tiles with letters and values.
@@ -16,7 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Used the `unittest.mock.patch` decorator to mock the `random.shuffle` function in the `test_bag_tiles` method of the `TestBagTiles` test suite.
 - Utilized the `unittest` library to ensure the correct functioning of the methods.
 
-## [0.0.2] - Segundo Commit - 2023/08/27
+## [0.0.2] - "Segundo Commit" - 2023/08/27
 
 ### Added
 - Introduced the `Cell` class to represent individual cells on the game board.
@@ -30,7 +30,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Refactored the `take` method in `BagTiles` to calculate the number of tiles taken more accurately.
 - Enhanced the `put` method in `BagTiles` to directly extend the list of tiles.
 
-## [0.0.3] - Tercer Commit - 2023/08/27
+## [0.0.3] - "Tercer Commit" - 2023/08/27
 
 ### Added
 - Introduced the `Player` class to represent players in the game.
@@ -42,7 +42,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Refactored the `take` method in `BagTiles` to calculate the number of tiles taken more accurately.
 - Enhanced the `put` method in `BagTiles` to directly extend the list of tiles.
 
-## [0.0.4] - Cuarto Commit - 2023/08/28
+## [0.0.4] - "Cuarto Commit" - 2023/08/28
 
 ### Added
 - Added to the Player Class the draw_tiles method, which allows a player to take new tiles from the bag and which takes as arguments the bag of tiles and the number of tiles to take.
@@ -52,14 +52,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Included test cases for the `test_init`, `test_draw_tiles`, `test_exchange_tiles`, `test_view_tiles`, `test_view_score`, `test_start_end_turn`, and `calculate_score` methods in the `TestPlayer` test suite.
 - Added a `MockBoard` class and a `MockCell` class to simulate game board and cell behavior in the tests.
 
-## [0.0.5] - Quinto Commit - 2023/08/28
+## [0.0.5] - "Quinto Commit" - 2023/08/28
 
 ### Added
 - Added the `place_tile` method to the `Board` class, which allows placing a tile on a specific cell if it's empty.
 - Added the `validate_word` method to the `Board` class, which checks if a given word can be placed in a specific starting cell and direction without violating any rules.
 - Added tests for the `Board` class in the `test_board.py` file.
 
-## [0.0.6] - Sexto Commit - 2023/08/29
+## [0.0.6] - "Sexto Commit" - 2023/08/29
 
 ### Added
 - Added the `calculate_score` method to the `Player` class, allowing the calculation of a player's score based on placed letters and multipliers on the board.
@@ -74,7 +74,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Added test cases for the `Board` class in the `TestBoard` test suite.
 - Included test cases for the `test_place_tile`, and `test_validate_word` methods in the `TestBoard` test suite.
 
-## [0.0.7] - Septimo Commit - 2023/09/06
+## [0.0.7] - "Septimo Commit" - 2023/09/06
 
 ### Added 
 - Added the `add_letter` method to the `Cell` class, allowing the addition of letters to a cell.
@@ -88,7 +88,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Added test cases for the `ScrabbleGame` class in the `TestScrabbleGame` test suite.
 - Included test cases for the `test_playing`, `test_next_turn`, `test_next_turn_when_game_is_starting`, `test_next_turn_when_player_is_not_the_first`, and `test_next_turn_when_player_is_last` methods in the `TestScrabbleGame` test suite.
  
-## [0.0.8] - Octavo Commit - 2013/09/07
+## [0.0.8] - "Octavo Commit" - 2013/09/07
 
 ### Added
 - Introduced the `Calculate_value` class, designed to manage the calculation of word values based on the cells on the game board.
@@ -114,7 +114,7 @@ These test cases offer extensive coverage for the calculation of word values in 
 3. Players take turns entering words, positions, and orientations to place tiles on the board.
 4. The game validates each move and provides feedback on its validity.
 
-## [0.0.9] - Noveno Commit - 2013/09/08
+## [0.0.9] - "Noveno Commit" - 2013/09/08
 
 ### Added
 - Added the `add_player_starting_position` method to the `Cell` class, This function allows you to assign the cell a starting position for a player in the game.
@@ -160,7 +160,7 @@ These test cases offer extensive coverage for the calculation of word values in 
 - Updated the `test_take` method within the `TestBagTiles` test suite to include coverage for the `NoTilesAvailable` exception when taking tiles from an empty bag.
 - Modified the `test_put` method within the `TestBagTiles` test suite to encompass the `ImpossibleToChangeMoreThan7` exception when attempting to add more than 7 tiles at once and the `BagFull` exception when trying to add tiles to a bag that's already full (100 tiles).
 
-## [0.0.12] - Twelfth Commit - 2013/09/11
+## [0.0.12] - "Doceavo Commit" - 2013/09/11
 
 ### Added
 - Creation of the `dictionary.py` file to host the `Dictionary` class.
