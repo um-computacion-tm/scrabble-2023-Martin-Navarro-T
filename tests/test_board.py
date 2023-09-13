@@ -2,8 +2,6 @@
 import unittest
 from game.board import Board
 from game.tile import Tile
-from unittest.mock import patch
-from io import StringIO
 
 class TestBoard(unittest.TestCase):
     def test_init(self):
@@ -27,10 +25,36 @@ class TestBoard(unittest.TestCase):
         board.place_tile(7, 8, tile_b)
         board.place_tile(7, 9, tile_c)
 
-        self.assertTrue(board.validate_word(7, 7, 'ABC', 'horizontal'))
-        self.assertFalse(board.validate_word(7, 7, 'ACB', 'horizontal'))
-        self.assertTrue(board.validate_word(7, 7, 'A', 'vertical'))
-        self.assertFalse(board.validate_word(7, 7, 'AB', 'vertical'))
+        self.assertTrue(board.validate_word(7, 7, 'ABC', 'H'))
+        self.assertFalse(board.validate_word(7, 7, 'ACB', 'H'))
+        self.assertTrue(board.validate_word(7, 7, 'A', 'V'))
+        self.assertFalse(board.validate_word(7, 7, 'AB', 'V'))
+'''    
+    def test_word_inside_board(self): #Agregado
+        board = Board()
+        word = "Facultad"
+        location = (5, 4)
+        orientation = "H"
+
+        word_is_valid = board.validate_word_inside_board(word, location, orientation)
+
+        assert word_is_valid == True
+    
+
+    def test_word_out_of_board(self): #Agregado
+        board = Board()
+        word = "Facultad"
+        location = (14, 4)
+        orientation = "H"
+
+        word_is_valid = board.validate_word_inside_board(word, location, orientation)
+
+        assert word_is_valid == False
+'''
+
+
+
+
     
 if __name__ == '__main__':
     unittest.main()

@@ -174,5 +174,25 @@ These test cases offer extensive coverage for the calculation of word values in 
 - Check that `is_valid_word` returns `True` for valid words and `False` for invalid words based on the loaded dictionary.
 - Handling of the `FileNotFoundError` exception to ensure proper behavior if the dictionary file is not found.
 
+## [0.0.13] - "Treceavo Commit" - 2023/09/13
+
+###Fixed
+- Refactoring of the code in the `main.py` file to follow CodeClimate recommendations.
+- In `board.py`, the `validate_word` method was refactored to improve its structure and follow CodeClimate recommendations.
+- Refactoring of the code in the `Calculate_value` class in `cell.py` following CodeClimate recommendations.
+- Refactored the `calculate_word_value` method to improve readability and maintain code consistency.
+
+### Added
+- Added `calculate_cell_value` method in `Calculate_value` class to separate calculation logic from cells.
+- Added `calculate_word_multiplier` method in `Calculate_value` class to calculate word multipliers.
+- Added additional tests in `test_calculate_word_value.py` to validate the new methods and ensure they work correctly.
+  - `test_calculate_word_multiplier_with_word_multiplier`: Check for correct calculation of word multipliers.
+  - `test_calculate_word_multiplier_without_word_multiplier`: Check that word multipliers are not applied when not necessary.
+  - `test_calculate_word_value`: Verifies that the word value calculation is accurate.
+  - `test_calculate_cell_value_with_letter_multiplier`: Check for correct cell value calculation with letter multipliers.
+  - `test_calculate_cell_value_without_multiplier`: Check cell value calculation without multipliers.
+  - `test_calculate_cell_value_empty_cell`: Check the calculation of the value of an empty cell.
+
+
 
 
