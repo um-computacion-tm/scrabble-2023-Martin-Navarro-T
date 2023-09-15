@@ -2,6 +2,7 @@
 source =
     game
     tests
+    main
 omit =
     env/*
     */test*
@@ -16,3 +17,4 @@ exclude_lines =
     if __name__ == '__main__':
     def suite
     __str__
+    main()
