@@ -3,10 +3,8 @@ import sys
 
 # Ruta absoluta del directorio raíz del proyecto
 project_root = os.path.dirname(os.path.abspath(__file__))
-
 # Agregar el directorio raíz a sys.path
 sys.path.insert(0, project_root)
-
 # Importar las clases de game sin problemas
 from game.scrabble import ScrabbleGame 
 
