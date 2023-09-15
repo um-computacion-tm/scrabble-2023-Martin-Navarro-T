@@ -194,5 +194,20 @@ These test cases offer extensive coverage for the calculation of word values in 
   - `test_calculate_cell_value_empty_cell`: Check the calculation of the value of an empty cell.
 
 
+## [0.0.14] - "Catorceavo Commit" - 2023/09/14
+
+### Added
+- Added the ability to import classes from the `game` module in main.py to improve code organization.
+- Implemented unit tests in main.py for the `valid_player_count` and `get_player_count` functions of the `Main` class in the `test_main.py` file.
+- Integration tests were implemented in main.py to verify the interaction between the `Main` class and `ScrabbleGame` in the `test_main_integration.py` file.
+- In main.py the `Main` class was implemented to handle the initial configuration and interaction with the game.
+- Added the ability to import classes from the `game.scrabble` module in main.py.
+- Added unit tests for the player configuration and validation functions of the `Main` class in the `test_main.py` file:
+   - The setUp and tearDown methods were implemented to configure and reset the test environment respectively.
+   - test_valid_player_count: Test the validation of the number of players.
+   - test_valid_player_count_error: Test validation of the number of players when an invalid value is entered.
+   - test_player_count_input_valid: Test the main game flow with a valid number of players.
+   - test_player_count_input_invalid_then_valid: Test the game flow with an invalid number of players followed by a valid number of players.
+   
 
 
