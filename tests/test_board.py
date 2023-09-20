@@ -29,8 +29,8 @@ class TestBoard(unittest.TestCase):
         self.assertFalse(board.validate_word(7, 7, 'ACB', 'H'))
         self.assertTrue(board.validate_word(7, 7, 'A', 'V'))
         self.assertFalse(board.validate_word(7, 7, 'AB', 'V'))
-'''    
-    def test_word_inside_board(self): #Agregado
+        
+    def test_word_inside_board(self):
         board = Board()
         word = "Facultad"
         location = (5, 4)
@@ -41,20 +41,26 @@ class TestBoard(unittest.TestCase):
         assert word_is_valid == True
     
 
-    def test_word_out_of_board(self): #Agregado
+    def test_word_out_of_board(self):
         board = Board()
         word = "Facultad"
         location = (14, 4)
         orientation = "H"
 
-        word_is_valid = board.validate_word_inside_board(word, location, orientation)
+        word_is_valid = board.validate_word_out_of_board(word, location, orientation)
 
         assert word_is_valid == False
-'''
 
+    def test_word_inside_board_vertical(self):
+        board = Board()
+        word = "Facultad"
+        location = (4, 5)  # Ubicación dentro del tablero
+        orientation = "V"
 
+        word_is_valid = board.validate_word_inside_board(word, location, orientation)
 
+        self.assertTrue(word_is_valid)
 
-    
 if __name__ == '__main__':
     unittest.main()
+
