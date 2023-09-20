@@ -10,9 +10,10 @@ from game.scrabble import ScrabbleGame
 
 class Main:
     def __init__(self):
-        print('¡Bienvenido a Scrabble Game!')
+        print('Bienvenido a Scrabble Game!')
         self.player_count = self.get_player_count()
-        self.game = ScrabbleGame(self.player_count)
+        self.game = ScrabbleGame(self.player_count)  
+
         
     def valid_player_count(self, player_count):
         try:

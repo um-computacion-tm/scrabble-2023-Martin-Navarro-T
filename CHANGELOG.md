@@ -208,6 +208,18 @@ These test cases offer extensive coverage for the calculation of word values in 
    - test_valid_player_count_error: Test validation of the number of players when an invalid value is entered.
    - test_player_count_input_valid: Test the main game flow with a valid number of players.
    - test_player_count_input_invalid_then_valid: Test the game flow with an invalid number of players followed by a valid number of players.
+
+## [0.0.15] - "Quinceavo Commit" - 2023/09/20   
+
+### Added
+- Added the `validate_word_inside_board` method to the `Board` class in `board.py`, which allows checking if a word can fit completely inside the board at a specific location and orientation.
+- Added the `validate_word_out_of_board` method to the `Board` class in `board.py`, which allows checking if a word would extend beyond the boundaries of the board from a given location and orientation.
+- Added the following tests in `test_board.py`:
+   - `test_word_inside_board`: Checks if the words fit inside the board.
+   - `test_word_out_of_board`: Tests if words extend outside the board.
+   - `test_word_inside_board_vertical`: Confirms that vertical words fit inside the board.
    
+
+
 
 
