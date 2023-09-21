@@ -218,8 +218,25 @@ These test cases offer extensive coverage for the calculation of word values in 
    - `test_word_inside_board`: Checks if the words fit inside the board.
    - `test_word_out_of_board`: Tests if words extend outside the board.
    - `test_word_inside_board_vertical`: Confirms that vertical words fit inside the board.
+
+## [0.0.16] - "Dieciseisavo Commit" - 2023/09/21
+
+### Added
+- Added the validate_word_horizontal method in board.py to validate words in horizontal orientation.
+- Added validate_word_vertical method in board.py to validate words in vertical orientation.
+- Added is_empty method in board.py to check if the board is empty.
+- Added the word_in_the_center method in board.py to determine whether a word is placed in the center of the board.
+- Added the validate_word_place_board method in board.py to validate if a word can be placed on the board.
+- Added the following tests to validate the new methods:
+   - test_board_is_empty: Check if the board is empty.
+   - test_board_is_not_empty: Check if the board is not empty.
+   - test_place_word_empty_board_horizontal_fine: Tests whether a word is correctly placed on an empty board in horizontal orientation.
+   - test_place_word_empty_board_vertical_fine: Tests whether a word is correctly placed on an empty board in vertical orientation.
+   - test_place_word_empty_board_horizontal_wrong: Checks that a word is not placed on an empty board in horizontal orientation.
+   - test_place_word_empty_board_vertical_wrong: Checks that a word is not placed on an empty board in vertical orientation.
+   - test_place_word_no_empty_board_horizontal_fine: Tests whether a word is correctly placed on a non-empty board in horizontal orientation.
+   - test_place_word_no_empty_board_vertical_fine: Tests whether a word is correctly placed on a non-empty board in vertical orientation.
+   - test_place_word_no_empty_board_horizontal_wrong: Checks that a word is not placed on a non-empty board in horizontal orientation.
+   - test_place_word_no_empty_board_vertical_wrong: Checks that a word is not placed on a non-empty board in vertical orientation.
    
-
-
-
-
+ 
