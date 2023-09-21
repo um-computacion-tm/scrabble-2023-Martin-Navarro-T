@@ -48,12 +48,14 @@ class Board:
         location_x, location_y = location
         word_length = len(word)
         found_letter = False
+
         for i in range(word_length):
             actual_tile = self.grid[location_x][location_y + i].letter
-            if actual_tile is not None:
-                if actual_tile.letter.lower() == word[i]:
-                    found_letter = True
+            if actual_tile is not None and actual_tile.letter.lower() == word[i]:
+                found_letter = True
+
         return found_letter and self.validate_word_inside_board(word, location, orientation)
+
 
     def validate_word_vertical(self, word, location, orientation):
         location_x, location_y = location
@@ -66,6 +68,7 @@ class Board:
                     found_letter = True
         return found_letter and self.validate_word_inside_board(word, location, orientation)
 
+
     def is_empty(self):
         if self.grid[7][7].letter is None:
             return True
@@ -74,16 +77,17 @@ class Board:
 
     def word_in_the_center(self, word, location, orientation):
         location_x, location_y = location
-        if orientation == "Horizontal":
-            if location_x == 7:
-                return self.validate_word_inside_board(word, location, orientation)
-            else:
-                return False
-        elif orientation == "Vertical":
-            if location_y == 7:
-                return self.validate_word_inside_board(word, location, orientation)
-            else:
-                return False
+        is_horizontal = orientation == "Horizontal"
+        is_vertical = orientation == "Vertical"
+
+        if is_horizontal and location_x == 7:
+            return self.validate_word_inside_board(word, location, orientation)
+
+        if is_vertical and location_y == 7:
+            return self.validate_word_inside_board(word, location, orientation)
+
+        return False
+
 
     def validate_word_place_board(self, word, location, orientation):
         if self.is_empty() is True:

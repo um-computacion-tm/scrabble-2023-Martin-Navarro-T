@@ -61,6 +61,7 @@ class TestBoard(unittest.TestCase):
 
         self.assertTrue(word_is_valid)
         
+
     def test_board_is_empty(self):
         board = Board()
         self.assertEqual(board.is_empty(), True)
