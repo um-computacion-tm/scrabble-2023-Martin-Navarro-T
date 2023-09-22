@@ -240,3 +240,29 @@ These test cases offer extensive coverage for the calculation of word values in 
    - test_place_word_no_empty_board_vertical_wrong: Checks that a word is not placed on a non-empty board in vertical orientation.
    
  
+## [0.0.17] - "Diecisieteavo Commit" - 2023/09/22
+
+### Added
+- Added pass_turn method to allow the player to pass their turn. This method ends the player's current turn.
+- Added check_tile_in_hand(tile) method to check if a specific tile is present in the player's hand. It verifies if the tile exists in the player's current set of tiles.
+- Added get_hand_size method to retrieve the current size of the player's hand, i.e., the number of tiles the player holds.
+- Added get_score method to calculate the player's score based on played tiles on the board. It calculates the score by summing the values of the played tiles, considering any multipliers.
+- Added validate_word(word) method to validate if a given word can be formed with the tiles in the player's hand. It checks if all the letters required for the word are present in the player's hand.
+- Added MockCell class to simulate game cells for testing purposes:
+   - __init__(self, value): Initializes a MockCell instance with a specified value.
+   - calculate_value(self): Simulates calculating the value of the cell, returning the specified value.
+- Added tests for the new methods:
+   - test_pass_turn: Verifies that the player can pass their turn successfully.
+   - test_check_tile_in_hand: Tests if the method correctly identifies tiles present in the player's hand.
+   - test_get_hand_size: Ensures that the method returns the correct number of tiles in the player's hand.
+   - test_get_score_no_played_cells: Tests the calculation of the player's score when no cells have been played on the board.
+   - test_get_score_with_played_cells: Tests the calculation of the player's score when cells with values have been played on the board.
+   - test_validate_word_valid: Checks if the validate_word method correctly validates a valid word.
+   - test_validate_word_invalid: Tests the validate_word method to confirm it correctly identifies an invalid word.
+
+### Note
+- There are two definitions of MockCell in the codebase. The first definition is within the MockBoard class, used to simulate the game board's cells. The second definition is outside the MockBoard class and is used in test cases to simulate cells played on the board for scoring calculations. The reason for having two MockCell definitions is to separate their roles: one for simulating the board and the other for simulating played cells.
+
+
+   
+ 
