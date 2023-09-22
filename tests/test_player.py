@@ -1,8 +1,9 @@
-#test_player.py
 import unittest
+from unittest.mock import Mock, patch
 from game.player import Player
 from game.bagtiles import BagTiles
 from game.tile import Tile
+from game.board import Board
 from game.cell import Cell
 
 class MockBoard:
@@ -90,5 +91,60 @@ class TestPlayer(unittest.TestCase):
         player.end_turn()
         self.assertFalse(player.is_current_turn)
 
-if __name__ == '__main__':
+    def test_pass_turn(self):
+        self.player = Player("Player1")
+        self.assertFalse(self.player.is_current_turn)  # Aseguramos que el turno no esté activo inicialmente
+        self.player.start_turn()  # Activamos el turno
+        self.assertTrue(self.player.is_current_turn)  # Verificamos que el turno esté activo
+        self.player.pass_turn()  # Pasamos el turno
+        self.assertFalse(self.player.is_current_turn)  # Verificamos que el turno ya no esté activo
+
+    def test_check_tile_in_hand(self):
+        self.player = Player("Player1")
+        self.player.tiles = ['A', 'B', 'C']
+        self.assertTrue(self.player.check_tile_in_hand('A'))
+        self.assertTrue(self.player.check_tile_in_hand('B'))
+        self.assertTrue(self.player.check_tile_in_hand('C'))
+        self.assertFalse(self.player.check_tile_in_hand('D'))
+        self.assertFalse(self.player.check_tile_in_hand('Z'))
+
+    def test_get_hand_size(self):
+        self.player = Player("Player1")
+        self.player.tiles = ['A', 'B', 'C']
+        self.assertEqual(self.player.get_hand_size(), 3)
+    
+    
+    def test_get_score_no_played_cells(self):
+        player = Player('Charlie')
+        player.board = Mock()  # Crea un objeto Mock para simular el tablero
+        player.board.played_cells = []  # Simula que no hay celdas jugadas
+        self.assertEqual(player.get_score(), 0)
+
+    def test_get_score_with_played_cells(self):
+        player = Player('Charlie')
+        player.board = Mock()  # Crea un objeto Mock para simular el tablero
+        mock_cell_1 = MockCell(3)
+        mock_cell_2 = MockCell(2)
+        player.board.played_cells = [mock_cell_1, mock_cell_2]
+        self.assertEqual(player.get_score(), 5)  # Total calculado: 3 + 2 = 5
+    
+    def test_validate_word_valid(self):
+        player = Player('David')
+        player.tiles = [Tile('A', 1), Tile('B', 3), Tile('C', 2)]
+        self.assertTrue(player.validate_word('ABC'))
+
+
+    def test_validate_word_invalid(self):
+        player = Player('Eve')
+        player.tiles = [Tile('A', 1), Tile('B', 3), Tile('C', 2)]
+        self.assertFalse(player.validate_word('ABCD')) 
+
+class MockCell:
+    def __init__(self, value):
+        self.value = value
+
+    def calculate_value(self):
+        return self.value
+
+if __name__ == "__main__":
     unittest.main()
