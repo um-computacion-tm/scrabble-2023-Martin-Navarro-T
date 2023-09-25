@@ -3,13 +3,13 @@ import random
 from game.tile import Tile
 
 # Excepciones
-#NoHayFichas
+# Si no hay fichas
 class NoTilesAvailable(Exception):
     pass
-#ImposibleCambiarMasDe7
+#Si quiere cambiar mas de 7 fichas
 class ImpossibleToChangeMoreThan7(Exception):
     pass
-#BolsaLlena
+#Si la bolsa esta llena
 class BagFull(Exception):
     pass
 

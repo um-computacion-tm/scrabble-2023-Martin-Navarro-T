@@ -2,6 +2,7 @@
 import unittest
 from game.board import Board
 from game.tile import Tile
+from game.cell import Cell
 
 class TestBoard(unittest.TestCase):
     def test_init(self):
@@ -158,9 +159,26 @@ class TestBoard(unittest.TestCase):
 
         word_is_valid = board.validate_word_place_board(word, location, orientation)
         assert word_is_valid == False
-    
 
+    # Tets de Agregar Función para Limpiar una Celda
+    def test_clear_cell_valid(self):
+        board = Board()
+        tile = Tile('A', 1)
 
-if __name__ == '__main__':
+        # Colocamos una ficha en una celda
+        board.place_tile(7, 7, tile)
+        # Luego la limpiamos
+        board.clear_cell(7, 7)
+        # Comprobamos que la celda esté vacía
+        self.assertIsNone(board.grid[7][7].letter)
+
+    def test_clear_cell_invalid(self):
+        board = Board()
+
+        # Intentamos limpiar una celda fuera de los límites
+        result = board.clear_cell(16, 16)
+        # Debería devolver False ya que la celda está fuera de los límites
+        self.assertFalse(result)
+
+if __name__ == "__main__":
     unittest.main()
-
