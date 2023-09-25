@@ -97,3 +97,10 @@ class Board:
                 return self.validate_word_horizontal(word, location, orientation)
             else:
                 return self.validate_word_vertical(word, location, orientation)
+
+    # Agregar Función para Limpiar una Celda
+    def clear_cell(self, location_x, location_y):
+        if 0 <= location_x < 15 and 0 <= location_y < 15:
+            cell = self.grid[location_x][location_y]
+            if cell.letter is not None:
+                cell.remove_letter()

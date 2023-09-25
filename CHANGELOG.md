@@ -263,6 +263,11 @@ These test cases offer extensive coverage for the calculation of word values in 
 ### Note
 - There are two definitions of MockCell in the codebase. The first definition is within the MockBoard class, used to simulate the game board's cells. The second definition is outside the MockBoard class and is used in test cases to simulate cells played on the board for scoring calculations. The reason for having two MockCell definitions is to separate their roles: one for simulating the board and the other for simulating played cells.
 
+## [0.0.18] - "Dieciochoavo Commit" - 2023/09/25
 
-   
- 
+### Added
+- Added the `clear_cell` function to the `Board` class in `board.py`, which allows clearing a cell at a specific location by removing any tile or content present in that cell. The cell will be empty after calling this function.
+- Added tests in `test_board.py` to validate the new `clear_cell` function:
+   - `test_clear_cell_valid`: Verifies that the `clear_cell` function works correctly when clearing a cell containing a tile. After clearing, the cell should be empty.
+   - `test_clear_cell_invalid`: Checks that the `clear_cell` function returns `False` when attempting to clear a cell outside the board's boundaries. The cell outside the boundaries should not be modified.
+

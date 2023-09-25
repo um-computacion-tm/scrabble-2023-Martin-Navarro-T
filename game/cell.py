@@ -9,7 +9,7 @@ class Cell:
         self.letter = letter
         self.active = active
         self.value = value
-
+        
     def add_letter(self, letter: Tile): 
         if self.letter is None:
             self.letter = letter
