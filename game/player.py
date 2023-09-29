@@ -46,7 +46,7 @@ class Player:
             total_score += cell.calculate_value()
         return total_score
 
-    def validate_word(self, word):
+    def validate_word(self, word): #Similar a has_letter
         word_letters = list(word)
         rack_letters = [tile.letter for tile in self.tiles]
 

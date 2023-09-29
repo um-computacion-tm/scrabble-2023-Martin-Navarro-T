@@ -6,6 +6,35 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.0.19] - "Commit 19" - 2023/09/29
+
+### Changed
+- Replaced old dictionary loading logic with new one in `dictionary.py`.
+- Improved handling of Unicode characters in the `remove_accents` method.
+- The `Dictionary` class has been changed with new methods
+- The `TestDictionary` class has been updated with the new tests.
+
+### Removed
+- The following methods have been removed from the `Dictionary` class in `dictionary.py`:
+  - `__init__(self, file_path=None)`: The constructor that initialized the `Dictionary` instance.
+  - `load_dictionary(self)`: The method that loaded the dictionary from a file.
+  - `is_valid_word(self, word)`: The method that checked if a word was valid in the dictionary.
+- The following tests in `TestDictionary` have been removed:
+  - `test_is_valid_word_valid`
+  - `test_is_valid_word_invalid`
+  - `test_load_dictionary_file_not_found`
+
+## Added
+- Added `verify_word` method to verify words in the dictionary.
+- Added `remove_accents` method for accent removal.
+- Added the ability to load a dictionary from a file in `dictionary.py`.
+- New tests have been added in `TestDictionary`:
+  - `test_remove_accents`: Verifies that the `remove_accents` function correctly removes accents from a word.
+  - `test_simple_verify`: Checks that the `verify_word` function returns `True` for an existing word in the dictionary.
+  - `test_verify_false_word`: Checks that the `verify_word` function returns `False` for a word that does not exist in the dictionary.
+  - `test_verify_word_with_accents`: Verify that the `verify_word` function handles words with accents correctly.
+  - `test_verify_word_with_umlaut`: Verifies that the `verify_word` function handles words with umlauts correctly.
+
 ## [0.0.18] - "Dieciochoavo Commit" - 2023/09/25
 
 ### Added
