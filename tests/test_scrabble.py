@@ -1,6 +1,8 @@
 import unittest
 from game.scrabble import ScrabbleGame
 from game.tile import Tile
+from game.board import Board
+from game.cell import Cell
 from unittest.mock import patch
 
 class TestScrabbleGame(unittest.TestCase):
@@ -35,7 +37,6 @@ class TestScrabbleGame(unittest.TestCase):
         scrabble_game.current_player = scrabble_game.players[2]
         scrabble_game.next_turn()
         self.assertEqual(scrabble_game.current_player.name, scrabble_game.players[0].name)
-
 
 if __name__ == '__main__':
     unittest.main()

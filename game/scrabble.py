@@ -28,3 +28,4 @@ class ScrabbleGame:
             index = (index + 1) % len(self.players)
             self.current_player = self.players[index]
         self.current_turn += 1
+

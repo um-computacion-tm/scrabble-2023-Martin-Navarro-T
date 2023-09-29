@@ -138,7 +138,7 @@ class TestPlayer(unittest.TestCase):
         player = Player('Eve')
         player.tiles = [Tile('A', 1), Tile('B', 3), Tile('C', 2)]
         self.assertFalse(player.validate_word('ABCD')) 
-
+    
 class MockCell:
     def __init__(self, value):
         self.value = value
