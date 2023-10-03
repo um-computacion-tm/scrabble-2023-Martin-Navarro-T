@@ -139,6 +139,27 @@ class TestPlayer(unittest.TestCase):
         player.tiles = [Tile('A', 1), Tile('B', 3), Tile('C', 2)]
         self.assertFalse(player.validate_word('ABCD')) 
     
+    def test_set_tiles(self):
+        # Crear una instancia de Player
+        player = Player(name="Jugador 1", bag_tiles=None)
+
+        # Establecer las letras disponibles para el jugador
+        tiles = ["a", "b", "c", "d", "e"]
+        player.set_tiles(tiles)
+
+        # Verificar que las letras se hayan establecido correctamente
+        self.assertEqual(player.get_tiles(), tiles)
+
+    def test_get_tiles(self):
+        # Crear una instancia de Player
+        player = Player(name="Jugador 1", bag_tiles=None)
+
+        # Establecer las letras disponibles para el jugador
+        tiles = ["a", "b", "c", "d", "e"]
+        player.set_tiles(tiles)
+
+        # Obtener las letras y verificar que coincidan con las establecidas
+        self.assertEqual(player.get_tiles(), tiles)
 class MockCell:
     def __init__(self, value):
         self.value = value

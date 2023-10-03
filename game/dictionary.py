@@ -1,4 +1,12 @@
 # dictionary.py 	
+class Dictionary:
+    def __init__(self):
+        with open('dictionary.txt', 'r', encoding='utf-8') as file:
+            self.dictionary = set(word.strip().lower() for word in file)
+    def verify_word(self,word):
+        word = word.lower()
+        return word in self.dictionary
+'''
 import unicodedata
 
 with open('dictionary.txt', 'r', encoding='utf-8') as file:
@@ -11,10 +19,8 @@ class Dictionary:
     def verify_word(self,word):
         word = word.lower()
         return word in word_list
-    
-#from pyrae import dle
-#res = dle.search_by_word(word='hola')
-#res.to_dict()
+'''
+
 '''
 import os
 

@@ -6,6 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+
+## [0.0.19] - "Commit 20" - 2023/10/02
+
+### Removed
+- Import of `unicodedata` has been removed as it is no longer used in the code.
+- Removed the `remove_accents` method from the `Dictionary` class.
+
+### Changed
+- The `Dictionary` class has been updated to improve code efficiency and simplicity.
+- Class initialization now loads all dictionary words into `self.dictionary` instead of opening the file every time `Dictionary` is instantiated.
+- Changed the `__init__` constructor of the `Dictionary` class to load all the dictionary words into a `self.dictionary` variable.
+- Changed the `verify_word` method of the `Dictionary` class to check if a word exists in `self.dictionary`.
+
+## Added
+- New methods have been added to the `Player` class in `player.py`:
+  - `set_tiles(self, tiles)`: Sets the player's tiles with a given tile list.
+  - `get_tiles(self)`: Returns the player's current tiles.
+- New tests have been added for the methods of the `Player` class in `test_player.py`:
+  - `test_set_tiles(self)`: Test that verifies that the `set_tiles` method sets the letters correctly.
+  - `test_get_tiles(self)`: Test that verifies that the `get_tiles` method returns the letters correctly.
+
 ## [0.0.19] - "Commit 19" - 2023/09/29
 
 ### Changed
