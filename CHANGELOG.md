@@ -6,8 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.0.21] - "Commit 21" - 2023/10/03
 
-## [0.0.19] - "Commit 20" - 2023/10/02
+### Changed
+- The `__init__` method of the `BagTiles` class in `bagtiles.py` has been modified.
+  - The constructor now generates the tiles based on the specified quantity and stores them in `self.tiles`. The order of the tiles has also been changed to match the game rules
+- The `test_bag_tiles` test has been modified to reflect the changes in the constructor and verify its correct operation.
+
+###Removed
+- The `initial_tiles` method has been removed, as the constructor (`__init__`) now handles tile generation.
+- Removed test `test_initial_tiles` which is no longer relevant due to changes in initialization.
+
+## [0.0.20] - "Commit 20" - 2023/10/02
 
 ### Removed
 - Import of `unicodedata` has been removed as it is no longer used in the code.
