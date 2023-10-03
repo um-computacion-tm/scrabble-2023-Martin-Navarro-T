@@ -28,4 +28,21 @@ class ScrabbleGame:
             index = (index + 1) % len(self.players)
             self.current_player = self.players[index]
         self.current_turn += 1
+'''
+    def validate_word(self, word, location, orientation):
+
+        1- Validar que el jugador tiene las letras necesarias
+        2- Validar que la palabra cabe en el tablero
+
+        player_tiles = self.current_player.view_tiles()
+        for letter in word:
+            if letter not in player_tiles:
+                return False
+        
+        if self.board.validate_word_inside_board(word, location, orientation):
+            return True
+        else:
+            return False
+'''
+
 

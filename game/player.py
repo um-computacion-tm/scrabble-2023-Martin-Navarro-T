@@ -56,3 +56,19 @@ class Player:
             rack_letters.remove(letter)
 
         return True
+
+    def set_tiles(self, tiles):
+        self.tiles = tiles
+        
+    def get_tiles(self):
+        return self.tiles
+    '''
+    def has_letters(self, tiles):
+        tiles_counts = {tile.letter: tile.value for tile in tiles}
+        player_tiles_counts = {tile.letter: tile.value for tile in self.tiles}
+
+        for letter, count in tiles_counts.items():
+            if letter not in player_tiles_counts or count > player_tiles_counts[letter]:
+                return False
+        return True
+'''
