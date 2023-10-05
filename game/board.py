@@ -39,10 +39,11 @@ class Board:
             return location_y + word_length <= 15
         elif orientation == "Vertical":
             return location_x + word_length <= 15
+        #else:
+         #   return InvalidWordPlacement(Exception)
 
     def validate_word_out_of_board(self, word, location, orientation):
         return not self.validate_word_inside_board(word, location, orientation)
-
 
     def validate_word_horizontal(self, word, location, orientation):
         location_x, location_y = location
@@ -56,7 +57,6 @@ class Board:
 
         return found_letter and self.validate_word_inside_board(word, location, orientation)
 
-
     def validate_word_vertical(self, word, location, orientation):
         location_x, location_y = location
         word_length = len(word)
@@ -67,7 +67,6 @@ class Board:
                 if actual_tile.letter.lower() == word[i]:
                     found_letter = True
         return found_letter and self.validate_word_inside_board(word, location, orientation)
-
 
     def is_empty(self):
         if self.grid[7][7].letter is None:
@@ -87,7 +86,6 @@ class Board:
             return self.validate_word_inside_board(word, location, orientation)
 
         return False
-
 
     def validate_word_place_board(self, word, location, orientation):
         if self.is_empty() is True:
