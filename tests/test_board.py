@@ -179,6 +179,6 @@ class TestBoard(unittest.TestCase):
         result = board.clear_cell(16, 16)
         # Debería devolver False ya que la celda está fuera de los límites
         self.assertFalse(result)
-
+    
 if __name__ == "__main__":
     unittest.main()

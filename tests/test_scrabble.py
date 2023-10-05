@@ -38,9 +38,51 @@ class TestScrabbleGame(unittest.TestCase):
         scrabble_game.current_player = scrabble_game.players[2]
         scrabble_game.next_turn()
         self.assertEqual(scrabble_game.current_player.name, scrabble_game.players[0].name)
+        
+    def test_validate_word(self):
+        scrabble_game = ScrabbleGame(2)
+        word = "Facultad"
+        location = (7, 7)
+        orientation = "Horizontal"
+        self.assertEqual(scrabble_game.validate_word(word,location,orientation), True)
+        
+    def test_validate_word_false(self):
+        scrabble_game = ScrabbleGame(2)
+        word = "Kadabra"
+        location = (0,0)
+        orientation = "Horizontal"
+        self.assertEqual(scrabble_game.validate_word(word, location, orientation), False)
+    
+    def test_validate_word_invalid_word(self):
+        scrabble_game = ScrabbleGame(2)
+        word = "Imvalid"  # Una palabra que sabemos que no está en el diccionario
+        location = (7, 7)
+        orientation = "Horizontal"
+        
+        result = scrabble_game.validate_word(word, location, orientation)
+        
+        self.assertFalse(result)
+
+    def test_game_over_true(self):
+        game = ScrabbleGame(players_count=2)
+        game.bag_tiles.tiles = []  # Vacía la bolsa de fichas
+
+        is_game_over = game.game_over()
+
+        self.assertTrue(is_game_over)
+
+    def test_game_over_false(self):
+        game = ScrabbleGame(players_count=2)
+        game.bag_tiles.tiles = [Tile('A', 1)]  # Agrega una ficha a la bolsa
+
+        is_game_over = game.game_over()
+
+        self.assertFalse(is_game_over)
 
 if __name__ == "__main__":
     unittest.main()
+
+
 
     
 

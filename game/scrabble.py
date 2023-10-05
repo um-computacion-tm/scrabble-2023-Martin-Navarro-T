@@ -11,13 +11,12 @@ class ScrabbleGame:
         self.current_turn = 0
         self.current_player = None
         self.players: list[Player] = []
-        
+        self.dict = Dictionary()
         # Crear instancias de Player con nombres
         for i in range(players_count):
             player_name = f"Player {i+1}"
             self.players.append(Player(name=player_name, bag_tiles=self.bag_tiles))
         
-
     def playing(self):
         return True
 
@@ -30,3 +29,15 @@ class ScrabbleGame:
             self.current_player = self.players[index]
         self.current_turn += 1
 
+
+    def validate_word(self, word, location, orientation):
+        if self.dict.verify_word(word) is True:
+            return self.board.validate_word_place_board(word, location, orientation)
+        else:
+            return False
+
+    
+    def game_over(self):
+        if len(self.bag_tiles.tiles) == 0:
+            return True
+        return False

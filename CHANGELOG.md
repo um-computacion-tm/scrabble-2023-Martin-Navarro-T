@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.0.22] - "Commit 22" - 2023/10/05
+
+### Added
+- New methods have been added to the `ScrabbleGame` class in `scrabble.py`:
+  - `validate_word`: Validates whether a given word can be placed on the board at a specific location and orientation. It checks the word's validity against a dictionary and board placement rules.
+  - `game_over`: Determines if the game has ended. Returns `True` when the tile bag is empty, indicating no more tiles are available for play.
+- New tests have been added for the methods of the `ScrabbleGame` class in `test_scrabble_game.py`:
+  - `test_validate_word`: Verifies that the `validate_word` method correctly validates a valid word for board placement.
+  - `test_validate_word_false`: Ensures that the `validate_word` method returns `False` when attempting to validate an invalid word.
+  - `test_game_over_true`: Confirms that the `game_over` method returns `True` when the tile bag is empty, indicating the end of the game.
+  - `test_game_over_false`: Verifies that the `game_over` method returns `False` when there are still tiles available in the tile bag.
+
 ## [0.0.21] - "Commit 21" - 2023/10/03
 
 ### Changed
@@ -13,7 +25,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - The constructor now generates the tiles based on the specified quantity and stores them in `self.tiles`. The order of the tiles has also been changed to match the game rules
 - The `test_bag_tiles` test has been modified to reflect the changes in the constructor and verify its correct operation.
 
-###Removed
+### Removed
 - The `initial_tiles` method has been removed, as the constructor (`__init__`) now handles tile generation.
 - Removed test `test_initial_tiles` which is no longer relevant due to changes in initialization.
 
@@ -29,7 +41,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Changed the `__init__` constructor of the `Dictionary` class to load all the dictionary words into a `self.dictionary` variable.
 - Changed the `verify_word` method of the `Dictionary` class to check if a word exists in `self.dictionary`.
 
-## Added
+### Added
 - New methods have been added to the `Player` class in `player.py`:
   - `set_tiles(self, tiles)`: Sets the player's tiles with a given tile list.
   - `get_tiles(self)`: Returns the player's current tiles.
@@ -55,7 +67,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - `test_is_valid_word_invalid`
   - `test_load_dictionary_file_not_found`
 
-## Added
+### Added
 - Added `verify_word` method to verify words in the dictionary.
 - Added `remove_accents` method for accent removal.
 - Added the ability to load a dictionary from a file in `dictionary.py`.
