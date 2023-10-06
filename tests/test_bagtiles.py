@@ -1,4 +1,3 @@
-#test_bagtiles.py
 import unittest
 from game.tile import Tile
 from game.bagtiles import BagTiles, NoTilesAvailable, ImpossibleToChangeMoreThan7, BagFull
@@ -6,12 +5,18 @@ from game.player import Player
 from unittest.mock import patch
 
 class TestBagTiles(unittest.TestCase):
+    #NEw
     @patch('random.shuffle')
-    def test_bag_tiles(self, patch_shuffle):
+    def test_bag_tiles(self,patch_shuffle):
         bag = BagTiles()
-        self.assertEqual(len(bag.tiles), 100)  # Total de fichas, incluyendo comodines
-        self.assertEqual(patch_shuffle.call_count, 1)
-        self.assertEqual(patch_shuffle.call_args[0][0], bag.tiles)
+        self.assertEqual(len(bag.tiles),29)
+        self.assertEqual(patch_shuffle.call_count,1)
+        self.assertEqual(patch_shuffle.call_args[0][0],bag.tiles)
+        
+    def test_initial_tiles(self):
+        bag = BagTiles()
+        bag.initial_tiles()
+        self.assertEqual(len(bag.tiles),100)
         
     def test_take(self):
         bag = BagTiles()
@@ -55,6 +60,22 @@ class TestBagTiles(unittest.TestCase):
             len(bag.tiles),
             100,  # La bolsa debería seguir llena
         )
+
+    def test_put_more_than_7_tiles(self):
+        bag = BagTiles()
+        put_tiles = [Tile('A', 1)] * 8  # Intentar poner 8 fichas a la vez
+        with self.assertRaises(ImpossibleToChangeMoreThan7):
+            bag.put(put_tiles)
+
+    def test_put_bag_full(self):
+        bag = BagTiles()
+        put_tiles = [Tile('A', 1)]
+        # Llenar la bolsa hasta que esté completa
+        while len(bag.tiles) < 100:
+            bag.put([Tile('B', 1)])
+        # Intentar poner una ficha más, lo que debería generar la excepción BolsaLlena
+        with self.assertRaises(BagFull):
+            bag.put(put_tiles)
 
 if __name__ == '__main__':
     unittest.main()

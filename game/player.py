@@ -1,4 +1,6 @@
 # player.py
+from game.bagtiles import BagTiles
+
 class Player:
     def __init__(self, name, bag_tiles=None):
         self.name = name
@@ -6,19 +8,20 @@ class Player:
         self.score = 0
         self.is_current_turn = False
         self.bag_tiles = bag_tiles
-        self.played_words = []  # Lista para llevar un registro de las palabras jugadas
+        self.rack = []
+        #self.played_words = []  # Lista para llevar un registro de las palabras jugadas
+        
+    def draw_tiles(self, bag, num_tiles):
+        if num_tiles <= len(bag.tiles):
+            self.tiles.extend(bag.tiles[:num_tiles])
+            del bag.tiles[:num_tiles]
 
-    def draw_tiles(self, bag_tiles, count):
-        new_tiles = bag_tiles.take(count)
-        self.tiles.extend(new_tiles)
-
-    def exchange_tiles(self, bag_tiles, tiles_to_exchange):
-        tiles_to_keep = [tile for tile in self.tiles if tile not in tiles_to_exchange]
-        tiles_taken = bag_tiles.take(len(tiles_to_exchange))
-
-        bag_tiles.put(tiles_to_exchange)
-        self.tiles = tiles_to_keep + tiles_taken
-
+    def exchange_tiles(self,index,bag=BagTiles):
+        tile_to_exchange = self.rack.pop(index)
+        new_tile = bag.take(1)
+        bag.put([tile_to_exchange])
+        self.rack.append(new_tile)
+  
     def view_tiles(self):
         return self.tiles[:]
 
@@ -46,29 +49,13 @@ class Player:
             total_score += cell.calculate_value()
         return total_score
 
-    def validate_word(self, word): #Similar a has_letter
-        word_letters = list(word)
-        rack_letters = [tile.letter for tile in self.tiles]
-
-        for letter in word_letters:
-            if letter not in rack_letters:
-                return False
-            rack_letters.remove(letter)
-
-        return True
-
+    def has_letters(self, tiles):
+        rack = set(tile.letter for tile in self.rack) #Creación de un cojunto de python
+        return set(tile.letter for tile in tiles).issubset(rack) #Se crea otro conjunto de python 
+        #issubset comprueba si el nuevo conjunto es un subconjunto de rack, si es así devuelve True
+        
     def set_tiles(self, tiles):
         self.tiles = tiles
         
     def get_tiles(self):
         return self.tiles
-    '''
-    def has_letters(self, tiles):
-        tiles_counts = {tile.letter: tile.value for tile in tiles}
-        player_tiles_counts = {tile.letter: tile.value for tile in self.tiles}
-
-        for letter, count in tiles_counts.items():
-            if letter not in player_tiles_counts or count > player_tiles_counts[letter]:
-                return False
-        return True
-'''
