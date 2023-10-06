@@ -6,6 +6,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+
+## [0.0.23] - "Commit 23" - 2023/10/06
+
+### Removed
+- Removed the previous implementation of the `validate_word` method in `player.py`.
+- Removed the tests for `validate_word`:
+  - `test_validate_word_valid`
+  - `test_validate_word_invalid`
+
+### Fixed
+- Fixed a bug that caused the number of tiles in the player's hand after the exchange to not match the expected number, resulting in the `test_exchange_tiles` test in `test_player.py` failing.
+
+### Added
+- `BagTiles` Class in `bagtiles.py`:
+  - Added an `initial_tiles` method to ensure the tile bag contains the required initial tiles, aligning with game rules Simplified tile initialization within the constructor, improving code readability.
+- New Test Cases in `test_player.py`:
+  - `test_validate_rack_true`: Validates the `has_letters` method for confirming tile availability in the player's rack, returning `True` for valid words. 
+  - `test_validate_rack_false`: Ensures the `has_letters` method correctly returns `False` for words with missing tiles. 
+- New Test Case in `test_bagtiles.py`:
+  - `test_initial_tiles`: Tests the functionality of the newly added `initial_tiles` method in the `BagTiles` class. #Added
+  - `test_put_more_than_7_tiles`: Check the behavior of the put function when trying to put more than 7 tiles at a time, which should raise the ImpossibleToChangeMoreThan7 exception.
+  - `test_put_bag_full`: Check the behavior of the put function when trying to put a token into a full bag, which should raise the BagFull exception.
+
+### Changed
+- Modified the `take` and `put` methods in `BagTiles` class.
+- Updated the `take` method to handle cases where there are not enough tiles available in the bag.
+- Updated the `put` method to check if adding tiles would exceed the maximum limit of 100 tiles in the bag.
+- Updated the `exchange_tiles` method in the `Player` class in `player.py`.
+- Refactored the `validate_word` method in the `Player` class in `player.py` to `has_letters`.
+  - The `validate_word` method, which checked if a word can be formed using the player's rack, has been replaced with a more general method, `has_letters`.
+  - The new method checks if a set of tiles can be formed using the player's rack letters, making the logic more versatile and reusable.
+- Modified the `test_exchange_tiles` method in the `TestPlayer` class in `test_player.py`.
+- Modified the `test_bag_tiles` method in the `TestBagTiles` class in `test_bagtiles.py`.
+- Updated the test case in `test_bagtiles.py` to accommodate changes in the `BagTiles` class, including the addition of the `initial_tiles` method. 
+
 ## [0.0.22] - "Commit 22" - 2023/10/05
 
 ### Added
