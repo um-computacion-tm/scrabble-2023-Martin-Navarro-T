@@ -2,8 +2,9 @@
 from game.bagtiles import BagTiles
 
 class Player:
-    def __init__(self, name, bag_tiles=None):
+    def __init__(self, name, id=0, bag_tiles=None):
         self.name = name
+        self.id = id
         self.tiles = []
         self.score = 0
         self.is_current_turn = False

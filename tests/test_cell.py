@@ -102,6 +102,27 @@ class TestCell(unittest.TestCase):
         letter_multiplier = 3
         self.cell.apply_letter_multiplier(letter_multiplier)
         self.assertEqual(self.cell.multiplier, letter_multiplier)
+        
+    def test_repr_empty(self):
+        cell = Cell()
+        expected_repr = '   '
+        self.assertEqual(repr(cell), expected_repr)
+
+    def test_repr_with_letter(self):
+        cell = Cell(letter="A")
+        expected_repr = "'A'"
+        self.assertEqual(repr(cell), expected_repr)
+
+    def test_repr_word_multiplier(self):
+        cell = Cell(multiplier=2, multiplier_type="word")
+        expected_repr = 'Wx2'
+        self.assertEqual(repr(cell), expected_repr)
+
+    def test_repr_letter_multiplier(self):
+        cell = Cell(multiplier=3, multiplier_type="letter")
+        expected_repr = 'Lx3'
+        self.assertEqual(repr(cell), expected_repr)
+
+
 if __name__ == '__main__':
     unittest.main()
-

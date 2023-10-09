@@ -17,10 +17,10 @@ class TestScrabbleGame(unittest.TestCase):
         self.assertTrue(game.playing())
 
     def test_next_turn(self):
-        game = ScrabbleGame(players_count=3)
-        current_turn = game.current_turn
+        game = ScrabbleGame(2)
+        self.assertEqual(game.turn, 0)
         game.next_turn()
-        self.assertEqual(game.current_turn, current_turn + 1)
+        self.assertEqual(game.turn, 1)
 
     def test_next_turn_when_game_is_starting(self):
         scrabble_game = ScrabbleGame(players_count=3)
