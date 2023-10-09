@@ -1,3 +1,4 @@
+#main.py 
 import os
 import sys
 
@@ -13,7 +14,7 @@ class Main:
         print('Bienvenido a Scrabble Game!')
         self.player_count = self.get_player_count()
         self.game = ScrabbleGame(self.player_count)  
-
+        self.board = self.game.get_board()
         
     def valid_player_count(self, player_count):
         try:
@@ -24,16 +25,20 @@ class Main:
     
     def get_player_count(self):
         while True:
-            player_count = input('Cantidad de jugadores: ')
-            if self.valid_player_count(player_count):
+            player_count = input('Cantidad de jugadores (2-4): ')
+            if self.valid_player_count(player_count) is True:
                 return int(player_count)
-            print('Valor inválido')
+            print('Valor inválido. Debe ser un número entre 2 y 4')
     
+    def next_turn(self):
+        self.game.next_turn()
+    
+    #CAMBIAR / ARREGLAR
     def play(self):
         print(f'La cantidad de jugadores es: {self.player_count}')
         self.game.next_turn()
         print(f'Turno del jugador 1')
-        
+
 if __name__ == '__main__':
     main = Main()
     main.play()

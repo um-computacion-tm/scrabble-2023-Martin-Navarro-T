@@ -6,6 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.0.24] - "Commit 24" - 2023/10/09
+
+### Added
+- Se ha añadido el método `__repr__` a la clase `Cell` en `cell.py`. Este método permite representar de manera legible la información de una celda cuando se utiliza la función `repr()`.
+- Se han añadido los siguientes tests en `test_cell.py` para verificar la implementación del método `__repr__`:
+  - `test_repr_empty`: Verifica que el método `__repr__` devuelva la representación adecuada para una celda vacía.
+  - `test_repr_with_letter`: Verifica que el método `__repr__` devuelva la representación adecuada para una celda con una letra.
+  - `test_repr_word_multiplier`: Verifica que el método `__repr__` devuelva la representación adecuada para una celda con multiplicador de palabra.
+  - `test_repr_letter_multiplier`: Verifica que el método `__repr__` devuelva la representación adecuada para una celda con multiplicador de letra.
+- Se ha agregado el atributo `id` a la clase `Player` en `player.py`. Este atributo permite identificar de manera única a cada jugador.
+- Se ha agregado el atributo `turn` a la clase `ScrabbleGame` en `scrabble_game.py`. Este atributo lleva un registro del turno actual en el juego.
+- Se ha agregado la función `get_board` a la clase `ScrabbleGame` en `scrabble_game.py`. Esta función permite obtener el estado actual del tablero de juego.
+- Se ha añadido el método `next_turn` a la clase `Main` en `main.py`. Este método permite avanzar al siguiente turno en el juego principal.
+- Se ha añadido el test `test_next_turn` en `test_main.py` para verificar el funcionamiento del método `next_turn` en la clase `Main`.
+
+### Changed
+- Se ha modificado el método `next_turn` en la clase `ScrabbleGame` en `scrabble_game.py` para mejorar la lógica de cambio de turno.
+  - Ahora, cuando se llama a `next_turn`, verifica si el jugador actual es el último de la lista de jugadores. Si es así, el turno se pasa al primer jugador en la lista. De lo contrario, se pasa al siguiente jugador en la lista.
+  - Se ha actualizado el atributo `turn` en lugar de `current_turn` para llevar un registro del número de turno actual.
+- Se ha modificado el test `test_next_turn` en `test_scrabble_game.py` para reflejar los cambios en la lógica de cambio de turno del método `next_turn`.
+- Se ha modificado el método `get_player_count` en la clase `ScrabbleGame` en `scrabble_game.py`.
 
 ## [0.0.23] - "Commit 23" - 2023/10/06
 

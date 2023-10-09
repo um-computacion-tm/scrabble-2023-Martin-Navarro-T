@@ -1,8 +1,12 @@
+#test_main.py
 from main import Main
 import unittest
 from unittest.mock import patch
 from io import StringIO
+import io
 import sys
+from game.cell import Cell
+from unittest.mock import call
 
 class TestScrabbleGame(unittest.TestCase):
     def setUp(self):
@@ -43,10 +47,14 @@ class TestScrabbleGame(unittest.TestCase):
         self.assertIn('Valor inválido', main_output_value)
         self.assertIn('La cantidad de jugadores es: 3', main_output_value)
         self.assertIn('Turno del jugador 1', main_output_value)
+    
+    @patch('builtins.input', side_effect=['2'])
+    def test_next_turn_main(self, mock_input):
+        main = Main()
+        self.assertEqual(main.game.turn, 0)
+        main.next_turn()
+        self.assertEqual(main.game.turn, 1)
 
 if __name__ == "__main__":
     unittest.main()
-
-
-
 
