@@ -8,6 +8,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 # Changelog
 
+## [0.0.26] - "Commit 26" - 2023/10/19
+
+### Changed
+- The `validate_word` method in the `ScrabbleGame` class in `scrabble.py` has been improved. Now includes additional checks, such as board boundaries and matches with valid words. If any check fails, an exception is thrown.
+
+### Added
+- Added a new exception to the `ScrabbleGame` class in `scrabble.py`:
+  - `InvalidWordException`: A custom exception thrown when a word does not meet the required validations.
+- New methods have been added to the `ScrabbleGame` class in `scrabble.py`:
+  - `dict_validate_word(self, word)`: A new method that validates if a word exists in the game dictionary.
+  - `clean_word_to_use(self, word)`: A new method that removes accents and whitespace from a word and converts it to uppercase for use.
+- A new `remove_accents` method has been added to the `Dictionary` class in `dictionary.py`:
+  - `remove_accents(self, word)`: A method that uses the `unidecode` library to remove accents and diacritics from a word, making it easier to compare words without considering special characters.
+
 ## [0.0.25] - "Commit 25" - 2023/10/18
 
 ### Changed

@@ -5,6 +5,10 @@ from game.bagtiles import BagTiles
 from game.dictionary import Dictionary  
 import random
 
+# Excepciones
+class InvalidWordException(Exception):
+    pass
+
 class ScrabbleGame:
     def __init__(self, players_count):
         self.board = Board()
@@ -32,11 +36,25 @@ class ScrabbleGame:
             self.current_player = self.players[player_turn]
         self.turn += 1
 
+    def dict_validate_word(self, word):
+        dict = Dictionary()
+        return dict.verify_word(word)
+    
+    def clean_word_to_use(self, word):
+        dict = Dictionary()
+        word = dict.remove_accents(word)
+        word = word.strip().upper()
+        return word
+    
     def validate_word(self, word, location, orientation):
-        if self.dict.verify_word(word) is True:
-            return self.board.validate_word_place_board(word, location, orientation)
-        else:
-            return False
+        if not self.dict_validate_word(word):
+            raise InvalidWordException('Su palabra no existe en el diccionario')
+        if not self.board.validate_word_inside_board(word, location, orientation):
+            raise InvalidWordException('Su palabra excede el tablero')
+        if not self.board.validate_word_place_board(word, location, orientation):
+            #Hacer test para que corra la linea 56
+            raise InvalidWordException('Su palabra no se cruza con ninguna palabra valida') 
+        return True
 
     def game_over(self):
         if len(self.bag_tiles.tiles) == 0:
@@ -46,6 +64,10 @@ class ScrabbleGame:
     def get_board(self):
         return self.board
 
+    def test_get_current_player_id(self):
+        game = ScrabbleGame(2)
+        game.next_turn()
+        self.assertEqual(game.get_current_player_id(), 1)
     def show_amount_tiles_bag(self):
         return len(self.bag_tiles.tiles)
       

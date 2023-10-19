@@ -1,10 +1,11 @@
+#test_scrabble.py
 import unittest
-from game.scrabble import ScrabbleGame
+from game.scrabble import ScrabbleGame, InvalidWordException
 from game.tile import Tile
 from game.board import Board
 from game.cell import Cell
 from game.player import Player
-from game.dictionary import Dictionary
+from game.dictionary import Dictionary 
 
 class TestScrabbleGame(unittest.TestCase):
     def test_init(self):
@@ -46,23 +47,36 @@ class TestScrabbleGame(unittest.TestCase):
         orientation = "Horizontal"
         self.assertEqual(game.validate_word(word,location,orientation), True)
         
-    def test_validate_word_false(self):
-        scrabble_game = ScrabbleGame(2)
-        word = "Kadabra"
-        location = (0,0)
-        orientation = "Horizontal"
-        self.assertEqual(scrabble_game.validate_word(word, location, orientation), False)
-    
-    def test_validate_word_invalid_word(self):
-        scrabble_game = ScrabbleGame(2)
-        word = "Imvalid"  # Una palabra que sabemos que no está en el diccionario
+    def test_validate_word_simple(self):
+        # Prueba simple para validar_word
+        game = ScrabbleGame(players_count=3)
+        game.current_player = game.players[0]
+
+        word = "HELLO"
         location = (7, 7)
         orientation = "Horizontal"
-        
-        result = scrabble_game.validate_word(word, location, orientation)
-        
-        self.assertFalse(result)
 
+        with self.assertRaises(InvalidWordException):
+            is_valid = game.validate_word(word, location, orientation)
+            
+    def test_validate_word_not_in_dictionary(self):
+        game = ScrabbleGame(2)
+        word = "Kadabra"
+        location = (0, 0)
+        orientation = "Horizontal"
+        
+        # Aquí necesitas validar que la excepción sea lanzada.
+        with self.assertRaises(InvalidWordException):
+            game.validate_word(word, location, orientation)
+
+    def test_validate_word_exceeds_board(self):
+        game = ScrabbleGame(2)
+        word = "Facultad"
+        location = (14,14)
+        orientation = "H"
+        with self.assertRaises(InvalidWordException):
+            game.validate_word(word, location, orientation)
+            
     def test_game_over_true(self):
         game = ScrabbleGame(players_count=2)
         game.bag_tiles.tiles = []  # Vacía la bolsa de fichas
@@ -89,7 +103,12 @@ class TestScrabbleGame(unittest.TestCase):
         game.current_player.rack = [Tile('A', 1), Tile('B',3), Tile('C',2)]
         game.shuffle_rack()
         self.assertEqual(len(game.current_player.rack), 3)
-
+        
+    def test_clean_word_to_use(self):
+        game = ScrabbleGame(2)
+        word = 'Imaginación'
+        self.assertEqual(game.clean_word_to_use(word), 'IMAGINACION')
+        
 if __name__ == "__main__":
     unittest.main()
 
