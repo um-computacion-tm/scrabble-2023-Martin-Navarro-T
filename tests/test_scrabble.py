@@ -40,11 +40,11 @@ class TestScrabbleGame(unittest.TestCase):
         self.assertEqual(scrabble_game.current_player.name, scrabble_game.players[0].name)
         
     def test_validate_word(self):
-        scrabble_game = ScrabbleGame(2)
+        game = ScrabbleGame(2)
         word = "Facultad"
         location = (7, 7)
         orientation = "Horizontal"
-        self.assertEqual(scrabble_game.validate_word(word,location,orientation), True)
+        self.assertEqual(game.validate_word(word,location,orientation), True)
         
     def test_validate_word_false(self):
         scrabble_game = ScrabbleGame(2)
@@ -78,6 +78,17 @@ class TestScrabbleGame(unittest.TestCase):
         is_game_over = game.game_over()
 
         self.assertFalse(is_game_over)
+    
+    def test_show_amount_tiles_bag(self):
+        game = ScrabbleGame(2)
+        self.assertEqual(game.show_amount_tiles_bag(), 29)
+    
+    def test_shuffle_rack(self):
+        game = ScrabbleGame(2)
+        game.next_turn()
+        game.current_player.rack = [Tile('A', 1), Tile('B',3), Tile('C',2)]
+        game.shuffle_rack()
+        self.assertEqual(len(game.current_player.rack), 3)
 
 if __name__ == "__main__":
     unittest.main()

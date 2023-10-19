@@ -3,6 +3,7 @@ from game.board import Board
 from game.player import Player
 from game.bagtiles import BagTiles
 from game.dictionary import Dictionary  
+import random
 
 class ScrabbleGame:
     def __init__(self, players_count):
@@ -44,3 +45,9 @@ class ScrabbleGame:
     
     def get_board(self):
         return self.board
+
+    def show_amount_tiles_bag(self):
+        return len(self.bag_tiles.tiles)
+      
+    def shuffle_rack(self):
+        random.shuffle(self.current_player.rack)

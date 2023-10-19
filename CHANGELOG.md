@@ -6,27 +6,43 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+# Changelog
+
+## [0.0.25] - "Commit 25" - 2023/10/18
+
+### Changed
+- Improved the initialization of the board (`__init__`) in the `Board` class in `board.py` by configuring it with word and letter multipliers according to the Scrabble standard, instead of a fixed size and empty cells. This provides a more realistic and functional design for the game board.
+
+### Added
+- Added the `put_multipliers` method to the `Board` class in `board.py`. This method is used to create cells with the appropriate multipliers based on the board configuration.
+- Added the following methods to the `ScrabbleGame` class in `scrabble.py`:
+  - `show_amount_tiles_bag`: This method allows displaying the remaining number of tiles in the game's tile bag (`bagtiles`).
+  - `shuffle_rack`: This method allows shuffling the tiles on the current player's rack, providing variety in the tiles available to the player.
+- Added the following tests have been added to the `TestScrabbleGame` class in `test_scrabble.py`:
+  - `test_show_amount_tiles_bag`: This test verifies that the `show_amount_tiles_bag` method of the `ScrabbleGame` class works correctly by displaying the number of tiles remaining in the tile bag. The result is expected to be 29 chips.
+  - `test_shuffle_rack`: This test checks that the `shuffle_rack` method of the `ScrabbleGame` class properly shuffles the tiles in the current player's rack. It is verified that the number of chips in the holder does not change after shuffling.
+
 ## [0.0.24] - "Commit 24" - 2023/10/09
 
 ### Added
-- Se ha añadido el método `__repr__` a la clase `Cell` en `cell.py`. Este método permite representar de manera legible la información de una celda cuando se utiliza la función `repr()`.
-- Se han añadido los siguientes tests en `test_cell.py` para verificar la implementación del método `__repr__`:
-  - `test_repr_empty`: Verifica que el método `__repr__` devuelva la representación adecuada para una celda vacía.
-  - `test_repr_with_letter`: Verifica que el método `__repr__` devuelva la representación adecuada para una celda con una letra.
-  - `test_repr_word_multiplier`: Verifica que el método `__repr__` devuelva la representación adecuada para una celda con multiplicador de palabra.
-  - `test_repr_letter_multiplier`: Verifica que el método `__repr__` devuelva la representación adecuada para una celda con multiplicador de letra.
-- Se ha agregado el atributo `id` a la clase `Player` en `player.py`. Este atributo permite identificar de manera única a cada jugador.
-- Se ha agregado el atributo `turn` a la clase `ScrabbleGame` en `scrabble_game.py`. Este atributo lleva un registro del turno actual en el juego.
-- Se ha agregado la función `get_board` a la clase `ScrabbleGame` en `scrabble_game.py`. Esta función permite obtener el estado actual del tablero de juego.
-- Se ha añadido el método `next_turn` a la clase `Main` en `main.py`. Este método permite avanzar al siguiente turno en el juego principal.
-- Se ha añadido el test `test_next_turn` en `test_main.py` para verificar el funcionamiento del método `next_turn` en la clase `Main`.
+- Added the `__repr__` method to the `Cell` class in `cell.py`. This method allows representing the information of a cell in a readable way when using the `repr()` function.
+- Added the following tests in `test_cell.py` to verify the implementation of the `__repr__` method:
+  - `test_repr_empty`: Verifies that the `__repr__` method returns the appropriate representation for an empty cell.
+  - `test_repr_with_letter`: Verifies that the `__repr__` method returns the appropriate representation for a cell with a letter.
+  - `test_repr_word_multiplier`: Verifies that the `__repr__` method returns the appropriate representation for a cell with a word multiplier.
+  - `test_repr_letter_multiplier`: Verifies that the `__repr__` method returns the appropriate representation for a cell with a letter multiplier.
+- Added the `id` attribute to the `Player` class in `player.py`. This attribute allows uniquely identifying each player.
+- Added the `turn` attribute to the `ScrabbleGame` class in `scrabble_game.py`, keeping track of the current turn in the game.
+- Added the `get_board` function to the `ScrabbleGame` class in `scrabble_game.py`, allowing to obtain the current state of the game board.
+- Added the `next_turn` method to the `Main` class in `main.py`. This method allows advancing to the next turn in the main game.
+- Added the `test_next_turn` test in `test_main.py` to verify the functionality of the `next_turn` method in the `Main` class.
 
 ### Changed
-- Se ha modificado el método `next_turn` en la clase `ScrabbleGame` en `scrabble_game.py` para mejorar la lógica de cambio de turno.
-  - Ahora, cuando se llama a `next_turn`, verifica si el jugador actual es el último de la lista de jugadores. Si es así, el turno se pasa al primer jugador en la lista. De lo contrario, se pasa al siguiente jugador en la lista.
-  - Se ha actualizado el atributo `turn` en lugar de `current_turn` para llevar un registro del número de turno actual.
-- Se ha modificado el test `test_next_turn` en `test_scrabble_game.py` para reflejar los cambios en la lógica de cambio de turno del método `next_turn`.
-- Se ha modificado el método `get_player_count` en la clase `ScrabbleGame` en `scrabble_game.py`.
+- Modified the `next_turn` method in the `ScrabbleGame` class in `scrabble_game.py` to improve the turn-changing logic.
+  - Now, when `next_turn` is called, it checks if the current player is the last one in the list of players. If so, the turn is passed to the first player in the list. Otherwise, it is passed to the next player in the list.
+  - Updated the `turn` attribute instead of `current_turn` to keep track of the current turn number.
+- Modified the `test_next_turn` test in `test_scrabble_game.py` to reflect the changes in the turn-changing logic of the `next_turn` method.
+- Modified the `get_player_count` method in the `ScrabbleGame` class in `scrabble_game.py`.
 
 ## [0.0.23] - "Commit 23" - 2023/10/06
 
