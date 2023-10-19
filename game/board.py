@@ -4,11 +4,37 @@ from game.tile import Tile
 
 class Board:
     def __init__(self):
-        self.size = 15  # Establece el tamaño del tablero
-        self.grid = [
-            [Cell(1, '') for _ in range(self.size)]
-            for _ in range(self.size)
+        board_multipliers = [
+            ["3W", None, None, "2L", None, None, None, "3W", None, None, None, "2L", None, None, "3W"],
+            [None, "2W", None, None, None, "3L", None, None, None, "3L", None, None, None, "2W", None],  
+            [None, None, "2W", None, None, None, "2L", None, "2L", None, None, None, "2W", None, None], 
+            ["2L", None, None, "2W", None, None, None, "2L", None, None, None, "2W", None, None, "2L"],  
+            [None, None, None, None, "2W", None, None, None, None, None, "2W", None, None, None, None],  
+            [None, "3L", None, None, None, "3L", None, None, None, "3L", None, None, None, "3L", None],  
+            [None, None, "2L", None, None, None, "2L", None, "2L", None, None, None, "2L", None, None],  
+            ["3W", None, None, "2L", None, None, None, "2W", None, None, None, "2L", None, None, "3W"],  
+            [None, None, "2L", None, None, None, "2L", None, "2L", None, None, None, "2L", None, None],  
+            [None, "3L", None, None, None, "3L", None, None, None, "3L", None, None, None, "3L", None],  
+            [None, None, None, None, "2W", None, None, None, None, None, "2W", None, None, None, None],  
+            ["2L", None, None, "2W", None, None, None, "2L", None, None, None, "2W", None, None, "2L"],  
+            [None, None, "2W", None, None, None, "2L", None, "2L", None, None, None, "2W", None, None],  
+            [None, "2W", None, None, None, "3L", None, None, None, "3L", None, None, None, "2W", None],  
+            ["3W", None, None, "2L", None, None, None, "3W", None, None, None, "2L", None, None, "3W"] 
         ]
+        self.grid = [
+            [self.put_multipliers(multiplier) for multiplier in row]
+            for row in board_multipliers
+        ]
+
+    def put_multipliers(self, multiplier):
+        if multiplier is None:
+            return Cell()
+        multiplier_type = multiplier[-1]
+        multiplier_value = int(multiplier[0])
+        if multiplier_type == "W":
+            return Cell(multiplier=multiplier_value, multiplier_type="word")
+        elif multiplier_type == "L":
+            return Cell(multiplier=multiplier_value, multiplier_type="letter")
 
     def place_tile(self, location_x, location_y, tile):
         if 0 <= location_x < 15 and 0 <= location_y < 15:
