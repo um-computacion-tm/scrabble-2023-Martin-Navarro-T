@@ -18,6 +18,14 @@ class TestDictionary(unittest.TestCase):
         dic = Dictionary()
         word = "Pingüino"
         self.assertEqual(dic.verify_word(word), True)
+    def test_verify_word_with_accents(self):
+        dic = Dictionary()
+        word = "Imaginación"
+        self.assertEqual(dic.verify_word(word), True)
+    def test_verify_word_with_dieresis(self):
+        dic = Dictionary()
+        word = "Pingüino"
+        self.assertEqual(dic.verify_word(word), True)
 
 '''
 import unittest
