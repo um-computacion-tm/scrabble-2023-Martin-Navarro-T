@@ -32,13 +32,29 @@ class Main:
     
     def next_turn(self):
         self.game.next_turn()
+
+    def show_rack(self):
+        return ' '.join(f'[{tile.letter}]' for tile in self.game.current_player.rack)
     
-    #CAMBIAR / ARREGLAR
-    def play(self):
-        print(f'La cantidad de jugadores es: {self.player_count}')
-        self.game.next_turn()
-        print(f'Turno del jugador 1')
+    def input_to_int(self, string):
+        try:
+            return int(string)
+        except ValueError:
+            print("Por favor, ingrese un número válido")
+
+    def take_turn(self):
+        print(f'Tu mano actual es: {self.show_rack()}')
+        while True:
+            option = input("Elija alguna opción:\n1) Jugar\n2) Ver Puntuación\n3) Pasar")
+            option = self.input_to_int(option)
+            if option == 1:
+                self.play()
+                break
+            elif option == 2:
+                self.show_scores()
+            elif option == 3:
+                break
+
 
 if __name__ == '__main__':
     main = Main()
-    main.play()

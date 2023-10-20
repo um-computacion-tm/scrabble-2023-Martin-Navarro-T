@@ -64,12 +64,9 @@ class ScrabbleGame:
     def get_board(self):
         return self.board
 
-    def test_get_current_player_id(self):
-        game = ScrabbleGame(2)
-        game.next_turn()
-        self.assertEqual(game.get_current_player_id(), 1)
     def show_amount_tiles_bag(self):
         return len(self.bag_tiles.tiles)
       
     def shuffle_rack(self):
         random.shuffle(self.current_player.rack)
+        

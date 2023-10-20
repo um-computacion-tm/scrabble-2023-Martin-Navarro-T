@@ -1,6 +1,6 @@
 #test_tile.py
 import unittest
-from game.tile import Tile, NotAJoker
+from game.tile import Tile
 
 class TestTiles(unittest.TestCase):
     def test_tile(self):
@@ -21,24 +21,20 @@ class TestTiles(unittest.TestCase):
         self.assertEqual(tile_z.get_value_by_letter('Z'), 10)
         # Verificar que el valor retornado sea 0 para una letra diferente, por ejemplo, 'X'
         self.assertEqual(tile_z.get_value_by_letter('X'), 0)
-
-    def test_joker_with_valid_letter(self):
-        # Crear una ficha comodín con letra '*'
-        tile = Tile('*', 0)
-        
-        # Cambiar la letra del comodín a 'A'
-        tile.joker('A')
-        
-        # Verificar que la letra de la ficha sea 'A' después del cambio
-        self.assertEqual(tile.letter, 'A')
     
-    def test_joker_with_invalid_letter(self):
-        # Crear una ficha no comodín con letra 'B'
-        tile = Tile('B', 1)
-        
-        # Intentar cambiar la letra de la ficha no comodín a 'A' debería lanzar la excepción NoEsUnJoker (NotAJoker)
-        with self.assertRaises(NotAJoker):
-            tile.joker('A')
+    def test_is_joker(self):
+        tile = Tile('?', 0)
+        self.assertEqual(tile.is_joker(), True)
+    
+    def test_is_not_joker(self):
+        tile = Tile('A', 1)  # Cualquier letra que no sea un comodín, por ejemplo, 'A'
+        self.assertEqual(tile.is_joker(), False)
+
+    def test_convert_tile(self):
+        tile = Tile('A',1)
+        tile.convert_tile('B', 2)
+        self.assertEqual(tile.letter, 'B')
+        self.assertEqual(tile.value, 2)
 
 if __name__ == '__main__':
     unittest.main()
