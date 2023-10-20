@@ -8,7 +8,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 # Changelog
 
-## [0.0.26] - "Commit 26" - 2023/10/19
+## [0.0.27] - "Commit 27 - 2023/10/20
+
+### Removed
+- The `NotAJoker` exception has been removed from `tile.py` as the `joker` method is no longer used and is no longer needed.
+- The `play` method in the `Main` class in `main.py` and its tests has been removed for later modification in future commits with new functionalities.
+
+### Changed
+- Changes have been made to the `Tile` class within `tile.py`:
+  - The `joker` method and its tests have been removed, as it has been replaced by the `is_joker` method to determine if a token is a wildcard.
+
+### Added
+- The following methods have been added to the `Tile` class within `tile.py`:
+  - `convert_tile`: To change the value and letter of a tile, this allows conversion of wildcard tiles to real letters.
+  - `is_joker`: which returns `True` if the token is a joker and `False` otherwise.
+- Added `convert_tile` and `is_joker` tests to `test_tile.py`
+- The following methods have been added to the `Main` class within `main.py`:
+  - `show_rack`: This method shows the available chips in the current player's rack.
+  - `take_turn`: Allows players to choose actions during their turn, such as playing a word, viewing their score, or passing. Makes sure the player's input is a valid number with input_to_int.
+  - `input_to_int`: Converts a string to an integer and handles exceptions if the input is invalid.
+- Added `take_turn` test to `test_main.py`
+
+## [0.0.26] - "Commit 26/26.2 - 2023/10/19
 
 ### Changed
 - The `validate_word` method in the `ScrabbleGame` class in `scrabble.py` has been improved. Now includes additional checks, such as board boundaries and matches with valid words. If any check fails, an exception is thrown.

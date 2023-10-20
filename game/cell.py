@@ -69,7 +69,8 @@ class Calculate_value:
                 total_value += cell_value
 
         return total_value * word_multiplier
-
+    
+    #Ver si es necesario o borrar 
     @staticmethod
     def calculate_cell_value(cell: Cell) -> int:
         if cell.letter is not None:
