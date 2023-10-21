@@ -1,6 +1,6 @@
 #test_scrabble.py
 import unittest
-from game.scrabble import ScrabbleGame, InvalidWordException
+from game.scrabble import ScrabbleGame, InvalidWordException, InvalidJokerConversion
 from game.tile import Tile
 from game.board import Board
 from game.cell import Cell
@@ -108,7 +108,32 @@ class TestScrabbleGame(unittest.TestCase):
         game = ScrabbleGame(2)
         word = 'Imaginación'
         self.assertEqual(game.clean_word_to_use(word), 'IMAGINACION')
-        
+    
+    def test_convert_joker_fine(self):
+        game = ScrabbleGame(2)
+        game.next_turn()
+        game.current_player.rack = [Tile('?', 0)]
+        game.convert_joker('A')
+        self.assertEqual(game.current_player.rack[0].letter, 'A')
+        self.assertEqual(game.current_player.rack[0].value, 1)
+
+    def test_convert_wildcard_no_wildcard(self):
+        game = ScrabbleGame(2)
+        game.next_turn()
+        game.current_player.rack = [Tile('A', 1)]
+        with self.assertRaises(InvalidJokerConversion):
+            game.convert_joker('B')
+
+    def test_input_to_int_wrong_fine(self):
+        game = ScrabbleGame(2)
+        string = '0'
+        self.assertEqual(game.input_to_int(string), 0)
+
+    def test_input_to_int_wrong(self):
+        game = ScrabbleGame(2)
+        string = 'm'
+        self.assertEqual(game.input_to_int(string), None)
+      
 if __name__ == "__main__":
     unittest.main()
 
