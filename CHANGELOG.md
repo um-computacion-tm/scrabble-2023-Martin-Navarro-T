@@ -8,7 +8,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 # Changelog
 
-## [0.0.27] - "Commit 27 - 2023/10/20
+## [0.0.28] - "Commit 28" - 2023/10/21
+
+### Removed
+- The `input_to_int` method has been removed from `main.py`.
+
+### Changed
+- The `input_to_int` method, previously located in `main.py`, has been moved to `scrabble.py`. This method converts an input string to an integer and is now available for use in game logic.
+
+### Added
+- Added a new exception to the `Player` class in `player.py`:
+  - `InvalidJokerConversion`: This exception is used to handle cases where a player attempts to perform an invalid joker token conversion.
+- Two new methods have been added to the `Player` class in `player.py`:
+  - `has_joker`: Checks if the player has a joker token in his holder.
+  - `find_joker`: Finds the position of a joker tile in the player's holder, if it exists.
+- Added `has_joker` and `find_joker` tests to `test_player.py`
+- Added a new method to the `ScrabbleGame` class in `scrabble.py`.
+  - `convert_joker`: Allows players to convert joker tiles in their holder into other specific tiles.
+- Added `convert_joker` tests to `test_scrabble.py`
+- Added `input_to_int` tests to `test_scrabble.py`
+
+## [0.0.27] - "Commit 27" - 2023/10/20
 
 ### Removed
 - The `NotAJoker` exception has been removed from `tile.py` as the `joker` method is no longer used and is no longer needed.
@@ -29,7 +49,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - `input_to_int`: Converts a string to an integer and handles exceptions if the input is invalid.
 - Added `take_turn` test to `test_main.py`
 
-## [0.0.26] - "Commit 26/26.2 - 2023/10/19
+## [0.0.26] - "Commit 26/26.2" - 2023/10/19
 
 ### Changed
 - The `validate_word` method in the `ScrabbleGame` class in `scrabble.py` has been improved. Now includes additional checks, such as board boundaries and matches with valid words. If any check fails, an exception is thrown.

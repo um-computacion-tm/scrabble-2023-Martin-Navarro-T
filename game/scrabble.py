@@ -8,6 +8,8 @@ import random
 # Excepciones
 class InvalidWordException(Exception):
     pass
+class InvalidJokerConversion(Exception):
+    pass
 
 class ScrabbleGame:
     def __init__(self, players_count):
@@ -69,4 +71,21 @@ class ScrabbleGame:
       
     def shuffle_rack(self):
         random.shuffle(self.current_player.rack)
+    
+    def input_to_int(self, string):
+        try:
+            return int(string)
+        except ValueError:
+            return None
+            
+    def convert_joker(self, new_letter):
+        bag = BagTiles()
+        if self.current_player.has_joker() is True:
+            index = self.current_player.find_joker()
+            joker = self.current_player.rack[index]
+            matching_tile = next((t for t in bag.tiles if t.letter == new_letter), None)
+            if matching_tile.letter == new_letter:
+                joker.convert_tile(new_letter, matching_tile.value)
+        else:
+            raise InvalidJokerConversion('No tienes un comodin en tu rack')
         

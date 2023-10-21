@@ -117,16 +117,36 @@ class TestPlayer(unittest.TestCase):
         self.assertFalse(is_valid)
 
     def test_set_tiles(self):
-        player = Player(name="Jugador 1", bag_tiles=None)
+        player = Player(name="Player 1", bag_tiles=None)
         tiles = ["a", "b", "c", "d", "e"]
         player.set_tiles(tiles)
         self.assertEqual(player.get_tiles(), tiles)
 
     def test_get_tiles(self):
-        player = Player(name="Jugador 1", bag_tiles=None)
+        player = Player(name="Player 1", bag_tiles=None)
         tiles = ["a", "b", "c", "d", "e"]
         player.set_tiles(tiles)
         self.assertEqual(player.get_tiles(), tiles)
+    
+    def test_has_joker_true(self):
+        player = Player(name="Player 1")
+        player.rack = [Tile('A', 1), Tile('?', 0)]
+        self.assertEqual(player.has_joker(), True)
+
+    def test_has_joker_false(self):
+        player = Player(name="Player 1")
+        player.rack = [Tile('A', 1), Tile('B', 2)]
+        self.assertEqual(player.has_joker(), False)
+    
+    def test_find_joker(self):
+        player = Player(name="Player 1")
+        player.rack = [Tile('A', 1), Tile('B', 2), Tile('?', 0)]
+        self.assertEqual(player.find_joker(), 2)
+    
+    def test_no_find_joker(self):
+        player = Player(name="Player 1")
+        player.rack = [Tile('A', 1), Tile('B', 2)]
+        self.assertEqual(player.find_joker(), False)
 
 if __name__ == "__main__":
     unittest.main()

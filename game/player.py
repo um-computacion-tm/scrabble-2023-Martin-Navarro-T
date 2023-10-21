@@ -10,8 +10,7 @@ class Player:
         self.is_current_turn = False
         self.bag_tiles = bag_tiles
         self.rack = []
-        #self.played_words = []  # Lista para llevar un registro de las palabras jugadas
-        
+ 
     def draw_tiles(self, bag, num_tiles):
         if num_tiles <= len(bag.tiles):
             self.tiles.extend(bag.tiles[:num_tiles])
@@ -22,7 +21,7 @@ class Player:
         new_tile = bag.take(1)
         bag.put([tile_to_exchange])
         self.rack.append(new_tile)
-  
+        
     def view_tiles(self):
         return self.tiles[:]
 
@@ -51,12 +50,23 @@ class Player:
         return total_score
 
     def has_letters(self, tiles):
-        rack = set(tile.letter for tile in self.rack) #Creación de un cojunto de python
-        return set(tile.letter for tile in tiles).issubset(rack) #Se crea otro conjunto de python 
-        #issubset comprueba si el nuevo conjunto es un subconjunto de rack, si es así devuelve True
+        rack = set(tile.letter for tile in self.rack) 
+        return set(tile.letter for tile in tiles).issubset(rack) 
         
     def set_tiles(self, tiles):
         self.tiles = tiles
         
     def get_tiles(self):
         return self.tiles
+    
+    def has_joker(self):
+        for tile in self.rack:
+            if tile.is_joker() is True:
+                return True
+        return False
+    
+    def find_joker(self):
+        for i, tile in enumerate(self.rack):
+            if tile.is_joker() is True:
+                return i
+        return False
