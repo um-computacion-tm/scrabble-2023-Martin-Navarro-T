@@ -8,6 +8,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 # Changelog
 
+## [0.0.29] - "Commit 29" - 2023/10/22
+
+### Changed
+- The `exchange_tiles` method in the `Player` class has been changed. Now, the method is active and allows a player to exchange tokens with the exchange. The returned token is placed again in the same position on the player's holder.
+
+### Added
+- Added new methods to the `Main` class in `main.py`:
+- `exchange_tiles`: This method allows players to exchange tiles with the stock. Players can specify how many tokens they wish to exchange (between 1 and 7) and then select tokens one by one.
+- `convert_tiles_in_another_tile`: This method is used to manage the process of selecting tiles that the player wants to exchange one by one.
+- Added tests for the `exchange_tiles` and `convert_tiles_in_another_tile` methods in `test_main.py`
+
 ## [0.0.28] - "Commit 28" - 2023/10/21
 
 ### Removed

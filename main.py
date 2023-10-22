@@ -48,6 +48,30 @@ class Main:
                 self.show_scores()
             elif option == 3:
                 break
-              
+    
+    def exchange_tiles(self):
+        while True:
+            amount = input("¿Cuántas fichas quieres intercambiar? (1-7) (0 para salir): ")
+            amount = self.game.input_to_int(amount)
+            numbers = [1, 2, 3, 4, 5, 6, 7]
+            if amount in numbers:
+                self.convert_tiles_in_another_tile(amount, numbers)
+                return 'finish'
+            elif amount == 0:
+                break
+            else: 
+                print('Valor invalido, intente de nuevo')
+    
+    def convert_tiles_in_another_tile(self, amount, numbers):
+        for i in range(amount):
+            index = input("Elige la ficha que vas a intercambiar una a una (1-7): ")
+            index = self.game.input_to_int(index)
+            if index in numbers:
+                self.game.current_player.exchange_tiles(index, self.game.bag_tiles)
+            elif index == 0:
+                break
+            else:
+                print('Valor invalido, intente de nuevo')
+                  
 if __name__ == '__main__':
     main = Main()
