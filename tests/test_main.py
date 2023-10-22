@@ -52,7 +52,55 @@ class TestScrabbleGame(unittest.TestCase):
             ]
             mock_print.assert_has_calls(expected_output, any_order=False)
 
+    @patch('builtins.input', side_effect=['2', '1', '2'])
+    def test_convert_tiles_in_another_tile(self, mock_input):
+        main = Main()
+        main.game.players[0].rack = [Tile('H', 4), Tile('O',1), Tile('L',1), Tile('A',1)]
+        main.game.next_turn()
+        numbers = [1, 2, 3, 4, 5, 6, 7]
+        main.convert_tiles_in_another_tile(2, numbers)
+        self.assertEqual(len(main.game.players[0].rack), 4)
+    
+    @patch('builtins.print')
+    @patch('builtins.input', side_effect=['2', 'd', '0'])
+    def test_convert_tiles_in_another_tile_wrong(self, mock_input, mock_print):
+        main = Main()
+        numbers = [1, 2, 3, 4, 5, 6, 7]
+        main.convert_tiles_in_another_tile(4, numbers)
+        expected_output = [
+            call('Bienvenido a Scrabble Game!'),
+            call('Valor invalido, intente de nuevo'),]
+        mock_print.assert_has_calls(expected_output, any_order=False)
+        
+    @patch('builtins.input', side_effect=['2', '2', '1', '3'])
+    def test_exchange_tiles(self, mock_input):
+        main = Main()
+        main.game.players[0].rack = [Tile('H', 4), Tile('O',1), Tile('L',1), Tile('A',1)]
+        main.game.next_turn()
+        main.exchange_tiles()
+        self.assertEqual(len(main.game.players[0].rack), 4)
+    
 
+    @patch('builtins.input', side_effect=['2', '1', '0'])
+    def test_exchange_tiles_initial_limit_index(self, mock_input):
+        main = Main()
+        main.game.players[0].rack = [Tile('H', 4), Tile('O',1), Tile('L',1), Tile('A',1), Tile('H', 4), Tile('O',1), Tile('L',1)]
+        main.game.next_turn()
+        main.exchange_tiles()
+        self.assertEqual(len(main.game.players[0].rack), 7)
+
+    @patch('builtins.print')
+    @patch('builtins.input', side_effect=['2', 'd', '0'])
+    def test_exchange_tiles_exit(self, mock_input, mock_print):
+        main = Main()
+        main.game.next_turn()
+        main.exchange_tiles()
+        expected_output = [
+            call('Bienvenido a Scrabble Game!'),
+            call('Valor invalido, intente de nuevo'),
+        ]
+        mock_print.assert_has_calls(expected_output, any_order=False)
+    
 if __name__ == '__main__':
     unittest.main()
 

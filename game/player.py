@@ -17,10 +17,11 @@ class Player:
             del bag.tiles[:num_tiles]
 
     def exchange_tiles(self,index,bag=BagTiles):
+        index = index - 1
         tile_to_exchange = self.rack.pop(index)
         new_tile = bag.take(1)
         bag.put([tile_to_exchange])
-        self.rack.append(new_tile)
+        self.rack.insert(index, new_tile)
         
     def view_tiles(self):
         return self.tiles[:]
