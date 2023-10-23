@@ -101,6 +101,49 @@ class TestScrabbleGame(unittest.TestCase):
         ]
         mock_print.assert_has_calls(expected_output, any_order=False)
     
+    @patch('builtins.print')
+    @patch('builtins.input', side_effect=['2', 'A', '0'])
+    def test_change_joker_exception(self, mock_input, mock_print):
+        main = Main()
+        main.game.next_turn()
+        main.game.current_player.rack = [Tile('B', 1)]
+        main.change_joker_to_tile()
+        expected_output = [
+            call('Bienvenido a Scrabble Game!'),
+            call('Error: No tienes un comodin en tu rack'),]
+        mock_print.assert_has_calls(expected_output, any_order=False)
+        
+
+    @patch('builtins.print')
+    @patch('builtins.input', side_effect=['2', 'AB', 'A'])
+    def test_change_joker_to_tile_second_try(self, mock_input, mock_print):
+        main = Main()
+        main.game.next_turn()
+        main.game.current_player.rack = [Tile('?', 0), Tile('B', 1)]
+        main.change_joker_to_tile()
+        expected_output = [
+            call('Bienvenido a Scrabble Game!'),
+            call('Valor invalido, intente de nuevo'),
+            call('Se ha cambiado con exito')]
+        mock_print.assert_has_calls(expected_output, any_order=False)
+        
+    @patch('builtins.input', side_effect=['2', '1', '7'])
+    def test_exchange_tiles_final_limit_index(self, mock_input):
+        main = Main()
+        main.game.players[0].rack = [Tile('H', 4), Tile('O',1), Tile('L',1), Tile('A',1), Tile('H', 4), Tile('O',1), Tile('L',1)]
+        main.game.next_turn()
+        main.exchange_tiles()
+        self.assertEqual(len(main.game.players[0].rack), 7)
+        
+        
+    @patch('builtins.input', side_effect=['2', 'A'])
+    def test_change_joker_to_tile_true(self, mock_input):
+        main = Main()
+        main.game.next_turn()
+        main.game.current_player.rack = [Tile('?', 0), Tile('B', 1)]
+        main.change_joker_to_tile()
+        self.assertEqual(main.game.current_player.rack[0].letter, 'A' )
+        
 if __name__ == '__main__':
     unittest.main()
 

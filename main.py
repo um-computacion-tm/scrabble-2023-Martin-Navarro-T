@@ -72,6 +72,27 @@ class Main:
                 break
             else:
                 print('Valor invalido, intente de nuevo')
-                  
+
+    def change_joker_to_tile(self):
+        while True:
+            try:
+                if self.convert_joker_into_tile():
+                    break
+            except InvalidJokerConversion as e:
+                print(f'Error: {e}')
+    
+    def convert_joker_into_tile(self):
+        new_letter = input('Ingrese la letra que desea cambiar por el comodin (0 para terminar): ')
+        new_letter= new_letter.strip().upper()
+        alphabet = ['A', 'B', 'C', 'CH', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'LL', 'M', 'N','Ñ', 'O', 'P', 'Q', 'R', 'RR', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z']
+        if new_letter in alphabet:
+            self.game.convert_joker(new_letter)
+            print('Se ha cambiado con exito')
+            return True
+        elif new_letter == '0':
+            return True
+        else:
+            print('Valor invalido, intente de nuevo')
+            return False     
 if __name__ == '__main__':
     main = Main()

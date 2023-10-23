@@ -8,6 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 # Changelog
 
+## [0.0.30] - "Commit 30" - 2023/10/23
+
+### Added
+- Added new methods to the `Main` class in `main.py`:
+  - `change_joker_to_tile`: Allows players to convert a joker tile in their holder into another tile with the specified letter.
+  - `convert_joker_into_tile`: Manages the process of converting a joker tile into a tile with the letter specified by the player. Players can enter the desired letter and confirm the conversion.
+- Added tests for the `change_joker_to_tile` and `convert_joker_into_tile` methods in `test_main.py`
+        
 ## [0.0.29] - "Commit 29" - 2023/10/22
 
 ### Changed
