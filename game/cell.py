@@ -1,15 +1,13 @@
-# cell.py
 from game.tile import Tile
-from typing import List
 
 class Cell:
-    def __init__(self, multiplier=1, multiplier_type="", letter=None, active=True, value=0): #multiplier, multiplier_type, letter
+    def __init__(self, multiplier=1, multiplier_type='', letter=None, status='active'):
         self.multiplier = multiplier
         self.multiplier_type = multiplier_type
         self.letter = letter
-        self.active = active
-        self.value = value
-        
+        self.status = status
+        self.original_state = {'multiplier': multiplier, 'multiplier_type': multiplier_type, 'letter': letter, 'status': 'active'}
+    
     def __repr__(self):
         if self.letter:
             return repr(self.letter)
@@ -18,82 +16,32 @@ class Cell:
         else:
             return '   '
         
-    def add_letter(self, letter: Tile): 
-        if self.letter is None:
-            self.letter = letter
-            return True
-
-    def remove_letter(self): 
+    def add_letter(self,letter:Tile): #Modificado
+        self.letter = letter
+    
+    def remove_letter(self): #ver
         removed_letter = self.letter
         self.letter = None
         return removed_letter
-        
-    def add_player_starting_position(self, player):
-        self.is_starting_position = True
-        self.player_starting_position = player
-
-    def is_empty(self):
-        return self.letter is None
-
-    def has_letter(self, letter):
-        return self.letter and self.letter.letter == letter
-
-    def apply_word_multiplier(self, word_multiplier):
-        if self.multiplier_type == 'word':
-            self.multiplier *= word_multiplier
-
-    def apply_letter_multiplier(self, letter_multiplier):
-        if self.multiplier_type == 'letter':
-            self.multiplier *= letter_multiplier
     
-    def calculate_value(self):
-        if not self.active:
-            return 0
+    def calculate_value(self): #Modificado
         if self.letter is None:
             return 0
         if self.multiplier_type == 'letter':
             return self.letter.value * self.multiplier
-        else:
+        if self.multiplier_type == 'word':
             return self.letter.value
-        
-class Calculate_value:
-    @staticmethod
-    def calculate_word_value(cells: List[Cell]) -> int:
-        total_value = 0
-        word_multiplier = 1
-
-        for cell in cells:
-            if cell.active:
-                cell_value = Calculate_value.calculate_cell_value(cell)
-                word_multiplier *= Calculate_value.calculate_word_multiplier(cell)
-                total_value += cell_value
-
-        return total_value * word_multiplier
     
-    #Ver si es necesario o borrar 
-    @staticmethod
-    def calculate_cell_value(cell: Cell) -> int:
-        if cell.letter is not None:
-            if cell.multiplier_type == 'letter':
-                return cell.letter.value * cell.multiplier
-            else:
-                return cell.letter.value
-        else:
-            return 0  # Celda vacía
-
-    @staticmethod
-    def calculate_word_multiplier(cell: Cell) -> int:
-        if cell.multiplier_type == 'word':
-            return cell.multiplier
-        else:
-            return 1
+    def deactive_cell(self): #NEW
+        self.status = 'desactive'
+    
+    def reset_cell(self): #NEW
+        self.letter = self.original_state.get('letter')
+        self.status = self.original_state.get('status')
+        self.multiplier = self.original_state.get('multiplier')
+        self.multiplier_type = self.original_state.get('multiplier_type')
 
 
+        
 
-
-
-
-
-
-
-
+    
