@@ -76,6 +76,14 @@ class TestBagTiles(unittest.TestCase):
         # Intentar poner una ficha más, lo que debería generar la excepción BolsaLlena
         with self.assertRaises(BagFull):
             bag.put(put_tiles)
+            
+    def test_get_value_by_letter(self):
+        bag = BagTiles()
+        self.assertEqual(bag.get_value_by_letter('A'), 1)
+        self.assertEqual(bag.get_value_by_letter('B'), 3)
+        self.assertEqual(bag.get_value_by_letter('C'), 2)
+        self.assertEqual(bag.get_value_by_letter('E'), 1)
+        self.assertEqual(bag.get_value_by_letter('?'), 0)
 
 if __name__ == '__main__':
     unittest.main()

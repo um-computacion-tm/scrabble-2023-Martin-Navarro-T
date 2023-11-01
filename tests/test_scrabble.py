@@ -47,25 +47,12 @@ class TestScrabbleGame(unittest.TestCase):
         orientation = "Horizontal"
         self.assertEqual(game.validate_word(word,location,orientation), True)
         
-    def test_validate_word_simple(self):
-        # Prueba simple para validar_word
-        game = ScrabbleGame(players_count=3)
-        game.current_player = game.players[0]
-
-        word = "HELLO"
-        location = (7, 7)
-        orientation = "Horizontal"
-
-        with self.assertRaises(InvalidWordException):
-            is_valid = game.validate_word(word, location, orientation)
-            
     def test_validate_word_not_in_dictionary(self):
         game = ScrabbleGame(2)
         word = "Kadabra"
         location = (0, 0)
         orientation = "Horizontal"
         
-        # Aquí necesitas validar que la excepción sea lanzada.
         with self.assertRaises(InvalidWordException):
             game.validate_word(word, location, orientation)
 

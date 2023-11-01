@@ -76,3 +76,9 @@ class BagTiles:
             raise BagFull("La bolsa está llena y no se pueden agregar más fichas.")
         
         self.tiles.extend(tiles)
+    
+    def get_value_by_letter(self, letter):
+        bag = BagTiles()
+        for tile in bag.tiles:
+            if tile.letter == letter:
+                return tile.value

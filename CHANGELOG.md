@@ -8,6 +8,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 # Changelog
 
+## [0.0.31] - "Commit 31" - 2023/11/01
+
+### Added
+- Added `get_value_by_letter` to the `BagTiles` class in bagtiles.py: This method allows you to get the value of a token based on its letter. The value is used in the game to calculate the points for a word.
+- A new test has been added to the `test_bagtiles.py` file to verify the correct operation of the `get_value_by_letter` method.
+
+### Changed
+- `get_tiles`: The method has been modified to receive the number of tiles that you want to obtain and the pool of tiles from which they are obtained.
+- The `get_tiles` test was modified to verify its new operation.
+- Modifications have been made to two methods of the `Cell` class and their corresponding tests have been updated.
+  - `add_letter` now checks if the cell is empty before adding a token
+  - `calculate_value` considers whether the cell is active and the type of multiplier when calculating the cell value.
+
+### Removed
+- Removed the `get_value_by_letter` methods in `tile.py` and its test from `test_tile.py`.
+- Methods and their tests in `player.py` and `test_player.py` have been removed, since their functionalities will be managed in other places in the program, such as in `main.py`, methods removed:
+  - `draw_tiles`
+  - `view_tiles`
+  - `view_score`
+  - `start_turn`
+  - `end_turn`
+  - `pass_turn`
+  - `check_tile_in_hand`
+  - `get_hand_size`
+  - `get_score`
+  - `set_tiles`
+  - Also in `test_player.py`, other tests that were no longer necessary have been removed.
+- Cell.py methods in the `Cell` class have been removed because they were not used in the program and did not provide functionality to the application, along with their respective tests, in `test_cell.py`
+  - `add_player_starting_position`
+  - `is_empty`,
+  - `has_letter`
+  - `apply_word_multiplier`
+  - `apply_letter_multiplier`
+- Removed the `Calculate_value` class from `cell.py` and the related tests in `test_calculate_word_value`. These methods will be implemented differently in future commits.
+
 ## [0.0.30] - "Commit 30" - 2023/10/23
 
 ### Added
