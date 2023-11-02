@@ -45,10 +45,10 @@ class TestCell(unittest.TestCase):
         cell = Cell(1, None)
         self.assertEqual(cell.calculate_value(),0)
     
-    def test_deactive(self):
+    def test_desactive(self):
         cell = Cell()
         self.assertEqual(cell.status, "active")
-        cell.deactive_cell()
+        cell.desactive_cell()
         self.assertEqual(cell.status, "desactive")
     
     def test_reset_cell(self):
