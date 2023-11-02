@@ -6,23 +6,33 @@ class TestDictionary(unittest.TestCase):
         dic = Dictionary()
         word = "Hola"
         self.assertEqual(dic.verify_word(word), True)
+        
     def test_verify_false_word(self):
         dic = Dictionary()
         word = "Kadabra"
         self.assertEqual(dic.verify_word(word), False)
+        
     def test_verify_word_with_accents(self):
         dic = Dictionary()
         word = "Imaginación"
         self.assertEqual(dic.verify_word(word), True)
-    def test_verify_word_with_dieresis(self):
+        
+    def test_verify_word(self):
         dic = Dictionary()
         word = "Pingüino"
         self.assertEqual(dic.verify_word(word), True)
+        
     def test_verify_word_with_accents(self):
         dic = Dictionary()
         word = "Imaginación"
         self.assertEqual(dic.verify_word(word), True)
-    def test_verify_word_with_dieresis(self):
+        
+    def test_verify_word_list_True(self):
         dic = Dictionary()
-        word = "Pingüino"
-        self.assertEqual(dic.verify_word(word), True)
+        word_list = ['Pato', 'Columna', 'Televisor']
+        self.assertEqual(dic.verify_word_list(word_list), True)
+        
+    def test_verify_word_list_False(self):
+        dic = Dictionary()
+        word_list = ['Pato', 'Columna', 'Kalamacha']
+        self.assertEqual(dic.verify_word_list(word_list), False)

@@ -10,6 +10,8 @@ class InvalidWordException(Exception):
     pass
 class InvalidJokerConversion(Exception):
     pass
+class InvalidRackException(Exception):
+    pass
 
 class ScrabbleGame:
     def __init__(self, players_count):
@@ -37,10 +39,6 @@ class ScrabbleGame:
             player_turn = self.players.index(self.current_player) + 1
             self.current_player = self.players[player_turn]
         self.turn += 1
-
-    def dict_validate_word(self, word):
-        dict = Dictionary()
-        return dict.verify_word(word)
     
     def clean_word_to_use(self, word):
         dict = Dictionary()
@@ -49,7 +47,7 @@ class ScrabbleGame:
         return word
     
     def validate_word(self, word, location, orientation):
-        if not self.dict_validate_word(word):
+        if not self.dict.verify_word(word):
             raise InvalidWordException('Su palabra no existe en el diccionario')
         if not self.board.validate_word_inside_board(word, location, orientation):
             raise InvalidWordException('Su palabra excede el tablero')
@@ -57,7 +55,7 @@ class ScrabbleGame:
             #Hacer test para que corra la linea 56
             raise InvalidWordException('Su palabra no se cruza con ninguna palabra valida') 
         return True
-
+    
     def game_over(self):
         if len(self.bag_tiles.tiles) == 0:
             return True
@@ -88,4 +86,23 @@ class ScrabbleGame:
                 joker.convert_tile(new_letter, matching_tile.value)
         else:
             raise InvalidJokerConversion('No tienes un comodin en tu rack')
-        
+  
+    def put_tiles_in_rack(self, amount=7):
+        bag = self.bag_tiles
+        if self.turn == 0:
+            for i in range(len(self.players)):
+                self.players[i].get_tiles(amount, bag)
+        elif amount < len(bag.tiles):
+            self.current_player.get_tiles(amount, bag)
+        else:
+            self.current_player.get_tiles(len(bag.tiles), bag)
+            
+    def validate_orientation(self, orientation):
+        real_orientation = ['Horizontal', 'Vertical']
+        if orientation in real_orientation:
+            return orientation
+        else:
+            return None
+    
+    def put_word(self, word, location, orientation):
+        self.board.put_words_board(word, location, orientation)

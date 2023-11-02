@@ -179,6 +179,119 @@ class TestBoard(unittest.TestCase):
         result = board.clear_cell(16, 16)
         # Debería devolver False ya que la celda está fuera de los límites
         self.assertFalse(result)
+
+    def test_put_words_horizontal(self):
+        board = Board()
+        word = "Facultad"
+        location = (5, 4)
+        orientation = "Horizontal"
+        board.put_words_board(word, location, orientation)
+        self.assertEqual(board.grid[5][4].letter.letter, "F")
+        self.assertEqual(board.grid[5][5].letter.letter, "A")
+        self.assertEqual(board.grid[5][6].letter.letter, "C")
+        self.assertEqual(board.grid[5][7].letter.letter, "U")
+        self.assertEqual(board.grid[5][8].letter.letter, "L")
+        self.assertEqual(board.grid[5][9].letter.letter, "T")
+        self.assertEqual(board.grid[5][10].letter.letter, "A")
+        self.assertEqual(board.grid[5][11].letter.letter, "D")
     
+    def test_put_words_vertical(self):
+        board = Board()
+        word = "Facultad"
+        location = (5, 4)
+        orientation = "Vertical"
+        board.put_words_board(word, location, orientation)
+        self.assertEqual(board.grid[5][4].letter.letter, "F")
+        self.assertEqual(board.grid[6][4].letter.letter, "A")
+        self.assertEqual(board.grid[7][4].letter.letter, "C")
+        self.assertEqual(board.grid[8][4].letter.letter, "U")
+        self.assertEqual(board.grid[9][4].letter.letter, "L")
+        self.assertEqual(board.grid[10][4].letter.letter, "T")
+        self.assertEqual(board.grid[11][4].letter.letter, "A")
+        self.assertEqual(board.grid[12][4].letter.letter, "D") 
+           
+# word_to_tiles
+    def test_word_to_tiles_simple_hola(self):
+        board = Board()
+        list_tiles = board.word_to_tiles("hola")
+        self.assertEqual(list_tiles[0].letter, "H")
+        self.assertEqual(list_tiles[0].value, 4)
+        self.assertEqual(list_tiles[1].letter, "O")
+        self.assertEqual(list_tiles[1].value, 1)
+        self.assertEqual(list_tiles[2].letter, "L")
+        self.assertEqual(list_tiles[2].value, 1)
+        self.assertEqual(list_tiles[3].letter, "A")
+        self.assertEqual(list_tiles[3].value, 1)
+        
+    def test_word_to_tiles_simple_facultad(self):
+        board = Board()
+        list_tiles = board.word_to_tiles("facultad")
+        self.assertEqual(list_tiles[0].letter, "F")
+        self.assertEqual(list_tiles[0].value, 4)
+        self.assertEqual(list_tiles[1].letter, "A")
+        self.assertEqual(list_tiles[1].value, 1)
+        self.assertEqual(list_tiles[2].letter, "C")
+        self.assertEqual(list_tiles[2].value, 2)
+        self.assertEqual(list_tiles[3].letter, "U")
+        self.assertEqual(list_tiles[3].value, 1)
+        self.assertEqual(list_tiles[4].letter, "L")
+        self.assertEqual(list_tiles[4].value, 1)
+        self.assertEqual(list_tiles[5].letter, "T")
+        self.assertEqual(list_tiles[5].value, 1)
+        self.assertEqual(list_tiles[6].letter, "A")
+        self.assertEqual(list_tiles[6].value, 1)
+        self.assertEqual(list_tiles[7].letter, "D")
+        self.assertEqual(list_tiles[7].value, 2)
+        
+    def test_word_to_tiles_simple_casa(self):
+        board = Board()
+        list_tiles = board.word_to_tiles("casa")
+        self.assertEqual(list_tiles[0].letter, "C")
+        self.assertEqual(list_tiles[0].value, 2)
+        self.assertEqual(list_tiles[1].letter, "A")
+        self.assertEqual(list_tiles[1].value, 1)
+        self.assertEqual(list_tiles[2].letter, "S")
+        self.assertEqual(list_tiles[2].value, 1)
+        self.assertEqual(list_tiles[3].letter, "A")
+        self.assertEqual(list_tiles[3].value, 1)
+        
+    def test_word_to_tiles_complex_CH(self):
+        board = Board()
+        list_tiles = board.word_to_tiles("chita")
+        self.assertEqual(list_tiles[0].letter, "CH")
+        self.assertEqual(list_tiles[0].value, 5)
+        self.assertEqual(list_tiles[1].letter, "I")
+        self.assertEqual(list_tiles[1].value, 1)
+        self.assertEqual(list_tiles[2].letter, "T")
+        self.assertEqual(list_tiles[2].value, 1)
+        self.assertEqual(list_tiles[3].letter, "A")
+        self.assertEqual(list_tiles[3].value, 1)
+        
+    def test_word_to_tiles_complex_RR(self):
+        board = Board()
+        list_tiles = board.word_to_tiles("perro")
+        self.assertEqual(list_tiles[0].letter, "P")
+        self.assertEqual(list_tiles[0].value, 2)
+        self.assertEqual(list_tiles[1].letter, "E")
+        self.assertEqual(list_tiles[1].value, 1)
+        self.assertEqual(list_tiles[2].letter, "RR")
+        self.assertEqual(list_tiles[2].value, 8)
+        self.assertEqual(list_tiles[3].letter, "O")
+        self.assertEqual(list_tiles[3].value, 1)
+        
+    def test_word_to_tilescomplex_LL(self):
+        board = Board()
+        list_tiles = board.word_to_tiles("llanto")
+        self.assertEqual(list_tiles[0].letter, "LL")
+        self.assertEqual(list_tiles[0].value, 8)
+        self.assertEqual(list_tiles[1].letter, "A")
+        self.assertEqual(list_tiles[1].value, 1)
+        self.assertEqual(list_tiles[2].letter, "N")
+        self.assertEqual(list_tiles[2].value, 1)
+        self.assertEqual(list_tiles[3].letter, "T")
+        self.assertEqual(list_tiles[3].value, 1)
+        self.assertEqual(list_tiles[4].letter, "O")
+        self.assertEqual(list_tiles[4].value, 1)
+        
 if __name__ == "__main__":
     unittest.main()

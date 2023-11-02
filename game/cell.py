@@ -16,7 +16,7 @@ class Cell:
         else:
             return '   '
         
-    def add_letter(self,letter:Tile): #Modificado
+    def add_letter(self,letter:Tile): 
         self.letter = letter
     
     def remove_letter(self): #ver
@@ -24,7 +24,7 @@ class Cell:
         self.letter = None
         return removed_letter
     
-    def calculate_value(self): #Modificado
+    def calculate_value(self): 
         if self.letter is None:
             return 0
         if self.multiplier_type == 'letter':
@@ -32,10 +32,10 @@ class Cell:
         if self.multiplier_type == 'word':
             return self.letter.value
     
-    def deactive_cell(self): #NEW
+    def desactive_cell(self): 
         self.status = 'desactive'
     
-    def reset_cell(self): #NEW
+    def reset_cell(self): 
         self.letter = self.original_state.get('letter')
         self.status = self.original_state.get('status')
         self.multiplier = self.original_state.get('multiplier')

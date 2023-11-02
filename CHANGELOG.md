@@ -8,11 +8,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 # Changelog
 
+## [0.0.32] - "Commit 32" - 2023/11/02
+
+### Added
+- In `dictionary.py`, the `verify_word_list` method has been added to validate multiple words in the Scrabble dictionary. A corresponding test has also been included in `test_dictionary.py`.
+- The following methods have been added to the `ScrabbleGame` class in `scrabble.py` and its tests to `test_scrabble.py`:
+  - `put_tiles_in_rack`: This method allows players to take tiles from the bag and fill their rack with a specific number of tiles. Players can take tokens at the beginning of the game or during their turn.
+  - `validate_orientation`: A method that validates whether the provided orientation (horizontal or vertical) is valid and returns the valid orientation or `None` if it is not.
+  - `put_word`: This method allows players to place a word on the board. Call a method on the dashboard to perform this action.
+- A new file called `utils.py` has been created in which several useful methods and `test_utils.py` have been added for its tests. These methods include:
+  - `convert_string_to_tiles`: Converts an input string to a list of Scrabble tiles.
+  - `convert_special_to_tiles`: Converts an input string representing a special tile (such as wildcards or double/triple letters) to a Scrabble tile.
+  - `increment_coordinates`: Increments row and column coordinates based on game orientation. Its corresponding tests have been included in `test_utils.py`.
+- Two new methods have been added to the `Board` class in `board.py`, as well as their respective tests in `test_board.py`. The methods are as follows:
+  - `put_words_board`: This method allows you to place a word on the board, taking into account the location and orientation provided. Converts the word into a list of tiles and places them in the corresponding cells on the board.
+  - `word_to_tiles`: Converts a word into a list of Scrabble tiles, taking into account special letters like 'CH', 'LL', 'RR', and converting each letter into a tile.
+
 ## [0.0.31] - "Commit 31" - 2023/11/01
 
 ### Added
 - Added `get_value_by_letter` to the `BagTiles` class in bagtiles.py: This method allows you to get the value of a token based on its letter. The value is used in the game to calculate the points for a word.
 - A new test has been added to the `test_bagtiles.py` file to verify the correct operation of the `get_value_by_letter` method.
+- Added methods to the `Cell` class in `cell.py` and their respective tests in `test_cell.py`:
+  - `deactive_cell`: This method changes the state of a cell to "deactivated".
+  - `reset_cell`: This method resets a cell to its original state.
 
 ### Changed
 - `get_tiles`: The method has been modified to receive the number of tiles that you want to obtain and the pool of tiles from which they are obtained.

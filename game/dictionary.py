@@ -12,3 +12,9 @@ class Dictionary:
     def remove_accents(self,word):
         word = ''.join(x for x in unicodedata.normalize('NFKD', word) if not unicodedata.combining(x))
         return word
+    
+    def verify_word_list(self, word_list):
+        for word in word_list:
+            if not self.verify_word(word):
+                return False
+        return True

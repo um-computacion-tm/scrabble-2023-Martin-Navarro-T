@@ -120,7 +120,73 @@ class TestScrabbleGame(unittest.TestCase):
         game = ScrabbleGame(2)
         string = 'm'
         self.assertEqual(game.input_to_int(string), None)
-      
+
+    def test_put_tiles_in_rack_all_players(self):
+        game = ScrabbleGame(2)
+        self.assertEqual(len(game.players[0].rack), 0)
+        self.assertEqual(len(game.players[1].rack), 0)
+        game.put_tiles_in_rack()
+        self.assertEqual(len(game.players[0].rack), 7)
+        self.assertEqual(len(game.players[1].rack), 7)
+    
+    def test_put_tiles_in_rack_one_player(self):
+        game = ScrabbleGame(2)
+        self.assertEqual(len(game.players[0].rack), 0)
+        self.assertEqual(len(game.players[1].rack), 0)
+        game.next_turn()
+        game.next_turn()
+        game.put_tiles_in_rack(1)
+        self.assertEqual(len(game.players[0].rack), 0)
+        self.assertEqual(len(game.players[1].rack), 1)
+    
+    def test_put_tiles_in_rack_few_tiles_in_bag(self):
+        game = ScrabbleGame(2)
+        self.assertEqual(len(game.players[0].rack), 0)
+        self.assertEqual(len(game.players[1].rack), 0)
+        game.next_turn()
+        game.bag_tiles.tiles = [Tile('H', 4), Tile('O', 1), Tile('L',1), Tile('A',1), Tile('H', 4), Tile('O', 1), Tile('L',1), Tile('A',1)]
+        game.put_tiles_in_rack(7)
+        self.assertEqual(len(game.players[0].rack), 7)
+        self.assertEqual(len(game.players[1].rack), 0)
+        game.next_turn()
+        game.put_tiles_in_rack(7)
+        self.assertEqual(len(game.players[0].rack), 7)
+        self.assertEqual(len(game.players[1].rack), 1)
+
+    def test_validate_orientation(self):
+        game = ScrabbleGame(2)
+        orientation = 'm'
+        self.assertEqual(game.validate_orientation(orientation), None)
+    
+    def test_validate_horizontal_orientation(self):
+        game = ScrabbleGame(2) 
+        orientation = "Horizontal"
+        result = game.validate_orientation(orientation)
+        self.assertEqual(result, "Horizontal")
+
+    def test_validate_vertical_orientation(self):
+        game = ScrabbleGame(2)
+        orientation = "Vertical"
+        result = game.validate_orientation(orientation)
+        self.assertEqual(result, "Vertical")
+
+    def test_validate_invalid_orientation(self):
+        game = ScrabbleGame(2)
+        orientation = "Diagonal" 
+        result = game.validate_orientation(orientation)
+        self.assertIsNone(result)
+
+    def test_put_word(self):
+        game = ScrabbleGame(2)
+        word = "Hola"
+        location = (5, 4)
+        orientation = "Horizontal"
+        game.put_word(word, location, orientation)
+        self.assertEqual(game.board.grid[5][4].letter.letter, "H")
+        self.assertEqual(game.board.grid[5][5].letter.letter, "O")
+        self.assertEqual(game.board.grid[5][6].letter.letter, "L")
+        self.assertEqual(game.board.grid[5][7].letter.letter, "A")
+
 if __name__ == "__main__":
     unittest.main()
 

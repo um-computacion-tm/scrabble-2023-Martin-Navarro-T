@@ -1,6 +1,6 @@
 # board.py
 from game.cell import Cell
-from game.tile import Tile
+from game.utils import Utils
 
 class Board:
     def __init__(self):
@@ -65,8 +65,6 @@ class Board:
             return location_y + word_length <= 15
         elif orientation == "Vertical":
             return location_x + word_length <= 15
-        #else:
-         #   return InvalidWordPlacement(Exception)
 
     def validate_word_out_of_board(self, word, location, orientation):
         return not self.validate_word_inside_board(word, location, orientation)
@@ -128,3 +126,29 @@ class Board:
             cell = self.grid[location_x][location_y]
             if cell.letter is not None:
                 cell.remove_letter()
+
+    def put_words_board(self, word, location, orientation):
+        utils = Utils()
+        list_word = self.word_to_tiles(word)
+        row = location[0]
+        column = location[1]
+        i = 0
+        for _ in list_word:
+            self.grid[row][column].letter = list_word[i]
+            self.grid[row][column].desactive_cell()
+            row, column = utils.increment_coordinates(orientation, row, column)
+            i += 1
+            
+    def word_to_tiles(self, word):
+        utils = Utils()
+        tiles_list = []
+        i = 0
+        while i < len(word):
+            two_letter_combo = word[i:i+2]
+            if two_letter_combo.upper() in ('CH', 'LL', 'RR'):
+                utils.convert_special_to_tiles(two_letter_combo, tiles_list)
+                i += 2
+            else:
+                utils.convert_string_to_tiles(word[i], tiles_list)
+                i += 1
+        return tiles_list
