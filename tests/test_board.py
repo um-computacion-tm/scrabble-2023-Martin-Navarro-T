@@ -2,7 +2,7 @@
 import unittest
 from game.board import Board
 from game.tile import Tile
-from game.cell import Cell
+
 
 class TestBoard(unittest.TestCase):
     def test_init(self):
@@ -55,7 +55,7 @@ class TestBoard(unittest.TestCase):
     def test_word_inside_board_vertical(self):
         board = Board()
         word = "Facultad"
-        location = (4, 5)  # Ubicación dentro del tablero
+        location = (4, 5) 
         orientation = "Vertical"
 
         word_is_valid = board.validate_word_inside_board(word, location, orientation)
@@ -80,6 +80,15 @@ class TestBoard(unittest.TestCase):
 
         word_is_valid = board.validate_word_place_board(word, location, orientation)
         assert word_is_valid == True
+
+    def test_place_word_empty_board_horizontal_wrong(self):
+        board = Board()
+        word = "Facultad"
+        location = (2, 4)
+        orientation = "Horizontal"
+
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+        assert word_is_valid == False
         
     def test_place_word_empty_board_vertical_fine(self):
         board = Board()
@@ -89,16 +98,6 @@ class TestBoard(unittest.TestCase):
 
         word_is_valid = board.validate_word_place_board(word, location, orientation)
         assert word_is_valid == True
-        
-    def test_place_word_empty_board_horizontal_wrong(self):
-        board = Board()
-        word = "Facultad"
-        location = (2, 4)
-        orientation = "Horizontal"
-
-        word_is_valid = board.validate_word_place_board(word, location, orientation)
-        assert word_is_valid == False
-         
     def test_place_word_empty_board_vertical_wrong(self):
         board = Board()
         word = "Facultad"
@@ -121,6 +120,19 @@ class TestBoard(unittest.TestCase):
         word_is_valid = board.validate_word_place_board(word, location, orientation)
         assert word_is_valid == True
     
+    def test_place_word_no_empty_board_horizontal_wrong(self):
+        board = Board()
+        board.grid[7][7].add_letter(Tile('C',1))
+        board.grid[8][7].add_letter(Tile('A',1))
+        board.grid[9][7].add_letter(Tile('S',1))
+        board.grid[10][7].add_letter(Tile('A',1))
+        word = "Hola"
+        location = (8, 5)
+        orientation = "Horizontal"
+
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+        assert word_is_valid == False
+    
     def test_place_word_no_empty_board_vertical_fine(self):
         board = Board()
         board.grid[7][7].add_letter(Tile('C',1))
@@ -133,19 +145,6 @@ class TestBoard(unittest.TestCase):
 
         word_is_valid = board.validate_word_place_board(word, location, orientation)
         assert word_is_valid == True
-        
-    def test_place_word_no_empty_board_horizontal_wrong(self):
-        board = Board()
-        board.grid[7][7].add_letter(Tile('C',1))
-        board.grid[8][7].add_letter(Tile('A',1))
-        board.grid[9][7].add_letter(Tile('S',1))
-        board.grid[10][7].add_letter(Tile('A',1))
-        word = "Hola"
-        location = (8, 3)
-        orientation = "Horizontal"
-
-        word_is_valid = board.validate_word_place_board(word, location, orientation)
-        assert word_is_valid == False
     
     def test_place_word_no_empty_board_vertical_wrong(self):
         board = Board()
@@ -154,11 +153,81 @@ class TestBoard(unittest.TestCase):
         board.grid[7][9].add_letter(Tile('S',1))
         board.grid[7][10].add_letter(Tile('A',1))
         word = "Hola"
-        location = (3, 8)
+        location = (5, 8)
         orientation = "Vertical"
 
         word_is_valid = board.validate_word_place_board(word, location, orientation)
         assert word_is_valid == False
+    
+    def test_place_word_no_empthy_2_coincidence_horizontal_fine(self):
+        board = Board()
+        board.grid[7][7].add_letter(Tile('C',1))
+        board.grid[8][7].add_letter(Tile('A',1))
+        board.grid[9][7].add_letter(Tile('S',1))
+        board.grid[10][7].add_letter(Tile('A',1))
+        board.grid[7][8].add_letter(Tile('A',1))
+        board.grid[8][8].add_letter(Tile('L',1))
+        board.grid[9][8].add_letter(Tile('A',1))
+        word = "Foca"
+        location = (7,5)
+        orientation = "Horizontal"
+
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+        assert word_is_valid == True
+    
+    def test_place_word_no_empthy_2_coincidence_horizontal_wrong(self):
+        board = Board()
+        board.grid[7][7].add_letter(Tile('C',1))
+        board.grid[8][7].add_letter(Tile('A',1))
+        board.grid[9][7].add_letter(Tile('S',1))
+        board.grid[10][7].add_letter(Tile('A',1))
+        board.grid[7][8].add_letter(Tile('M',1))
+        board.grid[8][8].add_letter(Tile('A',1))
+        board.grid[9][8].add_letter(Tile('L',1))
+        word = "Foca"
+        location = (7,5)
+        orientation = "Horizontal"
+
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+        assert word_is_valid == False
+    
+    def test_place_word_no_empthy_2_coincidence_vertical_fine(self):
+        board = Board()
+        board.grid[7][7].add_letter(Tile('C',1))
+        board.grid[7][8].add_letter(Tile('A',1))
+        board.grid[7][9].add_letter(Tile('S',1))
+        board.grid[7][10].add_letter(Tile('A',1))
+        board.grid[8][6].add_letter(Tile('A',1))
+        board.grid[8][7].add_letter(Tile('L',1))
+        board.grid[8][8].add_letter(Tile('A',1))
+        word = "Foca"
+        location = (5,7)
+        orientation = "Vertical"
+
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+        assert word_is_valid == False
+    
+    def test_place_word_no_empthy_2_coincidence_vertical_wrong(self):
+        board = Board()
+        board.grid[7][7].add_letter(Tile('C',1))
+        board.grid[7][8].add_letter(Tile('A',1))
+        board.grid[7][9].add_letter(Tile('S',1))
+        board.grid[7][10].add_letter(Tile('A',1))
+        board.grid[8][7].add_letter(Tile('M',1))
+        board.grid[8][8].add_letter(Tile('A',1))
+        board.grid[8][9].add_letter(Tile('L',1))
+        word = "Foca"
+        location = (5,7)
+        orientation = "Vertical"
+
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+        assert word_is_valid == False
+    
+    def test_place_word_complex(self):
+        board = Board()
+        board.put_words_board("Facu", (5,7), "H")
+        board.put_words_board("Hola", (2,8), "V")
+        self.assertEqual(board.validate_word_place_board("Lacra", (3,9), "V"), False)
 
     # Tets de Agregar Función para Limpiar una Celda
     def test_clear_cell_valid(self):
@@ -209,89 +278,35 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(board.grid[10][4].letter.letter, "T")
         self.assertEqual(board.grid[11][4].letter.letter, "A")
         self.assertEqual(board.grid[12][4].letter.letter, "D") 
-           
-# word_to_tiles
-    def test_word_to_tiles_simple_hola(self):
+
+    def test_cells_around_horizontal_word(self):
         board = Board()
-        list_tiles = board.word_to_tiles("hola")
-        self.assertEqual(list_tiles[0].letter, "H")
-        self.assertEqual(list_tiles[0].value, 4)
-        self.assertEqual(list_tiles[1].letter, "O")
-        self.assertEqual(list_tiles[1].value, 1)
-        self.assertEqual(list_tiles[2].letter, "L")
-        self.assertEqual(list_tiles[2].value, 1)
-        self.assertEqual(list_tiles[3].letter, "A")
-        self.assertEqual(list_tiles[3].value, 1)
-        
-    def test_word_to_tiles_simple_facultad(self):
+        word = "AB"
+        location = (7,7)
+        list = []
+        board.cells_around_horizontal_word(word,location,list)
+        self.assertEqual(len(list), 6)
+        self.assertEqual(list[0], (7,6))
+        self.assertEqual(list[1], (7,9))
+        self.assertEqual(list[2], (6,7))
+        self.assertEqual(list[3], (8,7))
+        self.assertEqual(list[4], (6,8))
+        self.assertEqual(list[5], (8,8))
+
+    
+    def test_cells_around_vertical_word(self):
         board = Board()
-        list_tiles = board.word_to_tiles("facultad")
-        self.assertEqual(list_tiles[0].letter, "F")
-        self.assertEqual(list_tiles[0].value, 4)
-        self.assertEqual(list_tiles[1].letter, "A")
-        self.assertEqual(list_tiles[1].value, 1)
-        self.assertEqual(list_tiles[2].letter, "C")
-        self.assertEqual(list_tiles[2].value, 2)
-        self.assertEqual(list_tiles[3].letter, "U")
-        self.assertEqual(list_tiles[3].value, 1)
-        self.assertEqual(list_tiles[4].letter, "L")
-        self.assertEqual(list_tiles[4].value, 1)
-        self.assertEqual(list_tiles[5].letter, "T")
-        self.assertEqual(list_tiles[5].value, 1)
-        self.assertEqual(list_tiles[6].letter, "A")
-        self.assertEqual(list_tiles[6].value, 1)
-        self.assertEqual(list_tiles[7].letter, "D")
-        self.assertEqual(list_tiles[7].value, 2)
-        
-    def test_word_to_tiles_simple_casa(self):
-        board = Board()
-        list_tiles = board.word_to_tiles("casa")
-        self.assertEqual(list_tiles[0].letter, "C")
-        self.assertEqual(list_tiles[0].value, 2)
-        self.assertEqual(list_tiles[1].letter, "A")
-        self.assertEqual(list_tiles[1].value, 1)
-        self.assertEqual(list_tiles[2].letter, "S")
-        self.assertEqual(list_tiles[2].value, 1)
-        self.assertEqual(list_tiles[3].letter, "A")
-        self.assertEqual(list_tiles[3].value, 1)
-        
-    def test_word_to_tiles_complex_CH(self):
-        board = Board()
-        list_tiles = board.word_to_tiles("chita")
-        self.assertEqual(list_tiles[0].letter, "CH")
-        self.assertEqual(list_tiles[0].value, 5)
-        self.assertEqual(list_tiles[1].letter, "I")
-        self.assertEqual(list_tiles[1].value, 1)
-        self.assertEqual(list_tiles[2].letter, "T")
-        self.assertEqual(list_tiles[2].value, 1)
-        self.assertEqual(list_tiles[3].letter, "A")
-        self.assertEqual(list_tiles[3].value, 1)
-        
-    def test_word_to_tiles_complex_RR(self):
-        board = Board()
-        list_tiles = board.word_to_tiles("perro")
-        self.assertEqual(list_tiles[0].letter, "P")
-        self.assertEqual(list_tiles[0].value, 2)
-        self.assertEqual(list_tiles[1].letter, "E")
-        self.assertEqual(list_tiles[1].value, 1)
-        self.assertEqual(list_tiles[2].letter, "RR")
-        self.assertEqual(list_tiles[2].value, 8)
-        self.assertEqual(list_tiles[3].letter, "O")
-        self.assertEqual(list_tiles[3].value, 1)
-        
-    def test_word_to_tilescomplex_LL(self):
-        board = Board()
-        list_tiles = board.word_to_tiles("llanto")
-        self.assertEqual(list_tiles[0].letter, "LL")
-        self.assertEqual(list_tiles[0].value, 8)
-        self.assertEqual(list_tiles[1].letter, "A")
-        self.assertEqual(list_tiles[1].value, 1)
-        self.assertEqual(list_tiles[2].letter, "N")
-        self.assertEqual(list_tiles[2].value, 1)
-        self.assertEqual(list_tiles[3].letter, "T")
-        self.assertEqual(list_tiles[3].value, 1)
-        self.assertEqual(list_tiles[4].letter, "O")
-        self.assertEqual(list_tiles[4].value, 1)
+        word = "AB"
+        location = (7,7)
+        list = []
+        board.cells_around_vertical_word(word,location,list)
+        self.assertEqual(len(list), 6)
+        self.assertEqual(list[0], (6,7))
+        self.assertEqual(list[1], (9,7))
+        self.assertEqual(list[2], (7,6))
+        self.assertEqual(list[3], (7,8))
+        self.assertEqual(list[4], (8,6))
+        self.assertEqual(list[5], (8,8))
         
 if __name__ == "__main__":
     unittest.main()

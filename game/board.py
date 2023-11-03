@@ -1,6 +1,7 @@
 # board.py
 from game.cell import Cell
 from game.utils import Utils
+from game.dictionary import Dictionary
 
 class Board:
     def __init__(self):
@@ -22,8 +23,8 @@ class Board:
             ["3W", None, None, "2L", None, None, None, "3W", None, None, None, "2L", None, None, "3W"] 
         ]
         self.grid = [
-            [self.put_multipliers(multiplier) for multiplier in row]
-            for row in board_multipliers
+            [self.put_multipliers(multiplier) for multiplier in location_x]
+            for location_x in board_multipliers
         ]
 
     def put_multipliers(self, multiplier):
@@ -35,8 +36,9 @@ class Board:
             return Cell(multiplier=multiplier_value, multiplier_type="word")
         elif multiplier_type == "L":
             return Cell(multiplier=multiplier_value, multiplier_type="letter")
+        
 
-    def place_tile(self, location_x, location_y, tile):
+    def place_tile(self, location_x, location_y, tile): #
         if 0 <= location_x < 15 and 0 <= location_y < 15:
             cell = self.grid[location_x][location_y]
             if cell.letter is None:
@@ -44,7 +46,7 @@ class Board:
                 return True
         return False
     
-    def validate_word(self, start_location_x, start_location_y, word, orientation):
+    def validate_word(self, start_location_x, start_location_y, word, orientation): #
         for i, letter in enumerate(word):
             if orientation == 'Horizontal':
                 location_x = start_location_x
@@ -57,40 +59,59 @@ class Board:
                 return False
         return True
 
-    def validate_word_inside_board(self, word, location, orientation):
-        location_x, location_y = location
+    def validate_word_inside_board(self,word, location, orientation):
+        location_x = location[0]
+        location_y = location[1]
         word_length = len(word)
-
         if orientation == "Horizontal":
             return location_y + word_length <= 15
         elif orientation == "Vertical":
             return location_x + word_length <= 15
+        
 
     def validate_word_out_of_board(self, word, location, orientation):
         return not self.validate_word_inside_board(word, location, orientation)
-
-    def validate_word_horizontal(self, word, location, orientation):
-        location_x, location_y = location
-        word_length = len(word)
-        found_letter = False
-
-        for i in range(word_length):
+    
+    def process_tile_and_letter(self, tile, letter, list):
+        utils = Utils()
+        if utils.compare_tiles_and_letters(tile, letter) == 0:
+            list[0].append(letter)
+        elif utils.compare_tiles_and_letters(tile, letter) == 1:
+            list[1].append(letter)
+      
+    def check_word_conditions(self, list):
+        if len(list[0]) > 0:
+            return False
+        elif len(list[0]) == 0 and len(list[1]) > 0:
+            return True
+        elif len(list[0]) == 0 and len(list[1]) == 0:
+            return True
+        
+    def validate_word_horizontal(self, word, location):
+        utils = Utils()
+        word = utils.word_to_tiles(word)
+        location_x = location[0]
+        location_y = location[1]
+        found_coincidences = []
+        found_problem = []
+        found_something = [found_problem, found_coincidences]
+        for i in range(len(word)):
             actual_tile = self.grid[location_x][location_y + i].letter
-            if actual_tile is not None and actual_tile.letter.lower() == word[i]:
-                found_letter = True
+            self.process_tile_and_letter(actual_tile, word[i].letter, found_something)
+        return self.check_word_conditions(found_something)
 
-        return found_letter and self.validate_word_inside_board(word, location, orientation)
-
-    def validate_word_vertical(self, word, location, orientation):
-        location_x, location_y = location
-        word_length = len(word)
-        found_letter = False
-        for i in range(word_length):
+    def validate_word_vertical(self, word, location):
+        utils = Utils()
+        word = utils.word_to_tiles(word)
+        location_x = location[0]
+        location_y = location[1]
+        found_coincidences = []
+        found_problem = []
+        found_something = [found_problem, found_coincidences]
+        for i in range(len(word)):
             actual_tile = self.grid[location_x + i][location_y].letter
-            if actual_tile is not None:
-                if actual_tile.letter.lower() == word[i]:
-                    found_letter = True
-        return found_letter and self.validate_word_inside_board(word, location, orientation)
+            self.process_tile_and_letter(actual_tile, word[i].letter, found_something)
+        return self.check_word_conditions(found_something)
 
     def is_empty(self):
         if self.grid[7][7].letter is None:
@@ -99,26 +120,21 @@ class Board:
             return False
 
     def word_in_the_center(self, word, location, orientation):
-        location_x, location_y = location
-        is_horizontal = orientation == "Horizontal"
-        is_vertical = orientation == "Vertical"
-
-        if is_horizontal and location_x == 7:
+        coordinate = {"Horizontal":location[0], "Vertical" : location[1]}
+        central_coordinate = coordinate.get(orientation)
+        if central_coordinate == 7:
             return self.validate_word_inside_board(word, location, orientation)
-
-        if is_vertical and location_y == 7:
-            return self.validate_word_inside_board(word, location, orientation)
-
-        return False
+        else:
+            return False
 
     def validate_word_place_board(self, word, location, orientation):
         if self.is_empty() is True:
-            return self.word_in_the_center(word, location, orientation)
+           return self.word_in_the_center(word, location, orientation)
         else:
             if orientation == "Horizontal":
-                return self.validate_word_horizontal(word, location, orientation)
+                return self.validate_word_horizontal(word, location)
             else:
-                return self.validate_word_vertical(word, location, orientation)
+                return self.validate_word_vertical(word, location) 
 
     # Agregar Función para Limpiar una Celda
     def clear_cell(self, location_x, location_y):
@@ -129,26 +145,65 @@ class Board:
 
     def put_words_board(self, word, location, orientation):
         utils = Utils()
-        list_word = self.word_to_tiles(word)
-        row = location[0]
-        column = location[1]
+        list_word = utils.word_to_tiles(word)
+        location_x = location[0]
+        location_y = location[1]
         i = 0
         for _ in list_word:
-            self.grid[row][column].letter = list_word[i]
-            self.grid[row][column].desactive_cell()
-            row, column = utils.increment_coordinates(orientation, row, column)
+            self.grid[location_x][location_y].letter = list_word[i]
+            self.grid[location_x][location_y].desactive_cell()
+            location_x, location_y = utils.increment_coordinates(orientation, location_x, location_y)
             i += 1
+
+    def horizontal_border_cells(self, length, location, list):
+        location_x, location_y = location
+        if location_y - 1 >= 0:
+                list.append((location_x, location_y - 1))
+        if location_y + length < 15:
+                list.append((location_x, location_y + length))
+    
+    def vertical_border_cells(self, length, location, list):
+        location_x, location_y = location
+        if location_x - 1 >= 0:
+            list.append((location_x - 1, location_y))
+        if location_x + length < 15:
+            list.append((location_x + length, location_y))
+     
+    def cells_around_horizontal_word(self, word, location, list):
+        location_x, location_y = location
+        word_length = len(word)
+        self.horizontal_border_cells(word_length, location, list)
+        for i in range(word_length):
+            if location_x - 1 >= 0:
+                list.append((location_x - 1, location_y + i))
+            if location_x + 1 < 15:
+                list.append((location_x + 1, location_y + i))
+    
+    def cells_around_vertical_word(self, word, location, list):
+        location_x, location_y = location
+        word_length = len(word)
+        self.vertical_border_cells(word_length, location, list)
+        for i in range(word_length):
+            if location_y - 1 >= 0:
+                list.append((location_x + i, location_y - 1))
+            if location_y + 1 < 15:
+                list.append((location_x + i, location_y + 1))
             
-    def word_to_tiles(self, word):
+    def find_cells_around_word(self, word, location, orientation, adjacent_cells):
+        if orientation == "Horizontal":
+            self.cells_around_horizontal_word(word, location, adjacent_cells)
+        elif orientation == "Vertical":
+            self.cells_around_vertical_word(word, location, adjacent_cells)
+    
+    def find_tiles_around_word(self, orientation, adjacent_tiles, board):
         utils = Utils()
-        tiles_list = []
-        i = 0
-        while i < len(word):
-            two_letter_combo = word[i:i+2]
-            if two_letter_combo.upper() in ('CH', 'LL', 'RR'):
-                utils.convert_special_to_tiles(two_letter_combo, tiles_list)
-                i += 2
-            else:
-                utils.convert_string_to_tiles(word[i], tiles_list)
-                i += 1
-        return tiles_list
+        if orientation == "Horizontal":
+            adjacent_tiles = utils.filter_reapeted_column(adjacent_tiles)
+            return utils.check_tiles_around_word(adjacent_tiles, 'Horizontal', board)
+        elif orientation == "Vertical":
+            adjacent_tiles = utils.filter_reapeted_row(adjacent_tiles)
+            return utils.check_tiles_around_word(adjacent_tiles, 'Vertical', board)
+
+
+
+
