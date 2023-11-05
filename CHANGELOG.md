@@ -8,6 +8,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 # Changelog
 
+## [0.0.34] - "Commit 34" - 2023/11/05
+
+### Removed
+- Several methods have been removed from the `Board` class that were considered less necessary in the current context of the Scrabble game. The retired methods are the following:
+  - `place_tile`: This method has been removed, as the responsibilities related to tile and letter placement have been redistributed more efficiently to other methods and classes.
+  - `validate_word`: The word validation method has been removed, as its functionality has been integrated and optimized elsewhere in the code.
+  - `validate_word_out_of_board`: The out-of-board word validation method has been removed, as it is no longer considered necessary in the context of the game.
+  - `clear_cell`: The function to clear a cell has been removed, as it was not required in the current game flow.
+These changes were made with the aim of simplifying and optimizing the code structure, eliminating functionalities that were no longer relevant to the operation of the game.
+
+### Added
+- Added `convert_result_to_list_of_words` method. This method allows you to convert the result of an operation into a list of words. The result is provided in the form of nested lists, and this new method extracts and returns the first word from each list.
+- A new class called `ScrabbleUtils` has been created in the `utils.py` file, which includes a series of useful methods to perform various operations related to the Scrabble game. These methods make it easier to manage and calculate scores and validations in the game:
+- `are_cells_around_word_valid`: Checks if the cells around a word are valid.
+- `is_letter_multiplier_active`: Checks if a letter multiplier is active in a cell.
+- `is_word_multiplier_active`: Checks if a word multiplier is active in a cell.
+- `calculate_word_value`: Calculates the value of a word, considering the letter and word multipliers.
+- `increment_position`: Increments the position of a cell in the given orientation.
+- `generate_positions`: Generates the positions of the cells of a word based on their location and orientation.
+- `collect_tiles_for_word`: Collects the tiles present in the cells of a word.
+- `determine_required_tiles`: Determines the tiles needed to complete a word, taking into account the tiles already placed on the board.
+
 ## [0.0.33] - "Commit 33" - 2023/11/03
 
 ### Added
