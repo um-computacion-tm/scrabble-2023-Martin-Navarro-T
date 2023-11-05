@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 # Changelog
 
-## [0.0.34] - "Commit 34" - 2023/11/05
+## [0.0.34] - "Commit 34 - Commit 34/2" - 2023/11/05
 
 ### Removed
 - Several methods have been removed from the `Board` class that were considered less necessary in the current context of the Scrabble game. The retired methods are the following:
@@ -25,7 +25,6 @@ These changes were made with the aim of simplifying and optimizing the code stru
 - `is_letter_multiplier_active`: Checks if a letter multiplier is active in a cell.
 - `is_word_multiplier_active`: Checks if a word multiplier is active in a cell.
 - `calculate_word_value`: Calculates the value of a word, considering the letter and word multipliers.
-- `increment_position`: Increments the position of a cell in the given orientation.
 - `generate_positions`: Generates the positions of the cells of a word based on their location and orientation.
 - `collect_tiles_for_word`: Collects the tiles present in the cells of a word.
 - `determine_required_tiles`: Determines the tiles needed to complete a word, taking into account the tiles already placed on the board.
