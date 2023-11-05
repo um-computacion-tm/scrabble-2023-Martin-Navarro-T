@@ -16,13 +16,13 @@ class Utils:
             if tile.letter == input_string.upper():
                 list.append(tile)
                 break
-        
-    def increment_coordinates(self, orientation, row, column): 
+            
+    def increment_coordinates(self, orientation, location_x, location_y): 
         if orientation == "Horizontal":
-            column += 1
+            location_y += 1
         elif orientation == "Vertical":
-            row += 1
-        return row, column
+            location_x += 1
+        return location_x, location_y
     
     def word_to_tiles(self, word):
         tiles_list = []
@@ -103,20 +103,14 @@ class ScrabbleUtils:
 
         return total_value
 
-    def increment_position(self, orientation, location_x, location_y):
-        if orientation == "Horizontal":
-            location_y += 1
-        elif orientation == "Vertical":
-            location_x += 1
-        return location_x, location_y
-    
     def generate_positions(self, word, location, orientation):
+        utils = Utils()
         positions = []
         location_x = location[0]
         location_y = location[1]
         for _ in word:
             positions.append((location_x, location_y))
-            location_x, location_y = self.increment_position(orientation, location_x, location_y)
+            location_x, location_y = utils.increment_coordinates(orientation, location_x, location_y)
         return positions
     
     def collect_tiles_for_word(self, word, location, orientation, board):
