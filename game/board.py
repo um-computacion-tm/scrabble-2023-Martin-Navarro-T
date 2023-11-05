@@ -1,7 +1,6 @@
 # board.py
 from game.cell import Cell
-from game.utils import Utils
-from game.dictionary import Dictionary
+from game.utils import Utils, ScrabbleUtils
 
 class Board:
     def __init__(self):
@@ -37,28 +36,6 @@ class Board:
         elif multiplier_type == "L":
             return Cell(multiplier=multiplier_value, multiplier_type="letter")
         
-
-    def place_tile(self, location_x, location_y, tile): #
-        if 0 <= location_x < 15 and 0 <= location_y < 15:
-            cell = self.grid[location_x][location_y]
-            if cell.letter is None:
-                cell.add_letter(tile)
-                return True
-        return False
-    
-    def validate_word(self, start_location_x, start_location_y, word, orientation): #
-        for i, letter in enumerate(word):
-            if orientation == 'Horizontal':
-                location_x = start_location_x
-                location_y = start_location_y + i
-            elif orientation == 'Vertical':
-                location_x = start_location_x + i
-                location_y = start_location_y
-
-            if location_x >= 15 or location_y >= 15 or (self.grid[location_x][location_y].letter is None or self.grid[location_x][location_y].letter.letter != letter):
-                return False
-        return True
-
     def validate_word_inside_board(self,word, location, orientation):
         location_x = location[0]
         location_y = location[1]
@@ -68,10 +45,6 @@ class Board:
         elif orientation == "Vertical":
             return location_x + word_length <= 15
         
-
-    def validate_word_out_of_board(self, word, location, orientation):
-        return not self.validate_word_inside_board(word, location, orientation)
-    
     def process_tile_and_letter(self, tile, letter, list):
         utils = Utils()
         if utils.compare_tiles_and_letters(tile, letter) == 0:
@@ -136,13 +109,6 @@ class Board:
             else:
                 return self.validate_word_vertical(word, location) 
 
-    # Agregar Función para Limpiar una Celda
-    def clear_cell(self, location_x, location_y):
-        if 0 <= location_x < 15 and 0 <= location_y < 15:
-            cell = self.grid[location_x][location_y]
-            if cell.letter is not None:
-                cell.remove_letter()
-
     def put_words_board(self, word, location, orientation):
         utils = Utils()
         list_word = utils.word_to_tiles(word)
@@ -188,22 +154,18 @@ class Board:
                 list.append((location_x + i, location_y - 1))
             if location_y + 1 < 15:
                 list.append((location_x + i, location_y + 1))
-            
+                
     def find_cells_around_word(self, word, location, orientation, adjacent_cells):
         if orientation == "Horizontal":
             self.cells_around_horizontal_word(word, location, adjacent_cells)
         elif orientation == "Vertical":
             self.cells_around_vertical_word(word, location, adjacent_cells)
-    
+
     def find_tiles_around_word(self, orientation, adjacent_tiles, board):
         utils = Utils()
+        utils2 = ScrabbleUtils()
         if orientation == "Horizontal":
-            adjacent_tiles = utils.filter_reapeted_column(adjacent_tiles)
-            return utils.check_tiles_around_word(adjacent_tiles, 'Horizontal', board)
+            adjacent_tiles = utils.remove_duplicate_columns(adjacent_tiles)
+            return utils2.check_tiles_around_word(adjacent_tiles, 'Horizontal', board)
         elif orientation == "Vertical":
-            adjacent_tiles = utils.filter_reapeted_row(adjacent_tiles)
-            return utils.check_tiles_around_word(adjacent_tiles, 'Vertical', board)
-
-
-
-
+            adjacent_tiles = utils.remove_duplicate_rows(adjacent_tiles)

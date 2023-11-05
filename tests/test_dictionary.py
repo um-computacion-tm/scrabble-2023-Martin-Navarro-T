@@ -36,3 +36,18 @@ class TestDictionary(unittest.TestCase):
         dic = Dictionary()
         word_list = ['Pato', 'Columna', 'Kalamacha']
         self.assertEqual(dic.verify_word_list(word_list), False)
+        
+    def test_remove_accents(self):
+        dic = Dictionary()
+        word = 'imaginación'
+        self.assertEqual(dic.remove_accents(word), 'imaginacion')
+        
+    def test_remove_dieresis(self):
+        dic = Dictionary()
+        word = 'pingüino'
+        self.assertEqual(dic.remove_accents(word), 'pinguino')
+        
+    def test_dont_remove_ñ(self):
+        dic = Dictionary()
+        word = 'piñón'
+        self.assertEqual(dic.remove_accents(word), 'piñon')

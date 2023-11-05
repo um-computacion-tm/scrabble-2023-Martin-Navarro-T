@@ -2,7 +2,8 @@
 import unittest
 from game.board import Board
 from game.tile import Tile
-
+from game.cell import Cell
+from game.utils import Utils, ScrabbleUtils
 
 class TestBoard(unittest.TestCase):
     def test_init(self):
@@ -10,59 +11,116 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(len(board.grid), 15)
         self.assertEqual(len(board.grid[0]), 15)
 
-    def test_place_tile(self):
+    def test_board_multiplier_word_in_board(self):
         board = Board()
-        tile = Tile('A', 1)
-        self.assertTrue(board.place_tile(7, 7, tile))
-        self.assertFalse(board.place_tile(7, 7, tile))
+        # Triple Word
+        self.assertEqual(board.grid[0][0].multiplier, 3)
+        self.assertEqual(board.grid[7][0].multiplier, 3)
+        self.assertEqual(board.grid[14][0].multiplier, 3)
+        self.assertEqual(board.grid[0][7].multiplier, 3)
+        self.assertEqual(board.grid[0][14].multiplier, 3)
+        self.assertEqual(board.grid[14][0].multiplier, 3)
+        self.assertEqual(board.grid[14][7].multiplier, 3)
+        self.assertEqual(board.grid[14][14].multiplier, 3)
+        # Double Word
+        self.assertEqual(board.grid[1][1].multiplier, 2)
+        self.assertEqual(board.grid[2][2].multiplier, 2)
+        self.assertEqual(board.grid[3][3].multiplier, 2)
+        self.assertEqual(board.grid[4][4].multiplier, 2)
+        self.assertEqual(board.grid[13][1].multiplier, 2)
+        self.assertEqual(board.grid[12][2].multiplier, 2)
+        self.assertEqual(board.grid[11][3].multiplier, 2)
+        self.assertEqual(board.grid[10][4].multiplier, 2)
+        self.assertEqual(board.grid[1][13].multiplier, 2)
+        self.assertEqual(board.grid[2][12].multiplier, 2)
+        self.assertEqual(board.grid[3][11].multiplier, 2)
+        self.assertEqual(board.grid[4][10].multiplier, 2)
+        self.assertEqual(board.grid[13][13].multiplier, 2)
+        self.assertEqual(board.grid[12][12].multiplier, 2)
+        self.assertEqual(board.grid[11][11].multiplier, 2)
+        self.assertEqual(board.grid[10][10].multiplier, 2)
+        self.assertEqual(board.grid[7][7].multiplier, 2)
 
-    def test_validate_word(self):
+    def test_board_multiplier_letter_in_board(self):
         board = Board()
-        tile_a = Tile('A', 1)
-        tile_b = Tile('B', 2)
-        tile_c = Tile('C', 3)
-
-        board.place_tile(7, 7, tile_a)
-        board.place_tile(7, 8, tile_b)
-        board.place_tile(7, 9, tile_c)
-
-        self.assertTrue(board.validate_word(7, 7, 'ABC', 'Horizontal'))
-        self.assertFalse(board.validate_word(7, 7, 'ACB', 'Horizontal'))
-        self.assertTrue(board.validate_word(7, 7, 'A', 'Vertical'))
-        self.assertFalse(board.validate_word(7, 7, 'AB', 'Vertical'))
-        
+        #Triple letter
+        self.assertEqual(board.grid[1][5].multiplier, 3)
+        self.assertEqual(board.grid[1][9].multiplier, 3)
+        self.assertEqual(board.grid[5][1].multiplier, 3)
+        self.assertEqual(board.grid[5][5].multiplier, 3)
+        self.assertEqual(board.grid[5][13].multiplier, 3)
+        self.assertEqual(board.grid[9][1].multiplier, 3)
+        self.assertEqual(board.grid[9][5].multiplier, 3)
+        self.assertEqual(board.grid[9][9].multiplier, 3)
+        self.assertEqual(board.grid[9][13].multiplier, 3)
+        self.assertEqual(board.grid[13][5].multiplier, 3)
+        self.assertEqual(board.grid[13][9].multiplier, 3)
+        # Double letter
+        self.assertEqual(board.grid[0][3].multiplier, 2)
+        self.assertEqual(board.grid[0][11].multiplier, 2)
+        self.assertEqual(board.grid[2][6].multiplier, 2)
+        self.assertEqual(board.grid[2][8].multiplier, 2)
+        self.assertEqual(board.grid[3][0].multiplier, 2)
+        self.assertEqual(board.grid[3][7].multiplier, 2)
+        self.assertEqual(board.grid[3][14].multiplier, 2)
+        self.assertEqual(board.grid[6][2].multiplier, 2)
+        self.assertEqual(board.grid[6][6].multiplier, 2)
+        self.assertEqual(board.grid[6][8].multiplier, 2)
+        self.assertEqual(board.grid[6][12].multiplier, 2)
+        self.assertEqual(board.grid[7][3].multiplier, 2)
+        self.assertEqual(board.grid[7][11].multiplier, 2)
+        self.assertEqual(board.grid[8][2].multiplier, 2)
+        self.assertEqual(board.grid[8][6].multiplier, 2)
+        self.assertEqual(board.grid[8][8].multiplier, 2)
+        self.assertEqual(board.grid[8][12].multiplier, 2)
+        self.assertEqual(board.grid[11][0].multiplier, 2)
+        self.assertEqual(board.grid[11][7].multiplier, 2)
+        self.assertEqual(board.grid[11][14].multiplier, 2)
+        self.assertEqual(board.grid[12][6].multiplier, 2)
+        self.assertEqual(board.grid[12][8].multiplier, 2)
+        self.assertEqual(board.grid[14][3].multiplier, 2)
+        self.assertEqual(board.grid[14][11].multiplier, 2)
+     
     def test_word_inside_board(self):
         board = Board()
         word = "Facultad"
         location = (5, 4)
         orientation = "Horizontal"
-
         word_is_valid = board.validate_word_inside_board(word, location, orientation)
-
         assert word_is_valid == True
-    
 
-    def test_word_out_of_board(self):
+    def test_word_inside_board_horizontal(self):
         board = Board()
         word = "Facultad"
-        location = (14, 4)
+        location = (5, 4)
         orientation = "Horizontal"
-
-        word_is_valid = board.validate_word_out_of_board(word, location, orientation)
-
-        assert word_is_valid == False
-
+        word_is_valid = board.validate_word_inside_board(word, location, orientation)
+        self.assertTrue(word_is_valid)
+        
     def test_word_inside_board_vertical(self):
         board = Board()
         word = "Facultad"
         location = (4, 5) 
         orientation = "Vertical"
-
         word_is_valid = board.validate_word_inside_board(word, location, orientation)
-
         self.assertTrue(word_is_valid)
+ 
+    def test_word_out_of_board_horizontal(self):
+        board = Board()
+        word = "Facultad"
+        location = (4, 14)
+        orientation = "Horizontal"
+        word_is_valid = board.validate_word_inside_board(word, location, orientation)
+        self.assertEqual(word_is_valid, False)
         
-
+    def test_word_out_of_board_vertical(self):
+        board = Board()
+        word = "Facultad"
+        location = (14, 4)
+        orientation = "Vertical"
+        word_is_valid = board.validate_word_inside_board(word, location, orientation)
+        self.assertEqual(word_is_valid, False)
+        
     def test_board_is_empty(self):
         board = Board()
         self.assertEqual(board.is_empty(), True)
@@ -98,6 +156,7 @@ class TestBoard(unittest.TestCase):
 
         word_is_valid = board.validate_word_place_board(word, location, orientation)
         assert word_is_valid == True
+        
     def test_place_word_empty_board_vertical_wrong(self):
         board = Board()
         word = "Facultad"
@@ -225,29 +284,9 @@ class TestBoard(unittest.TestCase):
     
     def test_place_word_complex(self):
         board = Board()
-        board.put_words_board("Facu", (5,7), "H")
-        board.put_words_board("Hola", (2,8), "V")
-        self.assertEqual(board.validate_word_place_board("Lacra", (3,9), "V"), False)
-
-    # Tets de Agregar Función para Limpiar una Celda
-    def test_clear_cell_valid(self):
-        board = Board()
-        tile = Tile('A', 1)
-
-        # Colocamos una ficha en una celda
-        board.place_tile(7, 7, tile)
-        # Luego la limpiamos
-        board.clear_cell(7, 7)
-        # Comprobamos que la celda esté vacía
-        self.assertIsNone(board.grid[7][7].letter)
-
-    def test_clear_cell_invalid(self):
-        board = Board()
-
-        # Intentamos limpiar una celda fuera de los límites
-        result = board.clear_cell(16, 16)
-        # Debería devolver False ya que la celda está fuera de los límites
-        self.assertFalse(result)
+        board.put_words_board("Facu", (5,7), "Horizontal")
+        board.put_words_board("Hola", (2,8), "Vertical")
+        self.assertEqual(board.validate_word_place_board("Lacra", (3,9), "Vertical"), False)
 
     def test_put_words_horizontal(self):
         board = Board()
@@ -307,6 +346,23 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(list[3], (7,8))
         self.assertEqual(list[4], (8,6))
         self.assertEqual(list[5], (8,8))
-        
-if __name__ == "__main__":
+
+    def test_cross_word_right_way(self):
+        board = Board()
+        board.grid[7][7] = Cell(1, '', Tile('H', 1))
+        board.grid[7][8] = Cell(1, '', Tile('O', 1))   
+        board.grid[7][9] = Cell(1, '', Tile('L', 1))   
+        board.grid[7][10] = Cell(1, '', Tile('A', 1))       
+        self.assertTrue(board.validate_word_place_board('CAMA', (6,10), 'Vertical'))
+    
+    def test_cross_word_wrong_way(self):
+        board = Board()
+        board.grid[7][7] = Cell(1, '', Tile('H', 1))
+        board.grid[7][8] = Cell(1, '', Tile('O', 1))   
+        board.grid[7][9] = Cell(1, '', Tile('L', 1))   
+        board.grid[7][10] = Cell(1, '', Tile('A', 1))       
+        self.assertFalse(board.validate_word_place_board('CAMA', (6,8), 'Vertical'))
+
+
+if __name__ == '__main__':
     unittest.main()
