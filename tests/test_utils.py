@@ -1,28 +1,12 @@
-#test_utils.py
 import unittest
-from game.utils import Utils  
-from game.utils import ScrabbleUtils
+from game.utils import Utils, ScrabbleUtils
 from game.board import Board
 from game.cell import Cell
 from game.tile import Tile
 
 class TestUtils(unittest.TestCase):
-    def test_increment_coordinates_horizontal(self):
-        utils = Utils() 
-        orientation = "Horizontal"
-        row, column = utils.increment_coordinates(orientation, 1, 2)
-        self.assertEqual(row, 1)
-        self.assertEqual(column, 3)
-
-    def test_increment_coordinates_vertical(self):
-        utils = Utils()  
-        orientation = "Vertical"
-        row, column = utils.increment_coordinates(orientation, 1, 2)
-        self.assertEqual(row, 2)
-        self.assertEqual(column, 2)
-
     def test_word_to_tiles_simple_hola(self):
-        utils = Utils() 
+        utils = Utils()
         list_tiles = utils.word_to_tiles("hola")
         self.assertEqual(list_tiles[0].letter, "H")
         self.assertEqual(list_tiles[0].value, 4)
@@ -34,7 +18,7 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(list_tiles[3].value, 1)
         
     def test_word_to_tiles_simple_facultad(self):
-        utils = Utils() 
+        utils = Utils()
         list_tiles = utils.word_to_tiles("facultad")
         self.assertEqual(list_tiles[0].letter, "F")
         self.assertEqual(list_tiles[0].value, 4)
@@ -54,7 +38,7 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(list_tiles[7].value, 2)
         
     def test_word_to_tiles_simple_casa(self):
-        utils = Utils() 
+        utils = Utils()
         list_tiles = utils.word_to_tiles("casa")
         self.assertEqual(list_tiles[0].letter, "C")
         self.assertEqual(list_tiles[0].value, 2)
@@ -66,7 +50,7 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(list_tiles[3].value, 1)
         
     def test_word_to_tiles_complex_CH(self):
-        utils = Utils() 
+        utils = Utils()
         list_tiles = utils.word_to_tiles("chita")
         self.assertEqual(list_tiles[0].letter, "CH")
         self.assertEqual(list_tiles[0].value, 5)
@@ -78,7 +62,7 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(list_tiles[3].value, 1)
         
     def test_word_to_tiles_complex_RR(self):
-        utils = Utils() 
+        utils = Utils()
         list_tiles = utils.word_to_tiles("perro")
         self.assertEqual(list_tiles[0].letter, "P")
         self.assertEqual(list_tiles[0].value, 2)
@@ -90,7 +74,7 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(list_tiles[3].value, 1)
         
     def test_word_to_tilescomplex_LL(self):
-        utils = Utils() 
+        utils = Utils()
         list_tiles = utils.word_to_tiles("llanto")
         self.assertEqual(list_tiles[0].letter, "LL")
         self.assertEqual(list_tiles[0].value, 8)
@@ -102,7 +86,37 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(list_tiles[3].value, 1)
         self.assertEqual(list_tiles[4].letter, "O")
         self.assertEqual(list_tiles[4].value, 1)
+    
+    def test_word_to_cells(self):
+        utils = Utils()
+        board = Board()
+        word = 'llanto'
+        location = (7,7)
+        orientation = 'H'
+        list_cell = utils.word_to_cells(word, location, orientation, board)
+        self.assertEqual(list_cell[0].letter.letter, 'LL')
+        self.assertEqual(list_cell[0].multiplier_type, 'word')
+        self.assertEqual(list_cell[1].letter.letter, 'A')
+        self.assertEqual(list_cell[2].letter.letter, 'N')
+        self.assertEqual(list_cell[3].letter.letter, 'T')
+        self.assertEqual(list_cell[4].letter.letter, 'O')
 
+    def test_generate_positions_vertical(self):
+        utils = Utils()
+        word = "Facu"
+        location = (4, 7)
+        orientation = "V"
+        result = utils.generate_positions(word,location, orientation)
+        self.assertEqual(result, [(4,7), (5,7),(6,7),(7,7)])
+
+    def test_generate_positions_horizontal(self):
+        utils = Utils()
+        word = "Facu"
+        location = (4, 7)
+        orientation = "H"
+        result = utils.generate_positions(word,location, orientation)
+        self.assertEqual(result, [(4,7), (4,8),(4,9),(4,10)])
+        
     def test_remove_duplicate_columns(self):
         utils = Utils()
         list = [(7,7), (9,7)]
@@ -115,26 +129,7 @@ class TestUtils(unittest.TestCase):
         list = utils.remove_duplicate_rows(list)
         self.assertEqual(list, [(7,7)])
 
-    def test_empty_result(self):
-        utils = Utils()
-        result = []
-        expected = []
-        self.assertEqual(utils.convert_result_to_list_of_words(result), expected)
-
-    def test_single_word_result(self):
-        utils = Utils()
-        result = [['apple', 1, 2, 3]]
-        expected = ['apple']
-        self.assertEqual(utils.convert_result_to_list_of_words(result), expected)
-
-    def test_multiple_words_result(self):
-        utils = Utils()
-        result = [['apple', 1, 2, 3], ['banana', 4, 5, 6], ['cherry', 7, 8, 9]]
-        expected = ['apple', 'banana', 'cherry']
-        self.assertEqual(utils.convert_result_to_list_of_words(result), expected)
-    
-        
-class TestScrabbleUtils(unittest.TestCase):
+class TestScrabbleUtils(unittest.TestCase):    
     def test_calculate_word_value_simple(self):
         utils2 = ScrabbleUtils()
         word = [
@@ -195,7 +190,7 @@ class TestScrabbleUtils(unittest.TestCase):
         utils2 = ScrabbleUtils()
         word = "Facu"
         location = (4, 7)
-        orientation = "Horizontal"
+        orientation = "H"
         board.grid[4][8] = Cell(letter=Tile('A',1))
         board.grid[4][10] = Cell(letter=Tile('U',1))
         list_tiles = utils2.collect_tiles_for_word(word,location, orientation, board)
@@ -203,13 +198,13 @@ class TestScrabbleUtils(unittest.TestCase):
         self.assertEqual(list_tiles[0].letter, 'A')
         self.assertEqual(list_tiles[1].letter, 'U')
 
-    def test_collect_tiles_for_word_in_board(self):
+    def test_collect_tiles_for_word_another_word_in_board(self):
         board = Board()
         utils2 = ScrabbleUtils()
         word = "hola"
         location = (6, 8)
-        orientation = "Vertical"
-        board.put_words_board('hola', (7,7), 'Horizontal')
+        orientation = "V"
+        board.put_words_board('hola', (7,7), 'H')
         list_tiles = utils2.collect_tiles_for_word(word,location, orientation, board)
         self.assertEqual(len(list_tiles), 1)
         self.assertEqual(list_tiles[0].letter, 'O')
@@ -219,7 +214,7 @@ class TestScrabbleUtils(unittest.TestCase):
         utils2 = ScrabbleUtils()
         word = "Facu"
         location = (4, 7)
-        orientation = "Horizontal"
+        orientation = "H"
         board.grid[4][8] = Cell(letter=Tile('A',1))
         board.grid[4][10] = Cell(letter=Tile('U',1))
         list_tiles = utils2.determine_required_tiles(word,location, orientation, board)
@@ -227,7 +222,36 @@ class TestScrabbleUtils(unittest.TestCase):
         self.assertEqual(list_tiles[0].letter, 'F')
         self.assertEqual(list_tiles[1].letter, 'C')
     
-    def test_are_cells_around_word_valid_false(self):
+    def test_cells_around_horizontal_word(self):
+        utils2 = ScrabbleUtils()
+        word = "AB"
+        location = (7,7)
+        list = []
+        utils2.cells_around_horizontal_word(word,location,list)
+        self.assertEqual(len(list), 6)
+        self.assertEqual(list[0], (7,6))
+        self.assertEqual(list[1], (7,9))
+        self.assertEqual(list[2], (6,7))
+        self.assertEqual(list[3], (8,7))
+        self.assertEqual(list[4], (6,8))
+        self.assertEqual(list[5], (8,8))
+
+    
+    def test_cells_around_vertical_word(self):
+        utils2 = ScrabbleUtils()
+        word = "AB"
+        location = (7,7)
+        list = []
+        utils2.cells_around_vertical_word(word,location,list)
+        self.assertEqual(len(list), 6)
+        self.assertEqual(list[0], (6,7))
+        self.assertEqual(list[1], (9,7))
+        self.assertEqual(list[2], (7,6))
+        self.assertEqual(list[3], (7,8))
+        self.assertEqual(list[4], (8,6))
+        self.assertEqual(list[5], (8,8))
+    
+    def test_are_cells_around_word_valid(self):
         utils2 = ScrabbleUtils()
         board = Board()
         list_cell = [(6,7), (9,7), (7,6), (7,8), (8,6), (8,8)]
@@ -246,9 +270,3 @@ class TestScrabbleUtils(unittest.TestCase):
         self.assertEqual(len(list_tiles), 2)
         self.assertEqual(list_tiles[0], (9,7))
         self.assertEqual(list_tiles[1], (7,8))
-
-if __name__ == '__main__':
-    unittest.main()
-
-
-

@@ -8,6 +8,44 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 # Changelog
 
+This version represents the final release of the game, which includes all the fixes and improvements necessary for an optimal gaming experience. Thanks for playing Scrabble Game!
+
+## [0.0.35] - "last Commit" - 2023/11/08
+
+### Added
+- Various changes and improvements were made to the game files for the final release.
+- Bugs have been fixed and the overall functionality of the game has been improved.
+
+Added in Main:
+- Added `players_names` method to allow players to enter their names after setting up the game.
+- Added `show_board` method to show the board with tile letters instead of the default representation of the `Tile` object.
+- Added `take_turn` method for players to choose their actions during their turn.
+- Added `play` method that allows players to place tiles, rearrange their rack, swap tiles, convert wildcards or pass their turn.
+- Added `player_action` method to manage player actions on their turn.
+- Added `quite_game` method to exit the game.
+- Added `show_scores` method to show players' scores.
+- Added `place_word` method for players to place a word on the board.
+- Added `get_word_location_orientation` method to get the word, location and orientation of the word to be placed on the board.
+- Added `validate_and_put_word` method to validate and put the word on the board.
+- Added `exchange_tiles` method to allow players to exchange tiles with the tile pool.
+- Added `convert_tiles_in_another_tile` method to perform the tile exchange.
+- Added `change_joker_to_tile` method to allow players to change a joker to a letter.
+- Added `convert_joker_into_tile` method to convert a wildcard.
+- Added `reorganize` method to allow players to reorganize their rack.
+- Added `get_tiles_to_full_rack` method to obtain the tiles needed to fill the player's rack.
+- Changed the name of the `play_game` method to `play_scrabble_game` to make it more descriptive.
+
+Added in ScrabbleGame:
+- Added `initialize_tile_bag` method to initialize the tile bag with the initial tiles.
+- Added `get_player_id` method to get the current player ID.
+- Added `calculate_and_update_score` method to calculate and update the player's score after placing a word on the board.
+- Added `deduct_tiles_from_player` method to deduct the necessary tiles from the player's rack after placing a word on the board.
+
+Added in Board:
+- Added `validate_adjacent_words` method to validate words adjacent to a word placed on the board.
+- Added `verify_word_and_adjacents` method to verify a word and its adjacent words in the dashboard.
+- The methods mentioned above are used to validate the words and their adjacent words on the board during the game of Scrabble.
+
 ## [0.0.34] - "Commit 34 - Commit 34/2" - 2023/11/05
 
 ### Removed

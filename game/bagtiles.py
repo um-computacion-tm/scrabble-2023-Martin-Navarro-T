@@ -1,22 +1,9 @@
-# bagtiles.py
+#bagtiles.py
 import random
 from game.tile import Tile
 
-# Excepciones
-# Si no hay fichas
-class NoTilesAvailable(Exception):
-    pass
-#Si quiere cambiar mas de 7 fichas
-class ImpossibleToChangeMoreThan7(Exception):
-    pass
-#Si la bolsa esta llena
-class BagFull(Exception):
-    pass
-
 class BagTiles:
-    # Constructor
     def __init__(self):
-
         self.tiles = [
             Tile('A', 1),
             Tile('B', 3),
@@ -46,39 +33,36 @@ class BagTiles:
             Tile('X', 8),
             Tile('Y', 4),
             Tile('Z', 10),
-            Tile('?', 0)
+            Tile('?', 0) #joker 
         ]
         random.shuffle(self.tiles)
 
+    
     def initial_tiles(self):
-        total = []
-        bag = BagTiles()
-        initial_tiles = {'A': 11, 'E': 11, 'O': 8, 'I': 5, 'S': 5, 'N': 4, 'L': 3, 'R': 4, 'U': 4, 'T': 3, 'D': 4, 'G': 1, 'C': 3, 'B': 1, 'M': 1, 'P': 1, 'H': 1, '?': 1}
-        while len(total) < 71:
-            for letter, amount in initial_tiles.items():
-                new_tiles = [x for x in bag.tiles if x.letter == letter]
-                count = min(amount, 100 - len(total))
-            total.extend(new_tiles[:count])
-        self.tiles.extend(total)
-
-    def take(self, count):
-        if len(self.tiles) < count:
-            raise NoTilesAvailable("No hay suficientes fichas disponibles en la bolsa.")
+        initial_tiles = {'A':12,'E':12,'O':9,'I':6,'S':6,'N':5,'L':4,'R':5,'U':5,'T':4,'D':5,'G':2,'C':4,'B':2,'M':2,'P':2,'H':2,'F':1,'V':1,'Y':1,'CH':1,'Q':1,'J':1,'LL':1,'Ñ':1,'RR':1,'X':1,'Z':1,'?':2}
+        self.tiles = []
+        for letter, amount in initial_tiles.items():
+            self.put(Tile(letter, self.get_value_for_letter(letter)), amount)
+        random.shuffle(self.tiles)
         
-        tiles = [self.tiles.pop() for _ in range(count)]
+    def take(self, count):
+        tiles = []
+        for _ in range(count):
+            tiles = self.tiles.pop(0)
         return tiles
     
-    def put(self, tiles):
-        if len(tiles) > 7:
-            raise ImpossibleToChangeMoreThan7("No se pueden cambiar más de 7 fichas a la vez.")
-        
-        if len(self.tiles) + len(tiles) > 100:
-            raise BagFull("La bolsa está llena y no se pueden agregar más fichas.")
-        
-        self.tiles.extend(tiles)
-    
-    def get_value_by_letter(self, letter):
+    def put(self, tiles, amount=0):
+        if amount == 0:
+            self.tiles.extend(tiles)
+        else:
+            for i in range(amount):
+                self.tiles.append(tiles)
+
+    def get_value_for_letter(self, letter):
         bag = BagTiles()
         for tile in bag.tiles:
             if tile.letter == letter:
                 return tile.value
+
+
+    

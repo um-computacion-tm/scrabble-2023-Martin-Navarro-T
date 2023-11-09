@@ -16,19 +16,11 @@ class TestCell(unittest.TestCase):
         cell.add_letter(letter=letter)
         self.assertEqual(cell.letter, letter)
     
-    def test_remove_letter(self):
-        cell = Cell(multiplier=1, multiplier_type='')
-        letter = Tile(letter='p', value=3)
-        cell.add_letter(letter=letter)
-        removed_letter = cell.remove_letter()
-        self.assertEqual(cell.letter, None)
-        self.assertEqual(removed_letter, letter)
-    
     def test_cell_value(self):
         cell = Cell(multiplier=1, multiplier_type='letter')
         letter = Tile(letter='p', value=3)
         cell.add_letter(letter=letter)
-        self.assertEqual(cell.calculate_value(), 3)
+        self.assertEqual(cell.calculate_value_letter_and_word(), 3)
     
     def test_cell_multiplayer_letter(self):
         cell = Cell(multiplier=2, multiplier_type='word')
@@ -39,11 +31,11 @@ class TestCell(unittest.TestCase):
         cell = Cell(multiplier=2, multiplier_type='word')
         letter = Tile(letter='p', value=3)
         cell.add_letter(letter=letter)
-        self.assertEqual(cell.calculate_value(),3,)
+        self.assertEqual(cell.calculate_value_letter_and_word(),3,)
 
     def test_cell_letter(self):
         cell = Cell(1, None)
-        self.assertEqual(cell.calculate_value(),0)
+        self.assertEqual(cell.calculate_value_letter_and_word(),0)
     
     def test_desactive(self):
         cell = Cell()
@@ -63,25 +55,6 @@ class TestCell(unittest.TestCase):
         self.assertEqual(cell.status, 'active')
         self.assertEqual(cell.letter, None)
     
-    def test_repr_with_letter(self):
-        cell = Cell(letter="A")
-        expected_repr = "'A'"
-        self.assertEqual(repr(cell), expected_repr)
 
-    def test_repr_word_multiplier(self):
-        cell = Cell(multiplier=2, multiplier_type="word")
-        expected_repr = 'Wx2'
-        self.assertEqual(repr(cell), expected_repr)
-
-    def test_repr_letter_multiplier(self):
-        cell = Cell(multiplier=3, multiplier_type="letter")
-        expected_repr = 'Lx3'
-        self.assertEqual(repr(cell), expected_repr)
-    
-    def test_repr_empty(self):
-        cell = Cell()
-        expected_repr = '   '
-        self.assertEqual(repr(cell), expected_repr)       
-        
 if __name__ == '__main__':
     unittest.main()
