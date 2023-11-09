@@ -26,3 +26,8 @@ docker build -t scrabblegame
 
 ## 4) Fourth step
 docker run -it scrabblegame
+
+## 5) Fifth step: enjoy the game!
+
+Tip --> if the code doesn't work for you: coverage run -m unittest && coverage report -m
+        Put this code before: export PATH=$PATH:~/.local/bin
