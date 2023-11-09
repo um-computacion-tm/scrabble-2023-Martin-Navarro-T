@@ -1,3 +1,4 @@
+#cell.py
 from game.tile import Tile
 
 class Cell:
@@ -19,12 +20,12 @@ class Cell:
     def add_letter(self,letter:Tile): 
         self.letter = letter
     
-    def remove_letter(self): #ver
+    def remove_letter(self): 
         removed_letter = self.letter
         self.letter = None
         return removed_letter
     
-    def calculate_value(self): 
+    def calculate_value_letter_and_word(self): 
         if self.letter is None:
             return 0
         if self.multiplier_type == 'letter':
@@ -40,8 +41,4 @@ class Cell:
         self.status = self.original_state.get('status')
         self.multiplier = self.original_state.get('multiplier')
         self.multiplier_type = self.original_state.get('multiplier_type')
-
-
-        
-
     
