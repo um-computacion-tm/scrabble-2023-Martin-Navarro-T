@@ -16,7 +16,7 @@
 
 ## 1) First Step
 In the terminal:
-git clone git@github.com:um-computacion-tm/scrabble-2023-Martin-Navarro-T.git
+git clone https://github.com/um-computacion-tm/scrabble-2023-Martin-Navarro-T.git
 
 ## 2) Second Step
  cd scrabble-2023-Martin-Navarro-T
