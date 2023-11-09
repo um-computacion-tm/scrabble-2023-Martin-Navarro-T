@@ -25,4 +25,4 @@ git clone https://github.com/um-computacion-tm/scrabble-2023-Martin-Navarro-T.gi
 docker build --no-cache -t scrabblegame
 
 ## 4) Fourth step
-docker run -it scrabble
+docker run -it scrabblegame
