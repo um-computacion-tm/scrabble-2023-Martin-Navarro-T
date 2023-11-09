@@ -56,7 +56,7 @@ class Main:
             print("------------------------------------------------------------------------------------------")
             option = input("Menú de opciones:\n1) Jugar\n2) Ver Puntuación\n3) Pasar\n--> Que opción elije?: ")
             print("------------------------------------------------------------------------------------------")
-            option = self.game.input_to_int(option) #input_to_int
+            option = self.game.input_to_int(option)
             if option == 1:
                 self.play()
                 break
@@ -66,10 +66,10 @@ class Main:
                 break
     
     def play(self):
-        options = {1: self.place_word, 2: self.reorganize, 3: self.exchange_tiles, 4: self.change_joker_to_tile, 5: self.quite_game }
+        options = {1: self.place_word, 2: self.exchange_tiles, 3: self.change_joker_to_tile, 4: self.quite_game }
         while True:
             print("------------------------------------------------------------------------------------------")
-            option = input("Menú de opciones:\n1) Colocar Fichas\n2) Reorganizar Rack\n3) Cambiar Fichas\n4) Converir Comodin\n5) Pasar Turno\n--> Que opción elije?: ")
+            option = input("Menú de opciones:\n1) Colocar Fichas\n) Cambiar Fichas\n3) Converir Comodin\n4) Pasar Turno\n--> Que opción elije?: ")
             print("------------------------------------------------------------------------------------------")
             option = self.game.input_to_int(option)
             option_function = options.get(option)
@@ -206,15 +206,6 @@ class Main:
             print("------------------------------------------------------------------------------------------") 
             return False     
         
-    def reorganize(self):
-        while True:
-            self.game.shuffle_rack()
-            print(f'{self.show_rack()}')
-            organize = input("Para continuar puedes apretar cualquier tecla(0 para terminar): ")
-            organize = organize.strip().upper()
-            if organize == "0":
-                break
-    
     def get_tiles_to_full_rack(self):
         amount_tiles_needed = 7 - len(self.game.current_player.rack)
         if amount_tiles_needed == 0:
