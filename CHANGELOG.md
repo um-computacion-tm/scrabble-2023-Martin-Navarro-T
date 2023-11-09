@@ -31,7 +31,6 @@ Added in Main:
 - Added `convert_tiles_in_another_tile` method to perform the tile exchange.
 - Added `change_joker_to_tile` method to allow players to change a joker to a letter.
 - Added `convert_joker_into_tile` method to convert a wildcard.
-- Added `reorganize` method to allow players to reorganize their rack.
 - Added `get_tiles_to_full_rack` method to obtain the tiles needed to fill the player's rack.
 - Changed the name of the `play_game` method to `play_scrabble_game` to make it more descriptive.
 
